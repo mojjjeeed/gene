@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --aha-indigo-dark: #000D2E;
+  --aha-indigo: #001852;
+  --aha-royal: #0014AA;
+  --aha-royal-shade: #021393;
+  --aha-electric: #0037FF;
+  --aha-sapphire: #4169FF;
+  --aha-mint: #BEF5DC;
+  --aha-mint-vivid: #00D084;
+  --aha-snow: #F8FAFC;
+  --aha-alabaster: #E2E8F0;
+  --aha-card-bg: rgba(0, 20, 82, 0.65);
+  --aha-card-hover: rgba(0, 24, 110, 0.85);
+  --aha-border: rgba(190, 245, 220, 0.22);
+  --aha-border-glow: rgba(0, 55, 255, 0.4);
+}
+
+body {
+  background-color: var(--aha-indigo-dark);
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(0, 20, 170, 0.35) 0px, transparent 60%),
+    radial-gradient(at 100% 0%, rgba(0, 208, 132, 0.15) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(0, 55, 255, 0.2) 0px, transparent 60%);
+  color: #F8FAFC;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.font-serif {
+  font-family: 'Newsreader', Georgia, serif;
+}
+
+.font-sans {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 13, 46, 0.8);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(190, 245, 220, 0.25);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--aha-mint);
+}
+
+/* AHA Glassmorphic Cards */
+.aha-glass-card {
+  background: rgba(0, 20, 82, 0.65);
+  border: 1px solid rgba(190, 245, 220, 0.2);
+  border-radius: 14px;
+  backdrop-filter: blur(12px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.aha-glass-card:hover {
+  background: rgba(0, 24, 110, 0.85);
+  border-color: var(--aha-mint);
+  box-shadow: 0 8px 30px rgba(0, 55, 255, 0.25);
+}
+
+/* Equalizer Waveform */
+@keyframes waveAnim {
+  0% { height: 6px; }
+  100% { height: 28px; }
+}
+
+.wave-active {
+  animation: waveAnim 0.9s infinite alternate ease-in-out;
+}

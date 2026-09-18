@@ -1,0 +1,30 @@
+# Core Web & UI
+streamlit>=1.39.0
+py3Dmol>=2.1.0
+stmol>=0.0.9
+plotly>=5.24.0
+altair>=5.4.0
+
+# Multi-Agent & Orchestration
+langgraph>=0.2.30
+langchain>=0.3.0
+langchain-core>=0.3.0
+langchain-community>=0.3.0
+
+# Cheminformatics & Computational Biology
+rdkit>=2024.3.5
+biopython>=1.84
+chembl_webresource_client>=0.10.9
+
+# Data Processing & ML
+pandas>=2.2.0
+numpy>=1.26.0
+scikit-learn>=1.5.0
+pydantic>=2.8.0
+feedparser>=6.0.11
+requests>=2.32.0
+python-dotenv>=1.0.1
+
+# LLM Providers (Optional / Multi-Provider)
+google-generativeai>=0.8.0
+openai>=1.50.0

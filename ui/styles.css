@@ -1,0 +1,219 @@
+/* ==========================================================================
+   BioResearch AI - AHA Design System (https://www.aha.com.au/)
+   Palette: Royal Indigo (#000D2E, #0014AA), Electric Blue (#0037FF),
+            Mint (#BEF5DC, #00D084), Alabaster & Snow (#F8FAFC, #FFFFFF)
+   Typography: Editorial Serif ('Newsreader', serif) + Sans ('Plus Jakarta Sans')
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+    /* AHA Signature Colors */
+    --aha-indigo-dark: #000D2E;
+    --aha-indigo: #001852;
+    --aha-royal: #0014AA;
+    --aha-royal-shade: #021393;
+    --aha-electric: #0037FF;
+    --aha-sapphire: #4169FF;
+    --aha-mint: #BEF5DC;
+    --aha-mint-vivid: #00D084;
+    --aha-snow: #F8FAFC;
+    --aha-alabaster: #E2E8F0;
+    --aha-card-bg: rgba(0, 20, 82, 0.65);
+    --aha-card-hover: rgba(0, 24, 110, 0.85);
+    --aha-border: rgba(190, 245, 220, 0.22);
+    --aha-border-glow: rgba(0, 55, 255, 0.4);
+
+    --font-serif: 'Newsreader', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* App Background & Global Typography */
+.stApp {
+    background-color: var(--aha-indigo-dark) !important;
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(0, 20, 170, 0.35) 0px, transparent 60%),
+        radial-gradient(at 100% 0%, rgba(0, 208, 132, 0.15) 0px, transparent 50%),
+        radial-gradient(at 50% 100%, rgba(0, 55, 255, 0.2) 0px, transparent 60%) !important;
+    font-family: var(--font-sans) !important;
+    color: #F8FAFC !important;
+}
+
+/* AHA Editorial Typography */
+.aha-editorial-title {
+    font-family: var(--font-serif);
+    font-size: clamp(2.6rem, 4.5vw, 4.2rem);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: #FFFFFF;
+    margin-bottom: 0.8rem;
+}
+
+.aha-editorial-title span {
+    color: var(--aha-mint);
+    font-style: italic;
+}
+
+.aha-category-tag {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--aha-mint);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 0.8rem;
+}
+
+.aha-subtitle {
+    font-family: var(--font-sans);
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: #CBD5E1;
+    line-height: 1.6;
+    max-width: 780px;
+    margin: 0 auto 1.5rem auto;
+}
+
+/* AHA Pills & Badges */
+.source-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: var(--font-sans);
+    transition: all 0.2s ease;
+}
+
+.badge-pubmed { background: rgba(0, 55, 255, 0.25); color: #93C5FD; border: 1px solid rgba(0, 55, 255, 0.5); }
+.badge-biorxiv { background: rgba(252, 185, 0, 0.2); color: #FDE68A; border: 1px solid rgba(252, 185, 0, 0.5); }
+.badge-arxiv { background: rgba(207, 46, 46, 0.2); color: #FCA5A5; border: 1px solid rgba(207, 46, 46, 0.5); }
+.badge-chembl { background: rgba(0, 208, 132, 0.2); color: var(--aha-mint); border: 1px solid rgba(0, 208, 132, 0.5); }
+.badge-pubchem { background: rgba(65, 105, 255, 0.25); color: #A5B4FC; border: 1px solid rgba(65, 105, 255, 0.5); }
+.badge-websearch { background: rgba(155, 81, 224, 0.25); color: #DDD6FE; border: 1px solid rgba(155, 81, 224, 0.5); }
+
+/* AHA Style Cards */
+.aha-card {
+    background: var(--aha-card-bg);
+    border: 1px solid var(--aha-border);
+    border-radius: 14px;
+    padding: 1.4rem;
+    margin-bottom: 1.2rem;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 20px rgba(0, 13, 46, 0.6);
+    backdrop-filter: blur(12px);
+}
+
+.aha-card:hover {
+    background: var(--aha-card-hover);
+    border-color: var(--aha-mint);
+    box-shadow: 0 8px 30px rgba(0, 55, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+.aha-stat-box {
+    background: rgba(0, 24, 82, 0.5);
+    border: 1px solid rgba(190, 245, 220, 0.18);
+    border-radius: 12px;
+    padding: 1.2rem 1rem;
+    text-align: center;
+    backdrop-filter: blur(8px);
+}
+
+.aha-stat-num {
+    font-family: var(--font-serif);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--aha-mint);
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.aha-stat-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #94A3B8;
+}
+
+/* DeepThink Box */
+.reasoning-step-item {
+    padding: 0.7rem 0.9rem;
+    margin: 0.4rem 0;
+    background: rgba(0, 20, 82, 0.55);
+    border-left: 3px solid var(--aha-mint);
+    border-radius: 0 8px 8px 0;
+    font-size: 0.85rem;
+}
+
+.reasoning-agent-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    background: rgba(0, 55, 255, 0.35);
+    color: #93C5FD;
+    border: 1px solid rgba(0, 55, 255, 0.6);
+    margin-right: 6px;
+}
+
+/* Custom Buttons & Inputs */
+button[kind="primary"] {
+    background: linear-gradient(135deg, var(--aha-royal) 0%, var(--aha-electric) 100%) !important;
+    color: #FFFFFF !important;
+    font-family: var(--font-sans) !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.04em !important;
+    border: 1px solid rgba(190, 245, 220, 0.3) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 18px rgba(0, 55, 255, 0.4) !important;
+    transition: all 0.2s ease !important;
+}
+
+button[kind="primary"]:hover {
+    background: linear-gradient(135deg, var(--aha-electric) 0%, var(--aha-sapphire) 100%) !important;
+    border-color: var(--aha-mint) !important;
+    box-shadow: 0 6px 24px rgba(0, 208, 132, 0.35) !important;
+    transform: translateY(-1px) !important;
+}
+
+.stTextInput > div > div > input {
+    background-color: rgba(0, 13, 46, 0.85) !important;
+    border: 1px solid rgba(190, 245, 220, 0.3) !important;
+    color: #FFFFFF !important;
+    border-radius: 8px !important;
+    font-size: 1rem !important;
+}
+
+.stTextInput > div > div > input:focus {
+    border-color: var(--aha-mint) !important;
+    box-shadow: 0 0 16px rgba(0, 208, 132, 0.3) !important;
+}
+
+/* Chemical Property Pills */
+.mol-prop-pill {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(0, 24, 82, 0.7);
+    border: 1px solid rgba(190, 245, 220, 0.25);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    color: #E2E8F0;
+    margin: 3px;
+}
+
+.mol-prop-pill.pass { border-color: var(--aha-mint-vivid); color: var(--aha-mint); }
+.mol-prop-pill.fail { border-color: #EF4444; color: #FCA5A5; }
