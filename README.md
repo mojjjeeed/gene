@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# gene
-=======
 # 🔬 BioResearch AI: Autonomous Biomedical Research Acceleration Platform
 
 [![Python](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
@@ -60,4 +57,3 @@ uv pip install -r requirements.txt
 ```bash
 .venv/bin/python -m unittest discover tests
 ```
->>>>>>> a2073d6e (skeleton done need to reserach some more on the smiles and mole strcutre agent)
