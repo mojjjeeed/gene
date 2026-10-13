@@ -105,7 +105,7 @@ self.__SERVER_FILES_MANIFEST={
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "/Users/majjjeeeeeed/Major_prj/frontend",
+    "outputFileTracingRoot": "/Users/majjjeeeeeed/Major_prj/gene/frontend",
     "enablePrerenderSourceMaps": true,
     "cacheComponents": false,
     "cacheLife": {
@@ -320,13 +320,13 @@ self.__SERVER_FILES_MANIFEST={
     "htmlLimitedBots": "[\\w-]+-Google|Google-[\\w-]+|Chrome-Lighthouse|Slurp|DuckDuckBot|baiduspider|yandex|sogou|bitlybot|tumblr|vkShare|quora link preview|redditbot|ia_archiver|Bingbot|BingPreview|applebot|facebookexternalhit|facebookcatalog|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|SkypeUriPreview|Yeti|googleweblight",
     "bundlePagesRouterDependencies": false,
     "configFileName": "next.config.ts",
-    "repoRoot": "/Users/majjjeeeeeed/Major_prj/frontend",
+    "repoRoot": "/Users/majjjeeeeeed/Major_prj/gene/frontend",
     "turbopack": {
-      "root": "/Users/majjjeeeeeed/Major_prj/frontend"
+      "root": "/Users/majjjeeeeeed/Major_prj/gene/frontend"
     },
     "distDirRoot": ".next"
   },
-  "appDir": "/Users/majjjeeeeeed/Major_prj/frontend",
+  "appDir": "/Users/majjjeeeeeed/Major_prj/gene/frontend",
   "relativeAppDir": "",
   "files": [
     ".next/package.json",
