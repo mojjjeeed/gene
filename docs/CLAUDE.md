@@ -92,10 +92,12 @@ Distilled from the PRD so they live next to the plan. If this section and the PR
 *Notes:* `make dev-up` starts Postgres and Redis locally (ports 5544 and 6390) and migrates; `make api` and `make worker` run the services; `/dev/runs` in the frontend starts and watches a dummy run (needs `A9_ENABLE_DEV_ENDPOINTS=1` and `A9_INTERNAL_KEY`). Design: Postgres is the source of truth for events (`run_events`, `seq` from `runs.last_seq`, written in the same transaction as the state change); Redis only wakes live listeners and the stream falls back to polling. Jobs are leased (`heartbeat_at`, fenced on `attempts`), checkpointed per step in the same transaction as the step's event, and a reaper cron re-enqueues stale jobs. Proof: `services/agents/tests/test_run_stream_e2e.py` (real API, two Arq workers, SIGKILL mid-run, replay by `Last-Event-ID`), `frontend/lib/runs/reducer.test.ts`, and a manual curl run through the Next proxy. *Not yet verified:* the `/dev/runs` page rendered in a real browser (the proxy, reducer and hook are tested; the page itself was only confirmed to return 200).
 
 ### M0.4 Feature flags and fixture fallback
-- [ ] Server-evaluated flag per surface
-- [ ] Fixture modules refactored behind the same interface the live implementation will use
+- [x] Server-evaluated flag per surface
+- [x] Fixture modules refactored behind the same interface the live implementation will use
 
 **Done when:** with every flag off the app is byte-identical to today's behaviour.
+
+*Notes:* flags live in `frontend/lib/flags.ts` (`A9_FLAG_<SURFACE>=1`, default off, one per PRD surface), read server-side only and exposed to client code through `GET /api/flags` and `useFlags()`. The only data fixture the frontend has today is the research dossier (`/api/research`); it now sits in `lib/fixtures/research.ts` behind the `ResearchSource` interface in `lib/surfaces/research.ts`, next to the legacy FastAPI source and the (stub) live A9 source. The other constants in the components (preset queries, recent chats) are UI copy, not data surfaces; molecule and human-effect fixtures get the same treatment when those surfaces are wired (M3.7). Proof of "byte-identical with every flag off": `lib/fixtures/research-route.golden.test.ts` replays 10 requests (demo x4, backend timeout / 500 / ok, empty query, no body, client abort) against goldens captured from the route *before* the refactor; a one-word mutation fails 4 of them. Also confirmed against the running legacy backend on :8000. Turning `paper_list` on today serves the labelled fixture with reason "The live A9 paper list is not available yet" until M0.9.
 
 ### M0.5 Planner node and the approval interrupt
 - [ ] Planner: topic to concepts, synonyms, MeSH terms, include and exclude criteria, date bounds
