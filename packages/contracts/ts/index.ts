@@ -1,4 +1,5 @@
 /* GENERATED FROM packages/contracts/schemas - DO NOT EDIT. Run `pnpm generate`. */
+export * from "./literature_record";
 export * from "./provenance_envelope";
 export * from "./run_event";
 export * from "./run";

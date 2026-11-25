@@ -1,0 +1,7 @@
+{
+ "GET https://export.arxiv.org/api/query?max_results=5&search_query=((all:EGFR OR all:ERBB1) AND (all:T790M)) AND submittedDate:[202001010000 TO 202412312359]&sortBy=relevance&sortOrder=descending&start=0": {
+  "body": "<?xml version='1.0' encoding='UTF-8'?>\n<feed xmlns:opensearch=\"http://a9.com/-/spec/opensearch/1.1/\" xmlns:arxiv=\"http://arxiv.org/schemas/atom\" xmlns=\"http://www.w3.org/2005/Atom\">\n  <id>https://arxiv.org/api/sQJ/at6ursEGI8WeA05eUYOqGsc</id>\n  <title>arXiv Query: search_query=( (all:EGFR OR all:ERBB1) AND (all:T790M) ) AND submittedDate:\"202001010000 TO 202412312359\"&amp;id_list=&amp;start=0&amp;max_results=5</title>\n  <updated>2026-11-25T12:27:46Z</updated>\n  <link href=\"https://arxiv.org/api/query?search_query=((all:EGFR+OR+all:ERBB1)+AND+all:T790M)+AND+submittedDate:%22202001010000+TO+202412312359%22&amp;start=0&amp;max_results=5&amp;id_list=\" type=\"application/atom+xml\"/>\n  <opensearch:itemsPerPage>5</opensearch:itemsPerPage>\n  <opensearch:totalResults>0</opensearch:totalResults>\n  <opensearch:startIndex>0</opensearch:startIndex>\n</feed>\n",
+  "content_type": "application/atom+xml; charset=utf-8",
+  "status": 200
+ }
+}
