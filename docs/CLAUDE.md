@@ -72,11 +72,13 @@ Distilled from the PRD so they live next to the plan. If this section and the PR
 *Notes:* the deliberate-break proof is `packages/contracts/tests/break-schema.test.ts` (control passes; renaming `seq` or `page` fails both `tsc` and `mypy`). Python uses its own env (`.venv-a9`, set in the Makefile) so `uv sync` never touches the legacy `.venv`. Setup: `make setup`; regenerate contracts: `pnpm generate`; `make check-generated` fails on drift.
 
 ### M0.2 Database and invariants
-- [ ] Alembic set up; migrate the core tables: users, projects, conversations, messages, runs, jobs, search_plans, papers, paper_assets, chunks, chunk_memberships, screening_verdicts, audit_log
-- [ ] Row-level security on `user_id`, enabled and tested
-- [ ] NOT NULL constraints encoding the invariants: provenance columns on chunks, licence checked before full-text write
+- [x] Alembic set up; migrate the core tables: users, projects, conversations, messages, runs, jobs, search_plans, papers, paper_assets, chunks, chunk_memberships, screening_verdicts, audit_log
+- [x] Row-level security on `user_id`, enabled and tested
+- [x] NOT NULL constraints encoding the invariants: provenance columns on chunks, licence checked before full-text write
 
 **Done when:** `make migrate` is clean up and down, and a test proving a chunk insert without a complete provenance envelope raises, rather than defaults.
+
+*Notes:* `make db-up` starts a project-local Postgres 16 on port 5544 (no Docker, no system service); `make migrate`, `make migrate-down`, `make migrate-check` (up, down, up). Migrations are plain SQL in `services/agents/migrations/sql/`. Two roles: `a9_app` (request path, RLS applies, scoped by `app.user_id`) and `a9_worker` (trusted ingestion). Child tables use composite `(id, user_id)` foreign keys so a row cannot point at another user's parent. The licence gate is a trigger on `chunks` and `paper_assets` (abstract chunks exempt). Tests are `services/agents/tests/test_db_invariants.py`; they skip locally when Postgres is down and fail in CI (`A9_REQUIRE_DB=1`). `chunks.run_id` is deliberately not a foreign key, so deleting a user's runs never touches shared chunks.
 
 ### M0.3 Runs, jobs and the event stream
 - [ ] runs and jobs with deterministic idempotent job keys

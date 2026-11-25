@@ -2,7 +2,13 @@
 name = "a9-agents"
 version = "0.0.0"
 requires-python = ">=3.12"
-dependencies = ["a9-contracts", "pydantic>=2.8"]
+dependencies = [
+  "a9-contracts",
+  "pydantic>=2.8",
+  "sqlalchemy>=2.0",
+  "alembic>=1.14",
+  "psycopg[binary]>=3.2",
+]
 
 [build-system]
 requires = ["hatchling"]

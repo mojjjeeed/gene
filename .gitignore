@@ -18,3 +18,4 @@ node_modules/
 
 # Local data
 cache/
+.pgdata/
