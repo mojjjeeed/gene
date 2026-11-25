@@ -141,10 +141,29 @@ Distilled from the PRD so they live next to the plan. If this section and the PR
 *Notes:* `triage` runs after `resolve` and screens each new paper in batches of five, emitting `progress` and a `verdicts` count (`include/exclude/unsure/unscreened`, where a user's verdict wins) after every batch. Papers a model could not screen are `unscreened` with a coverage note, never silently excluded; excluded papers stay in the corpus. A user override is a second `screening_verdicts` row beside the model's (`PUT`/`DELETE /conversations/:id/papers/:paper_id/verdict`, audited), so the model's call is visible and the override reversible. `HeuristicTriager` is deterministic keyword coverage of the plan's concepts in the title and abstract: useful as a floor and for tests, not a measure of what a model can do. Kappa is three-way (the model's `unsure` always counts as a disagreement) and checked against textbook values. `make eval` fails only on *regression* against `evals/triage_baseline.json` (allowed drop 0.02); until the set is labelled it prints NOT MEASURED. To finish this task: label the CSV, run `make eval-update` once to record a baseline, then try the LLM triager with a real key.
 
 ### M0.9 Wire the paper list
-- [ ] Replace the fixture: live records with source, licence, verdict and counts
-- [ ] Empty, partial and error states; a partial corpus renders as partial
+- [ ] Replace the fixture: live records with source, licence, verdict and counts — done behind the `paper_list` flag and in the new `PaperList` component, but the existing workspace does not send a `conversation_id` yet, so it still shows the legacy path
+- [x] Empty, partial and error states; a partial corpus renders as partial — logic is unit-tested (`lib/papers/view.test.ts`); the component has not been looked at in a browser
 
 **Done when:** **M0 gate** — fixtures off for the paper list, every record links to a resolvable source, and a source outage is visible to the user as named reduced coverage.
+
+*Notes:* `GET /conversations/:id/papers` (`paper_list.py`, contract `PaperList`) returns every paper in the corpus with sources, licence, retraction state (`checked` is separate from clean), model and user verdicts, merge reasons, a link that always exists (DOI, else the next identifier, else the source's own URL; a paper with none is a loud error), the latest run's coverage notes and counts. Excluded and retracted papers are present and labelled. `components/papers/PaperList.tsx` renders the loading, error (with retry; a failed refresh keeps the last good list), waiting-for-approval, still-searching, failed-run, empty, reduced-coverage and ready states, with excluded papers one filter away and per-paper override buttons. With `A9_FLAG_PAPER_LIST=1`, `/api/research` accepts a `conversation_id` and returns that corpus in the workspace's dossier shape (the briefing text is a factual coverage summary, not a synthesis); without one, or if the service is down, it serves the labelled fixture with the reason. Verified: the whole slice through real Next route handlers (fixture sources, one down and one failing part-way); the flag-off route is still byte-identical to the captured goldens; 49 of 49 DOIs from a live five-source search exist in the DOI handle system.
+
+---
+
+### M0 gate status: NOT PASSED
+
+The gate asks for fixtures off for the paper list, every record linking to a resolvable source, and a source outage visible as named reduced coverage, *inside the existing UI*. What is true today:
+
+| Gate part | Status |
+|---|---|
+| Live, screened, cited paper list from a topic | Works end to end through the API, the Next proxies and the new `PaperList` component (stub planner and heuristic triager; real sources) |
+| Every record links to a resolvable source | Yes: 49 of 49 live DOIs resolve; every paper has a link by construction |
+| A source outage is named reduced coverage | Yes: in events, on the run, in the list and in `/api/research` |
+| Inside the existing UI with fixtures off | **No.** The existing workspace still calls `/api/research` without a `conversation_id` and has no plan-approval step. Wiring it means a design decision (where the approval interrupt sits) and edits to your uncommitted workspace components |
+| Triage kappa >= 0.7 (M0.8) | **Not measured.** Needs expert labels and a real model |
+| Anything run against a real model | **No.** There is no model access; every model path is behind a stub or untested |
+| Pages looked at in a browser | **No** (dev pages return 200; components are tested at the logic level) |
+
 
 ---
 

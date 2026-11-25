@@ -5,14 +5,18 @@
  * call and returns the same shape, so the UI never knows which one it got. When a source cannot
  * answer it throws SourceUnavailable and the fixture takes over, labelled as sample data.
  */
+import type { PaperList } from "@a9/contracts";
 import { buildDemoDossier } from "@/lib/fixtures/research";
 import type { Flags } from "@/lib/flags";
+import { coverageSummary, toCitations } from "@/lib/papers/view";
 import type { ResearchResponse } from "@/lib/research";
 
 export interface ResearchContext {
   signal: AbortSignal;
   /** Date.now() when the request began, for execution_time_seconds. */
   started: number;
+  /** The A9 conversation whose corpus to show. Only the live source needs it. */
+  conversationId?: string;
 }
 
 export interface ResearchSource {
@@ -75,13 +79,39 @@ export const legacyResearchSource: ResearchSource = {
   },
 };
 
-/* ------------------------- live A9 pipeline (arrives in M0.9) ------------------------- */
+/* ----------------------------- live A9 pipeline (M0.9) ----------------------------- */
 
-export const a9ResearchSource: ResearchSource = {
-  async getDossier() {
-    throw new SourceUnavailable("The live A9 paper list is not available yet");
-  },
-};
+export type FetchPaperList = (conversationId: string, signal: AbortSignal) => Promise<PaperList>;
+
+/** The dossier shape the existing workspace reads, built from a conversation's real corpus. */
+export function papersToDossier(list: PaperList, query: string, started: number): ResearchResponse {
+  const citations = toCitations(list);
+  return {
+    success: true,
+    query,
+    execution_time_seconds: +((Date.now() - started) / 1000).toFixed(2),
+    data_source: "live",
+    notebook_data: {
+      // Facts about the corpus only. A synthesised briefing arrives with the verified-answer work (M1).
+      sections: [{ id: "coverage", title: "Search coverage", content: coverageSummary(list) }],
+      citations,
+      source_count: citations.length,
+    },
+    ranked_documents: citations,
+    reasoning_logs: [],
+  };
+}
+
+export function makeA9ResearchSource(fetchPaperList: FetchPaperList): ResearchSource {
+  return {
+    async getDossier(query, ctx) {
+      if (!ctx.conversationId) {
+        throw new SourceUnavailable("The live paper list needs a conversation, and none was given");
+      }
+      return papersToDossier(await fetchPaperList(ctx.conversationId, ctx.signal), query, ctx.started);
+    },
+  };
+}
 
 /* ---------------------------------- selection ---------------------------------- */
 
@@ -99,7 +129,10 @@ export function withFixtureFallback(primary: ResearchSource, fixture: ResearchSo
   };
 }
 
-/** Flag off: exactly today's behaviour. Flag on: the live A9 pipeline, with the same fixture fallback. */
-export function researchSource(flags: Flags): ResearchSource {
-  return withFixtureFallback(flags.paper_list ? a9ResearchSource : legacyResearchSource, fixtureResearchSource);
+/** Flag off: exactly today's behaviour. Flag on: the live A9 corpus, with the same labelled fixture fallback. */
+export function researchSource(flags: Flags, deps?: { fetchPaperList: FetchPaperList }): ResearchSource {
+  const live = deps ? makeA9ResearchSource(deps.fetchPaperList) : makeA9ResearchSource(async () => {
+    throw new SourceUnavailable("The live paper list is not wired to a service here");
+  });
+  return withFixtureFallback(flags.paper_list ? live : legacyResearchSource, fixtureResearchSource);
 }

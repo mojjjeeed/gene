@@ -10,6 +10,7 @@ from pydantic import BaseModel
 
 from a9_agents.auth import User
 from a9_agents.db import Pool, scoped
+from a9_agents.paper_list import build_paper_list
 from a9_agents.plans import audit
 from a9_agents.verdicts import clear_user_verdict, paper_verdicts, set_user_verdict
 
@@ -32,6 +33,18 @@ async def _require_paper_in_conversation(
     )
     if await cur.fetchone() is None:
         raise HTTPException(404, "paper not found in this conversation")
+
+
+@router.get("/conversations/{conversation_id}/papers")
+async def list_papers(conversation_id: uuid.UUID, request: Request, user: User) -> dict[str, Any]:
+    """The conversation's corpus: papers with source, licence, retraction state, verdict and counts."""
+    pool: Pool = request.app.state.pool
+    async with scoped(pool, role="a9_app", user_id=user) as conn:
+        cur = await conn.execute("SELECT 1 FROM conversations WHERE id = %s", (conversation_id,))
+        if await cur.fetchone() is None:
+            raise HTTPException(404, "conversation not found")
+        listing = await build_paper_list(conn, conversation_id)
+    return listing.model_dump(mode="json")
 
 
 @router.put("/conversations/{conversation_id}/papers/{paper_id}/verdict")

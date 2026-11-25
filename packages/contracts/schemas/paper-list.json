@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://a9.local/schemas/paper-list.json",
+  "title": "PaperList",
+  "description": "A conversation's corpus as the paper list shows it: live records with source, licence, retraction state, screening verdict and counts. Excluded and retracted papers are present and labelled, never dropped.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["conversation_id", "run", "counts", "papers"],
+  "properties": {
+    "conversation_id": { "type": "string" },
+    "run": {
+      "description": "The latest ingest run, so the UI can show 'still searching' and name reduced coverage. null before any run.",
+      "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/ListedRun" }]
+    },
+    "counts": { "$ref": "#/$defs/PaperCounts" },
+    "papers": { "type": "array", "items": { "$ref": "#/$defs/Paper" } }
+  },
+  "$defs": {
+    "ListedRun": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "status", "coverage_notes"],
+      "properties": {
+        "id": { "type": "string" },
+        "status": { "type": "string", "enum": ["queued", "running", "needs_input", "failed", "finished"] },
+        "coverage_notes": { "type": "array", "items": { "$ref": "#/$defs/ListedCoverageNote" } }
+      }
+    },
+    "ListedCoverageNote": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "reason"],
+      "properties": { "source": { "type": "string" }, "reason": { "type": "string" } }
+    },
+    "PaperCounts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["total", "include", "exclude", "unsure", "unscreened", "retracted"],
+      "properties": {
+        "total": { "type": "integer", "minimum": 0 },
+        "include": { "type": "integer", "minimum": 0 },
+        "exclude": { "type": "integer", "minimum": 0 },
+        "unsure": { "type": "integer", "minimum": 0 },
+        "unscreened": { "type": "integer", "minimum": 0 },
+        "retracted": { "type": "integer", "minimum": 0, "description": "Papers with any retraction, withdrawal or expression of concern." }
+      }
+    },
+    "ListedVerdict": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["verdict", "reason"],
+      "properties": {
+        "verdict": { "type": "string", "enum": ["include", "exclude", "unsure"] },
+        "reason": { "type": "string" }
+      }
+    },
+    "Paper": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id", "title", "abstract", "authors", "year", "journal", "doi", "url", "sources", "licence",
+        "is_open_access", "is_preprint", "retraction", "verdict", "merge_reasons"
+      ],
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string", "minLength": 1 },
+        "abstract": { "type": ["string", "null"] },
+        "authors": { "type": "array", "items": { "type": "string" } },
+        "year": { "type": ["integer", "null"] },
+        "journal": { "type": ["string", "null"] },
+        "doi": { "type": ["string", "null"] },
+        "url": { "type": "string", "minLength": 1, "description": "Always present: a DOI link, else the source's own link." },
+        "sources": { "type": "array", "items": { "type": "string" }, "description": "Every source that returned this paper." },
+        "licence": { "type": ["string", "null"], "description": "null means unknown, never assumed open." },
+        "is_open_access": { "type": ["boolean", "null"] },
+        "is_preprint": { "type": "boolean" },
+        "retraction": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "checked", "notice_dois"],
+          "properties": {
+            "status": { "type": "string", "enum": ["none", "retracted", "withdrawn", "expression_of_concern"] },
+            "checked": { "type": "boolean", "description": "false means not checked, which is different from clean." },
+            "notice_dois": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "verdict": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["effective", "user", "model"],
+          "properties": {
+            "effective": { "type": "string", "enum": ["include", "exclude", "unsure", "unscreened"] },
+            "user": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/ListedVerdict" }] },
+            "model": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/ListedVerdict" }] }
+          }
+        },
+        "merge_reasons": { "type": "array", "items": { "type": "string" }, "description": "Why several records became this one paper." }
+      }
+    }
+  }
+}

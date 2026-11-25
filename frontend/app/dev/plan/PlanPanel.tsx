@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import PaperList from "@/components/papers/PaperList";
 import PlanEditor from "@/components/plan/PlanEditor";
 import { useRunEvents } from "@/lib/runs/useRunEvents";
 
@@ -40,7 +41,7 @@ export default function PlanPanel() {
         <>
           <p className="font-mono">run {run.status} · {run.connection} · seq {run.lastSeq}{run.needsInput ? " · waiting for your approval" : ""}</p>
           {run.status !== "idle" && <PlanEditor key={run.needsInput?.question.plan_id as string | undefined} conversationId={conversationId} />}
-          {run.stages.plan?.status === "finished" && <p className="text-emerald-700">Plan stage finished. The search stage arrives in M0.6.</p>}
+          {run.stages.plan?.status === "finished" && <PaperList conversationId={conversationId} refreshKey={run.lastSeq} />}
         </>
       )}
     </main>

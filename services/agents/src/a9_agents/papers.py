@@ -42,7 +42,7 @@ async def upsert_paper(conn: Conn, draft: PaperDraft) -> tuple[uuid.UUID, str]:
     """
     dois = [d for d in [draft.doi, *draft.alt_dois] if d]
     cur = await conn.execute(
-        """SELECT id, doi, alt_dois, pmid, pmcid, arxiv_id, is_preprint, abstract, journal, year,
+        """SELECT id, doi, alt_dois, pmid, pmcid, arxiv_id, is_preprint, abstract, authors, journal, year,
                   retraction_status, retraction_notice_dois, publication_types
            FROM papers
            WHERE doi = ANY(%(dois)s) OR alt_dois && %(dois)s
@@ -56,13 +56,13 @@ async def upsert_paper(conn: Conn, draft: PaperDraft) -> tuple[uuid.UUID, str]:
 
     if not rows:
         cur = await conn.execute(
-            """INSERT INTO papers (title, abstract, journal, year, source, doi, alt_dois, pmid, pmcid, arxiv_id,
+            """INSERT INTO papers (title, abstract, authors, journal, year, source, doi, alt_dois, pmid, pmcid, arxiv_id,
                                    licence, is_open_access, is_preprint, publication_types, retraction_status)
-               VALUES (%(title)s, %(abstract)s, %(journal)s, %(year)s, %(source)s, %(doi)s, %(alt)s, %(pmid)s,
+               VALUES (%(title)s, %(abstract)s, %(authors)s, %(journal)s, %(year)s, %(source)s, %(doi)s, %(alt)s, %(pmid)s,
                        %(pmcid)s, %(arxiv)s, %(licence)s, %(oa)s, %(preprint)s, %(types)s, %(status)s)
                RETURNING id""",
             {
-                "title": draft.title, "abstract": draft.abstract, "journal": draft.journal, "year": draft.year,
+                "title": draft.title, "abstract": draft.abstract, "authors": draft.authors, "journal": draft.journal, "year": draft.year,
                 "source": draft.source, "doi": draft.doi, "alt": draft.alt_dois, "pmid": draft.pmid,
                 "pmcid": draft.pmcid, "arxiv": draft.arxiv_id, "licence": draft.licence,
                 "oa": draft.is_open_access, "preprint": draft.is_preprint, "types": draft.publication_types,
@@ -110,6 +110,7 @@ async def upsert_paper(conn: Conn, draft: PaperDraft) -> tuple[uuid.UUID, str]:
         "pmcid": await fill("pmcid", existing["pmcid"], draft.pmcid),
         "arxiv": await fill("arxiv_id", existing["arxiv_id"], draft.arxiv_id),
         "abstract": existing["abstract"] or draft.abstract,
+        "authors": existing["authors"] or draft.authors,
         "journal": existing["journal"] or draft.journal,
         "year": existing["year"] or draft.year,
         "types": sorted(set(existing["publication_types"]) | set(draft.publication_types)),
@@ -121,7 +122,7 @@ async def upsert_paper(conn: Conn, draft: PaperDraft) -> tuple[uuid.UUID, str]:
     }
     await conn.execute(
         """UPDATE papers SET doi = %(doi)s, alt_dois = %(alt)s, pmid = %(pmid)s, pmcid = %(pmcid)s,
-               arxiv_id = %(arxiv)s, abstract = %(abstract)s, journal = %(journal)s, year = %(year)s,
+               arxiv_id = %(arxiv)s, abstract = %(abstract)s, authors = %(authors)s, journal = %(journal)s, year = %(year)s,
                publication_types = %(types)s, retraction_status = %(status)s,
                title = CASE WHEN %(promote)s THEN %(title)s ELSE title END,
                licence = CASE WHEN %(promote)s THEN %(licence)s ELSE licence END,

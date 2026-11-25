@@ -16,7 +16,11 @@ export async function POST(req: NextRequest) {
     // Which source answers is decided by the per-surface flag (default off = today's behaviour:
     // the legacy backend, then clearly-labelled sample data). See lib/surfaces/research.ts.
     try {
-      const dossier = await researchSource(getFlags()).getDossier(query, { signal: req.signal, started });
+      const flags = getFlags();
+      // The live source reads the agents service; import it only when the flag is on.
+      const deps = flags.paper_list ? { fetchPaperList: (await import("@/lib/server/papers")).fetchPaperList } : undefined;
+      const conversationId = typeof body?.conversation_id === "string" ? body.conversation_id : undefined;
+      const dossier = await researchSource(flags, deps).getDossier(query, { signal: req.signal, started, conversationId });
       return NextResponse.json(dossier);
     } catch (e) {
       if (e instanceof RequestAborted) {

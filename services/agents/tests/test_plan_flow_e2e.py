@@ -59,6 +59,8 @@ class Flow:
     statuses: dict[str, int] = field(default_factory=dict)
     override: dict[str, Any] = field(default_factory=dict)
     paper_id: str = ""
+    listing: dict[str, Any] = field(default_factory=dict)
+    listing_other_user: int = 0
 
     def headers(self, user: str | None = None) -> dict[str, str]:
         return {"X-A9-Internal-Key": KEY, "X-A9-User-Id": user or self.user}
@@ -186,6 +188,12 @@ def flow(
             timeout=5,
         ).status_code
         f.statuses["no_key"] = httpx.get(f"{base}/plans/{v2['id']}", timeout=5).status_code
+        f.listing = device_b.get(f"/conversations/{conv}/papers").json()
+        f.listing_other_user = httpx.get(
+            f"{base}/conversations/{conv}/papers",
+            headers={**h, "X-A9-User-Id": str(uuid.uuid4())},
+            timeout=5,
+        ).status_code
         # A user overrides the model's screening verdict on one paper, then withdraws it.
         ((paper_id,),) = f.sql(
             "SELECT paper_id::text FROM source_records WHERE run_id = %s ORDER BY source_id LIMIT 1",
@@ -501,3 +509,44 @@ def test_overrides_are_audited(flow: Flow) -> None:
         "verdict.overridden",
         "verdict.override_cleared",
     ]
+
+
+def test_the_api_paper_list_shows_the_corpus_with_counts_links_and_named_gaps(flow: Flow) -> None:
+    listing = flow.listing
+    assert listing["conversation_id"] == flow.conversation_id
+    assert listing["counts"] == {
+        "total": 3,
+        "include": 3,
+        "exclude": 0,
+        "unsure": 0,
+        "unscreened": 0,
+        "retracted": 1,
+    }
+    assert listing["run"]["status"] == "finished"
+    assert sorted(n["source"] for n in listing["run"]["coverage_notes"]) == [
+        "fixture_down",
+        "fixture_partial",
+    ]
+    papers = listing["papers"]
+    assert len(papers) == 3 and all(p["url"].startswith("https://") for p in papers)
+    assert all(p["sources"] == ["fixture"] and p["authors"] == ["Sample Author"] for p in papers)
+    assert sorted(len(p["merge_reasons"]) for p in papers) == [
+        0,
+        1,
+        1,
+    ]  # two papers were seen by two sources
+
+
+def test_a_retracted_paper_is_in_the_api_list_flagged_not_dropped(flow: Flow) -> None:
+    (retracted,) = [p for p in flow.listing["papers"] if p["retraction"]["status"] != "none"]
+    assert retracted["retraction"] == {
+        "status": "retracted",
+        "checked": True,
+        "notice_dois": ["10.0000/fixture.retracted.fixture.2.notice"],
+    }
+    assert retracted["doi"] == "10.0000/fixture.retracted.fixture.2"
+    assert all(p["retraction"]["checked"] for p in flow.listing["papers"])
+
+
+def test_another_user_cannot_read_the_list(flow: Flow) -> None:
+    assert flow.listing_other_user == 404
