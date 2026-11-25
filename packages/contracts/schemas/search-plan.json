@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://a9.local/schemas/search-plan.json",
+  "title": "SearchPlan",
+  "description": "A structured literature search plan: shown to the user, editable, and approved before any search fires.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["topic", "concepts", "include_criteria", "exclude_criteria", "date_from", "date_to", "generated_by"],
+  "properties": {
+    "topic": { "type": "string", "minLength": 1 },
+    "concepts": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/Concept" }
+    },
+    "include_criteria": { "type": "array", "items": { "type": "string" } },
+    "exclude_criteria": { "type": "array", "items": { "type": "string" } },
+    "date_from": { "type": ["string", "null"], "format": "date" },
+    "date_to": { "type": ["string", "null"], "format": "date" },
+    "generated_by": {
+      "type": "string",
+      "enum": ["stub", "llm"],
+      "description": "Which planner produced this plan. A stub plan is a placeholder and is labelled as such in the UI."
+    },
+    "model": { "type": ["string", "null"] }
+  },
+  "$defs": {
+    "Concept": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label", "synonyms", "mesh_terms"],
+      "properties": {
+        "label": { "type": "string", "minLength": 1 },
+        "synonyms": { "type": "array", "items": { "type": "string" } },
+        "mesh_terms": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

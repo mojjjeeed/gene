@@ -7,7 +7,6 @@ import asyncio
 import json
 import logging
 import os
-import secrets
 import time
 import uuid
 from collections.abc import AsyncIterator
@@ -16,13 +15,15 @@ from typing import Annotated, Any
 
 from arq import create_pool
 from arq.connections import ArqRedis, RedisSettings
-from fastapi import Depends, FastAPI, Header, HTTPException, Query, Request
+from fastapi import FastAPI, Header, HTTPException, Query, Request
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 from redis.asyncio import Redis
 
+from a9_agents.auth import User
 from a9_agents.db import Pool, open_pool, owner, scoped
 from a9_agents.events import events_since
+from a9_agents.routes_planning import router as planning_router
 from a9_agents.runs import create_job, create_run
 from a9_agents.settings import pubsub_channel, queue_name, redis_url
 
@@ -57,24 +58,7 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
 
 
 app = FastAPI(title="A9 agents", lifespan=lifespan)
-
-
-def current_user(
-    x_a9_internal_key: Annotated[str | None, Header()] = None,
-    x_a9_user_id: Annotated[str | None, Header()] = None,
-) -> uuid.UUID:
-    expected = os.environ.get("A9_INTERNAL_KEY")
-    if not expected:
-        raise HTTPException(503, "A9_INTERNAL_KEY is not configured")
-    if x_a9_internal_key is None or not secrets.compare_digest(x_a9_internal_key, expected):
-        raise HTTPException(401, "bad internal key")
-    try:
-        return uuid.UUID(x_a9_user_id or "")
-    except ValueError:
-        raise HTTPException(401, "missing or invalid user id") from None
-
-
-User = Annotated[uuid.UUID, Depends(current_user)]
+app.include_router(planning_router)
 
 
 def _pool(request: Request) -> Pool:

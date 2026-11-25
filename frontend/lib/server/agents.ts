@@ -34,3 +34,25 @@ export function agentsFetch(path: string, init: RequestInit & { userId: string }
     },
   });
 }
+
+/** Forward a JSON call to the agents service as the current user and relay status and body. */
+export async function agentsJson(path: string, init: { method?: string; body?: unknown } = {}): Promise<Response> {
+  let userId: string;
+  try {
+    userId = currentUserId();
+  } catch (e) {
+    if (e instanceof NotAuthenticated) return new Response("Unauthorized", { status: 401 });
+    throw e;
+  }
+  try {
+    const upstream = await agentsFetch(path, {
+      userId,
+      method: init.method ?? "GET",
+      headers: { "Content-Type": "application/json" },
+      body: init.body === undefined ? undefined : JSON.stringify(init.body),
+    });
+    return new Response(upstream.body, { status: upstream.status, headers: { "Content-Type": "application/json" } });
+  } catch {
+    return new Response("Agents service unavailable", { status: 502 });
+  }
+}

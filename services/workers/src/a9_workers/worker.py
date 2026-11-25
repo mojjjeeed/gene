@@ -11,12 +11,17 @@ from collections.abc import Awaitable, Callable
 from typing import Any
 
 from a9_agents.db import Pool, open_pool, scoped
-from a9_agents.settings import job_lease_seconds, queue_name, redis_url
+from a9_agents.plan_graph import build_plan_graph
+from a9_agents.planner import make_planner
+from a9_agents.settings import database_dsn, job_lease_seconds, queue_name, redis_url
 from arq import cron
 from arq.connections import RedisSettings
+from langgraph.checkpoint.postgres.aio import AsyncPostgresSaver
+from psycopg.rows import dict_row
+from psycopg_pool import AsyncConnectionPool
 from redis.asyncio import Redis
 
-from a9_workers.handlers import dummy
+from a9_workers.handlers import dummy, plan
 from a9_workers.leases import (
     Job,
     LeaseLostError,
@@ -28,16 +33,35 @@ from a9_workers.leases import (
 
 log = logging.getLogger(__name__)
 
-Handler = Callable[[Pool, Redis | None, Job], Awaitable[None]]
-HANDLERS: dict[str, Handler] = {"dummy_pipeline": dummy.run}
+Handler = Callable[[dict[str, Any], Job], Awaitable[None]]
+HANDLERS: dict[str, Handler] = {
+    "dummy_pipeline": dummy.run,
+    "plan_pipeline": plan.start,
+    "resume_plan": plan.resume,
+}
 
 
 async def startup(ctx: dict[str, Any]) -> None:
     ctx["pool"] = await open_pool()
     ctx["pubsub_redis"] = Redis.from_url(redis_url())
+    # LangGraph's checkpointer needs autocommit connections; it manages its own tables.
+    ctx["checkpoint_pool"] = AsyncConnectionPool(
+        database_dsn(),
+        min_size=1,
+        max_size=4,
+        open=False,
+        kwargs={"autocommit": True, "prepare_threshold": 0, "row_factory": dict_row},
+    )
+    await ctx["checkpoint_pool"].open(wait=True, timeout=10)
+    saver = AsyncPostgresSaver(ctx["checkpoint_pool"])
+    await saver.setup()
+    ctx["plan_graph"] = build_plan_graph(
+        pool=ctx["pool"], redis=ctx["pubsub_redis"], planner=make_planner()
+    ).compile(checkpointer=saver)
 
 
 async def shutdown(ctx: dict[str, Any]) -> None:
+    await ctx["checkpoint_pool"].close()
     await ctx["pubsub_redis"].aclose()
     await ctx["pool"].close()
 
@@ -54,7 +78,7 @@ async def run_job(ctx: dict[str, Any], key: str) -> str:
         return "no_handler"
     try:
         async with heartbeat(pool, job):
-            await handler(pool, ctx["pubsub_redis"], job)
+            await handler(ctx, job)
     except LeaseLostError:
         log.warning("lost lease on %s; stopping", key)
         return "lease_lost"

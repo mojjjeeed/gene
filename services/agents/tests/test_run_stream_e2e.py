@@ -186,7 +186,9 @@ def test_the_job_was_taken_over_not_duplicated(scenario: Scenario) -> None:
     import psycopg
 
     with psycopg.connect(scenario.database_url) as conn:
-        jobs = conn.execute("SELECT status, attempts FROM jobs").fetchall()
+        jobs = conn.execute(
+            "SELECT status, attempts FROM jobs WHERE run_id = %s", (scenario.run_id,)
+        ).fetchall()
         run = conn.execute(
             "SELECT status, last_seq FROM runs WHERE id = %s", (scenario.run_id,)
         ).fetchone()
@@ -250,7 +252,9 @@ def test_running_the_finished_job_again_is_a_no_op(
         import psycopg
 
         with psycopg.connect(scenario.database_url) as conn:
-            key = conn.execute("SELECT job_key FROM jobs").fetchone()
+            key = conn.execute(
+                "SELECT job_key FROM jobs WHERE run_id = %s", (scenario.run_id,)
+            ).fetchone()
         assert key is not None
         pool = await open_pool(max_size=2)
         redis = Redis.from_url(scenario.env["A9_REDIS_URL"])

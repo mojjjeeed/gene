@@ -13,6 +13,9 @@ dependencies = [
   "uvicorn>=0.32",
   "redis>=5",
   "arq>=0.26",
+  "langgraph>=1.0",
+  "langgraph-checkpoint-postgres>=3.0",
+  "anthropic>=0.40",
 ]
 
 [dependency-groups]

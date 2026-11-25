@@ -19,7 +19,9 @@ from a9_workers.leases import Job, fence, finish
 STAGE = "dummy"
 
 
-async def run(pool: Pool, redis: Redis | None, job: Job) -> None:
+async def run(ctx: dict[str, Any], job: Job) -> None:
+    pool: Pool = ctx["pool"]
+    redis: Redis | None = ctx.get("pubsub_redis")
     steps = int(job.payload.get("steps", 10))
     delay = float(job.payload.get("step_delay", 0.5))
     checkpoint: dict[str, Any] = dict(job.checkpoint)

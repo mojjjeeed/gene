@@ -2,3 +2,4 @@
 export * from "./provenance_envelope";
 export * from "./run_event";
 export * from "./run";
+export * from "./search_plan";

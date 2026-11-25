@@ -9,9 +9,10 @@ from __future__ import annotations
 
 import os
 import uuid
-from collections.abc import Callable, Iterator
+from collections.abc import AsyncIterator, Callable, Iterator
 from contextlib import contextmanager
 from pathlib import Path
+from typing import Any
 
 import psycopg
 import pytest
@@ -144,3 +145,16 @@ def redis_url_for_tests() -> str:
             pytest.fail(f"Redis required but unreachable at {url}: {exc}")
         pytest.skip(f"Redis not reachable at {url} (run `make redis-up`)")
     return url
+
+
+@pytest.fixture()
+async def pool(migrated_url: str, monkeypatch: pytest.MonkeyPatch) -> AsyncIterator[Any]:
+    """An app connection pool on the migrated test database (committed writes, unique ids per test)."""
+    from a9_agents.db import open_pool
+
+    monkeypatch.setenv(
+        "A9_DATABASE_URL", migrated_url.replace("postgresql://", "postgresql+psycopg://", 1)
+    )
+    p = await open_pool(max_size=3)
+    yield p
+    await p.close()
