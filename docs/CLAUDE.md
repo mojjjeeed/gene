@@ -182,6 +182,8 @@ Browser checks used fixture sources, not the live internet, so they prove the wi
 
 **Done when:** a 100-PDF corpus parses above 90 percent, and a test proves a record with a null licence stores metadata only.
 
+*Status (work in progress, NOT ticked):* built `fulltext/` (licence evaluator, local object store, canonical document with offsets, JATS parser, PyMuPDF parser, section-aware chunker with a round-trip verifier, NCBI-PMC and arXiv routes, licence-gated `ingest_paper`, `resolve_chunk`, memberships) and migration 0006. Real PMC papers parse and every chunk round-trips; the licence gate refuses CC BY-NC-ND. GROBID is not run (no Java). Unpaywall and Firecrawl are not built. The 100-PDF parse-rate run (`python -m a9_agents.evals.ingest_corpus`) was started but its result was not read, so the >90% gate is UNMEASURED. At last run 294 tests passed and 4 failed: 3 in `test_run_stream_e2e.py` (cause not yet investigated) and one test-helper edit in `test_ingest.py`.
+
 ### M1.2 Chunking and the provenance envelope
 - [ ] Section-aware, 400 to 800 tokens, 15 percent overlap, never crossing a section boundary
 - [ ] Tables stored whole and linearised; figure captions as their own chunks

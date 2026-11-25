@@ -1,0 +1,653 @@
+<?xml version="1.0"  ?><!DOCTYPE pmc-articleset PUBLIC "-//NLM//DTD ARTICLE SET 2.0//EN" "https://dtd.nlm.nih.gov/ncbi/pmc/articleset/nlm-articleset-2.0.dtd"><pmc-articleset><article id="cas16437" xml:lang="en" article-type="research-article" dtd-version="1.4"><processing-meta base-tagset="archiving" mathml-version="3.0" table-model="xhtml" tagset-family="jats"><restricted-by>pmc</restricted-by></processing-meta><front><journal-meta><journal-id journal-id-type="nlm-ta">Cancer Sci</journal-id><journal-id journal-id-type="iso-abbrev">Cancer Sci</journal-id><journal-id journal-id-type="pmc-domain-id">2682</journal-id><journal-id journal-id-type="pmc-domain">cas</journal-id><journal-id journal-id-type="nlm-id">101168776</journal-id><journal-id journal-id-type="publisher-id">CAS</journal-id><journal-title-group><journal-title>Cancer Science</journal-title></journal-title-group><issn pub-type="ppub">1347-9032</issn><issn pub-type="epub">1349-7006</issn><publisher><publisher-name>Wiley</publisher-name></publisher></journal-meta><article-meta><article-id pub-id-type="pmcid">PMC11875782</article-id><article-id pub-id-type="pmcid-ver">PMC11875782.1</article-id><article-id pub-id-type="pmcaid">11875782</article-id><article-id pub-id-type="pmcaiid">11875782</article-id><article-id pub-id-type="pmid">39741120</article-id><article-id pub-id-type="doi">10.1111/cas.16437</article-id><article-id pub-id-type="publisher-id">CAS16437</article-id><article-id pub-id-type="other">CAS-OA-1424-2024.R3</article-id><article-version article-version-type="pmc-version">1</article-version><article-categories><subj-group subj-group-type="overline"><subject>Original Article</subject></subj-group><subj-group subj-group-type="heading"><subject>ORIGINAL ARTICLE</subject><subj-group subj-group-type="heading"><subject>Clinical Research</subject></subj-group></subj-group></article-categories><title-group><article-title>Osimertinib for <styled-content style="fixed-case" toggle="no">EGFR</styled-content>‐Mutant <styled-content style="fixed-case" toggle="no">NSCLC</styled-content> Patients With Acquired <styled-content style="fixed-case" toggle="no">T790M</styled-content> and <styled-content style="fixed-case" toggle="no">EGFR</styled-content> Amplification After First‐Generation <styled-content style="fixed-case" toggle="no">EGFR</styled-content>‐<styled-content style="fixed-case" toggle="no">TKI</styled-content> Resistance</article-title></title-group><contrib-group><contrib id="cas16437-cr-0001" contrib-type="author"><name name-style="western"><surname>Zhang</surname><given-names initials="Y">Yidan</given-names></name><xref rid="cas16437-aff-0001" ref-type="aff">
+<sup>1</sup>
+</xref></contrib><contrib id="cas16437-cr-0002" contrib-type="author"><name name-style="western"><surname>Xu</surname><given-names initials="Y">Yingqi</given-names></name><contrib-id contrib-id-type="orcid" authenticated="false">https://orcid.org/0000-0002-0902-2973</contrib-id><xref rid="cas16437-aff-0001" ref-type="aff">
+<sup>1</sup>
+</xref></contrib><contrib id="cas16437-cr-0003" contrib-type="author"><name name-style="western"><surname>Xu</surname><given-names initials="J">Jianlin</given-names></name><xref rid="cas16437-aff-0001" ref-type="aff">
+<sup>1</sup>
+</xref></contrib><contrib id="cas16437-cr-0004" contrib-type="author"><name name-style="western"><surname>Zhong</surname><given-names initials="H">Hua</given-names></name><xref rid="cas16437-aff-0001" ref-type="aff">
+<sup>1</sup>
+</xref></contrib><contrib id="cas16437-cr-0005" contrib-type="author" corresp="yes"><name name-style="western"><surname>Xia</surname><given-names initials="J">Jinjing</given-names></name><xref rid="cas16437-aff-0001" ref-type="aff">
+<sup>1</sup>
+</xref><address><email>jinjing.xia@shchest.org</email></address></contrib><contrib id="cas16437-cr-0006" contrib-type="author" corresp="yes"><name name-style="western"><surname>Zhong</surname><given-names initials="R">Runbo</given-names></name><contrib-id contrib-id-type="orcid" authenticated="false">https://orcid.org/0000-0003-4616-1224</contrib-id><xref rid="cas16437-aff-0001" ref-type="aff">
+<sup>1</sup>
+</xref><address><email>tonic_chung@139.com</email></address></contrib></contrib-group><aff id="cas16437-aff-0001">
+<label>
+<sup>1</sup>
+</label>
+<named-content content-type="organisation-division">Department of Respiratory and Critical Care Medicine, Shanghai Chest Hospital</named-content>
+<institution>Shanghai Jiao Tong University School of Medicine</institution>
+<city>Shanghai</city>
+<country country="CN">China</country>
+</aff><author-notes><corresp id="correspondenceTo">
+<label>*</label>
+<bold>Correspondence:</bold>
+<break/>
+Jinjing Xia (<email>jinjing.xia@shchest.org</email>)<break/>
+Runbo Zhong (<email>tonic_chung@139.com</email>)<break/>
+</corresp></author-notes><pub-date pub-type="epub"><day>31</day><month>12</month><year>2024</year></pub-date><pub-date pub-type="collection"><month>3</month><year>2025</year></pub-date><volume>116</volume><issue seq="190">3</issue><issue-id pub-id-type="pmc-issue-id">483338</issue-id><issue-id pub-id-type="doi">10.1111/cas.v116.3</issue-id><fpage>753</fpage><lpage>763</lpage><history><date date-type="rev-recd"><day>03</day><month>12</month><year>2024</year></date><date date-type="received"><day>07</day><month>6</month><year>2024</year></date><date date-type="accepted"><day>10</day><month>12</month><year>2024</year></date></history><pub-history><event event-type="pmc-release"><date><day>31</day><month>12</month><year>2024</year></date></event><event event-type="pmc-live"><date><day>04</day><month>03</month><year>2025</year></date></event><event event-type="pmc-last-change"><date iso-8601-date="2026-09-03 15:33:48.510"><day>03</day><month>09</month><year>2026</year></date></event></pub-history><permissions><copyright-statement content-type="article-copyright">© 2024 The Author(s). <italic toggle="yes">Cancer Science</italic> published by John Wiley &amp; Sons Australia, Ltd on behalf of Japanese Cancer Association.</copyright-statement><license><ali:license_ref xmlns:ali="http://www.niso.org/schemas/ali/1.0/" specific-use="textmining" content-type="ccbylicense">https://creativecommons.org/licenses/by/4.0/</ali:license_ref><license-p>This is an open access article under the terms of the <ext-link xmlns:xlink="http://www.w3.org/1999/xlink" ext-link-type="uri" xlink:href="https://creativecommons.org/licenses/by/4.0/">http://creativecommons.org/licenses/by/4.0/</ext-link> License, which permits use, distribution and reproduction in any medium, provided the original work is properly cited.</license-p></license></permissions><self-uri xmlns:xlink="http://www.w3.org/1999/xlink" content-type="pmc-pdf" xlink:href="CAS-116-753.pdf"/><self-uri xmlns:xlink="http://www.w3.org/1999/xlink" content-type="pdf" xlink:href="file:CAS-116-753.pdf"/><abstract><title>ABSTRACT</title><p>Third‐generation epidermal growth factor receptor tyrosine kinase inhibitor (EGFR‐TKI) is the standard therapy for patients harboring T790M after first‐generation EGFR‐TKI resistance. However, the impact of acquired EGFR amplification on the efficacy of third‐generation EGFR‐TKI against T790M remains uncertain. We aimed to investigate whether the presence of acquired EGFR amplification after first‐generation EGFR‐TKI resistance influences the efficacy of third‐generation EGFR‐TKI in patients with advanced non‐small‐cell lung cancer (NSCLC). We reviewed data from 275 advanced NSCLC patients harboring T790M after first‐generation EGFR‐TKI resistance. Patients were categorized into two groups based on the presence or absence of acquired EGFR amplification identified through next‐generation sequencing (NGS) after first‐line EGFR‐TKI treatment. We evaluated the efficacy of osimertinib used as a second‐line treatment. Among these patients, 59 exhibited acquired EGFR amplification, while 216 did not. The median progression‐free survival (PFS) was 12.20 months in the EGFR amplification group and 12.03 months in the non‐amplification group (<italic toggle="no">p</italic> = 0.011), with median overall survival (OS) of 33.90 months and 23.30 months, respectively (<italic toggle="no">p</italic> = 0.164). Multivariate analysis of PFS revealed that acquired EGFR amplification and EGFR 19del were independent prognostic factors for patients with T790M undergoing osimertinib. Additionally, subgroup analysis indicated a prolonged PFS in patients with EGFR 19del compared to those with EGFR 21L858R (<italic toggle="no">p</italic> = 0.034) in the EGFR amplification group. Following first‐generation EGFR‐TKI resistance, advanced EGFR‐mutant NSCLC patients harboring both acquired T790M and EGFR amplification are likely to experience enhanced PFS with osimertinib. This phenomenon is particularly noteworthy among individuals with EGFR 19del.</p></abstract><abstract abstract-type="graphical"><p>Acquired <styled-content style="fixed-case" toggle="no">EGFR</styled-content> amplification may coincide with <styled-content style="fixed-case" toggle="no">T790M</styled-content> after first‐generation <styled-content style="fixed-case" toggle="no">EGFR</styled-content>‐<styled-content style="fixed-case" toggle="no">TKI</styled-content> resistance, accounting for 21.5% of cases in our study. Patients with both acquired <styled-content style="fixed-case" toggle="no">T790M</styled-content> and <styled-content style="fixed-case" toggle="no">EGFR</styled-content> amplification after first‐generation <styled-content style="fixed-case" toggle="no">EGFR</styled-content>‐<styled-content style="fixed-case" toggle="no">TKI</styled-content> may derive enhanced benefits from 3rd <styled-content style="fixed-case" toggle="no">EGFR</styled-content>‐<styled-content style="fixed-case" toggle="no">TKI</styled-content>. Patients with both acquired <styled-content style="fixed-case" toggle="no">T790M</styled-content> and <styled-content style="fixed-case" toggle="no">EGFR</styled-content> amplification, particularly those with <styled-content style="fixed-case" toggle="no">EGFR</styled-content> 19del, exhibited a longer <styled-content style="fixed-case" toggle="no">PFS</styled-content>.<boxed-text position="anchor" content-type="graphic" id="cas16437-blkfxd-0001" orientation="portrait"><graphic xmlns:xlink="http://www.w3.org/1999/xlink" position="anchor" id="jats-graphic-1" orientation="portrait" xlink:href="CAS-116-753-g001.jpg"/></boxed-text>
+</p></abstract><kwd-group kwd-group-type="author-generated"><kwd id="cas16437-kwd-0001">EGFR</kwd><kwd id="cas16437-kwd-0002">EGFR amplification</kwd><kwd id="cas16437-kwd-0003">EGFR‐TKI</kwd><kwd id="cas16437-kwd-0004">NSCLC</kwd><kwd id="cas16437-kwd-0005">T790M</kwd></kwd-group><funding-group><award-group id="funding-0001"><funding-source>National Natural Science Foundation of China</funding-source><award-id>82102792</award-id></award-group></funding-group><counts><fig-count count="5"/><table-count count="1"/><page-count count="11"/><word-count count="6700"/></counts><custom-meta-group><custom-meta><meta-name>pmc-status-qastatus</meta-name><meta-value>0</meta-value></custom-meta><custom-meta><meta-name>pmc-status-live</meta-name><meta-value>yes</meta-value></custom-meta><custom-meta><meta-name>pmc-status-embargo</meta-name><meta-value>no</meta-value></custom-meta><custom-meta><meta-name>pmc-status-released</meta-name><meta-value>yes</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-open-access</meta-name><meta-value>yes</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-olf</meta-name><meta-value>no</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-manuscript</meta-name><meta-value>no</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-legally-suppressed</meta-name><meta-value>no</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-has-pdf</meta-name><meta-value>yes</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-has-supplement</meta-name><meta-value>yes</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-pdf-only</meta-name><meta-value>no</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-suppress-copyright</meta-name><meta-value>no</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-is-real-version</meta-name><meta-value>no</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-is-scanned-article</meta-name><meta-value>no</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-preprint</meta-name><meta-value>no</meta-value></custom-meta><custom-meta><meta-name>pmc-prop-in-epmc</meta-name><meta-value>yes</meta-value></custom-meta><custom-meta><meta-name>pmc-license-ref</meta-name><meta-value>CC BY</meta-value></custom-meta><custom-meta><meta-name>source-schema-version-number</meta-name><meta-value>2.0</meta-value></custom-meta><custom-meta><meta-name>cover-date</meta-name><meta-value>March 2025</meta-value></custom-meta><custom-meta><meta-name>details-of-publishers-convertor</meta-name><meta-value>Converter:WILEY_ML3GV2_TO_JATSPMC version:6.5.4 mode:remove_FC converted:03.03.2025</meta-value></custom-meta></custom-meta-group></article-meta><notes><fn-group id="cas16437-ntgp-0001"><fn fn-type="funding" id="cas16437-note-0001"><p>
+<bold>Funding:</bold> This work was supported by National Natural Science Foundation of China (82102792).</p></fn><fn fn-type="equal" id="cas16437-note-0002"><p>Yidan Zhang and Yingqi Xu contributed equally to this work.</p></fn><fn fn-type="generalState" id="cas16437-note-0003"><p>Jinjing Xia and Runbo Zhong are co‐corresponding authors.</p></fn></fn-group></notes></front><body id="cas16437-body-0001"><sec id="cas16437-sec-0001"><label>1</label><title>Introduction</title><p>Non‐small cell lung cancer (NSCLC) accounts for approximately 80%–85% of all lung cancer patients, with a majority diagnosed at advanced stages. Furthermore, lung adenocarcinoma (LUAD) is predominant among NSCLC subtypes. Previous studies have shown a high prevalence of epidermal growth factor receptor (EGFR) mutations, impacting approximately 11% of Caucasian and 50% of Asian LUAD patients. All three generations of EGFR‐TKIs serve as standard first‐line treatments for NSCLC patients with EGFR‐sensitive mutations, primarily comprising exon 19 deletions (19del) and the L858R point mutation in exon 21 (21L858R) [<xref rid="cas16437-bib-0001" ref-type="bibr">1</xref>, <xref rid="cas16437-bib-0002" ref-type="bibr">2</xref>, <xref rid="cas16437-bib-0003" ref-type="bibr">3</xref>, <xref rid="cas16437-bib-0004" ref-type="bibr">4</xref>]. However, most patients develop resistance after 10–14 months of treatment with first‐ or second‐generation EGFR‐TKI. Resistance mechanisms primarily include EGFR‐dependent mechanisms, EGFR‐independent mechanisms, and histological transformation [<xref rid="cas16437-bib-0005" ref-type="bibr">5</xref>]. The T790M mutation is the most prevalent mechanism of acquired resistance to first‐ or second‐generation EGFR‐TKI, representing a resistance mutation dependent on the EGFR pathway, with an incidence ranging from approximately 50% to 60% [<xref rid="cas16437-bib-0006" ref-type="bibr">6</xref>]. Multiple third‐generation EGFR‐TKIs have been developed in response to the acquired T790M mutation, yielding median PFS durations ranging from 9.6 to 12.4 months and median OS spanning from 22.1 to 30.2 months [<xref rid="cas16437-bib-0006" ref-type="bibr">6</xref>, <xref rid="cas16437-bib-0007" ref-type="bibr">7</xref>, <xref rid="cas16437-bib-0008" ref-type="bibr">8</xref>, <xref rid="cas16437-bib-0009" ref-type="bibr">9</xref>, <xref rid="cas16437-bib-0010" ref-type="bibr">10</xref>, <xref rid="cas16437-bib-0011" ref-type="bibr">11</xref>, <xref rid="cas16437-bib-0012" ref-type="bibr">12</xref>].</p><p>EGFR amplification is typically defined as an EGFR gene/chromosome per cell ratio ≥ 2, or ≥ 15 copies of the genes per cell in ≥ 10% of analyzed cells [<xref rid="cas16437-bib-0013" ref-type="bibr">13</xref>]. EGFR amplification often occurs concurrently with EGFR mutations [<xref rid="cas16437-bib-0014" ref-type="bibr">14</xref>, <xref rid="cas16437-bib-0015" ref-type="bibr">15</xref>, <xref rid="cas16437-bib-0016" ref-type="bibr">16</xref>]. Moreover, the coexistence of EGFR amplification and EGFR mutations before targeted agent therapy typically predicts a favorable response to first‐generation EGFR‐TKI treatment [<xref rid="cas16437-bib-0014" ref-type="bibr">14</xref>]. Interestingly, emerging evidence suggests that the development of EGFR amplification after EGFR‐TKI treatment may serve as one of the acquired resistance mechanisms in EGFR‐mutant patients receiving EGFR‐TKI treatment [<xref rid="cas16437-bib-0017" ref-type="bibr">17</xref>, <xref rid="cas16437-bib-0018" ref-type="bibr">18</xref>, <xref rid="cas16437-bib-0019" ref-type="bibr">19</xref>]. After initiation of first‐generation EGFR‐TKI treatment, acquired EGFR amplification may coincide with the presence of the T790M mutation [<xref rid="cas16437-bib-0020" ref-type="bibr">20</xref>, <xref rid="cas16437-bib-0021" ref-type="bibr">21</xref>]. Nonetheless, the impact of acquired EGFR amplification on the efficacy of third‐generation EGFR‐TKI as a second‐line treatment against acquired T790M mutation remains uncertain.</p><p>Therefore, this study aimed to investigate the potential impact of acquired EGFR amplification on the efficacy of third‐generation EGFR‐TKI monotherapy in patients with advanced NSCLC harboring EGFR‐sensitive mutations who developed the T790M mutation following resistance to first‐line EGFR‐TKI therapy.</p></sec><sec sec-type="materials-and-methods" id="cas16437-sec-0002"><label>2</label><title>Materials and Methods</title><sec id="cas16437-sec-0003"><label>2.1</label><title>Patients</title><p>In this retrospective study, the medical records of 7605 patients diagnosed with advanced NSCLC at Shanghai Chest Hospital between January 2018 and December 2022 were reviewed. Inclusion criteria comprised patients meeting the following conditions: (I) harbored EGFR sensitive mutations (19del and 21 L858R) before initial EGFR‐TKI treatment, (II) experienced disease progression after first‐generation EGFR‐TKI treatment, (III) underwent re‐biopsy and NGS after disease progression, and (IV) acquired T790M mutation after first‐generation EGFR‐TKI treatment. The exclusion criteria encompassed patients with EGFR amplification identified before initial treatment, those not receiving first‐generation EGFR‐TKI as first‐line therapy, patients not undergoing re‐biopsy after acquiring resistance to first‐generation EGFR‐TKI, those with undetected T790M mutation upon re‐biopsy after disease progression despite first‐line treatment, patients whose re‐biopsy genetic testing was not performed using NGS, and individuals lost to follow‐up during the treatment of first‐generation EGFR‐TKI therapy or with incomplete data (see Figure <xref rid="cas16437-fig-0001" ref-type="fig">1</xref>). Ultimately, the study included 275 advanced EGFR‐mutant NSCLC patients with T790M mutation, with or without EGFR amplification detected by NGS after resistance to first‐generation EGFR‐TKI treatment. Subsequently, all these patients received monotherapy with the third‐generation EGFR‐TKI osimertinib.</p><fig position="float" fig-type="FIGURE" id="cas16437-fig-0001" orientation="portrait"><label>FIGURE 1</label><caption><p>Flow diagram showing the screening of patients with advanced NSCLC with EGFR sensitive mutations who had T790M mutation with or without EGFR amplification after first‐generation EGFR‐TKI.</p></caption><graphic xmlns:xlink="http://www.w3.org/1999/xlink" position="anchor" id="jats-graphic-3" orientation="portrait" xlink:href="CAS-116-753-g005.jpg"/></fig></sec><sec id="cas16437-sec-0004"><label>2.2</label><title>Genetic Testing</title><p>NGS data may help to identify single nucleotide variants, insertions/deletions, copy number variations, and translocations at a single time point. Validated protocols are available for whole genome sequencing data and hybridization‐based targeted enrichment sequencing data sets [<xref rid="cas16437-bib-0022" ref-type="bibr">22</xref>, <xref rid="cas16437-bib-0023" ref-type="bibr">23</xref>]. Following disease progression despite first‐generation EGFR‐TKI therapy, all the included patients of the present study underwent re‐biopsy and NGS for genetic analysis.</p><p>For pre‐processing of NGS, TrimmomaticPE was used to remove adapter sequences, and low‐quality sequences or sequences shorter than 50 bp were filtered out (parameter: ILLUMINACLIP: adapter. fa: 2: 30: 10: 1: true, TRAILING: 20, SLIDINGWINDOW: 30: 25, MINLEN:50). The Illumina TruSeq Amplicon Cancer Panel kit (Burning Rock Company, China) was utilized for library preparation and sequencing was performed on the MiSeq instrument. With regard to hybridization capture enrichment, the 68 genes with high mutation rates in lung cancer were added (see Table <xref rid="cas16437-supitem-0001" ref-type="supplementary-material">S1</xref>).</p><p>In this study, the cutoff value for EGFR amplification was defined as an EGFR copy number (CN) of ≥ 4, corresponding to an EGFR gene/chromosome per cell ratio ≥ 2.</p></sec><sec id="cas16437-sec-0005"><label>2.3</label><title>Clinical Assessments and Follow‐Up</title><p>All patients were restaged according to the 8th edition of the tumor, node, metastasis (TNM) classification system before administering the third‐generation EGFR‐TKI. Over the therapeutic course, treatment efficacy was assessed by chest computed tomography (CT) scan every 2–3 months, with additional abdominal ultrasound, cranial magnetic resonance imaging (MRI), and bone emission computed tomography (ECT) if necessary. Treatment efficacy was monitored until disease progression, treatment discontinuation, or the last follow‐up, whichever occurred first.</p><p>The treatment response was evaluated based on Response Evaluation Criteria in Solid Tumors (RECIST, version 1.1). Responses to therapy were classified as complete response (CR), partial response (PR), stable disease (SD), or progressive disease (PD). In addition, the main assessment indicators included objective response rate (ORR), disease control rate (DCR), PFS, and OS. The last follow‐up visit for this study was on January 31, 2024.</p></sec><sec id="cas16437-sec-0006"><label>2.4</label><title>Statistical Analysis</title><p>Statistical analyses were performed using SPSS 27.0 statistical software (IBM, Armonk, NY). The ORR was defined as the sum of the CR and PR proportions. DCR was the sum of the CR, PR, and SD proportions. PFS was calculated from the initiation of third‐generation EGFR‐TKI therapy to the first occurrence of disease progression, regimen change, or last follow‐up visit. OS was calculated from the initiation of third‐generation EGFR‐TKI therapy to death or the last follow‐up visit, depending on which one occurred first. The age was treated as a continuous variable and expressed as the median, while other variables were categorical and presented as counts and percentages. Continuous variables were analyzed using the <italic toggle="yes">t</italic>‐test, while categorical variables were evaluated using Pearson's chi‐squared test or Fisher's exact test to assess the differences in baseline characteristics between the EGFR amplification group and the control group. The Kaplan–Meier method was used to estimate the median PFS, 6‐month PFS rate, 12‐month PFS rate, median OS, 12‐month OS rate, 24‐month OS rate, etc. The log‐rank test was employed to compare the two groups and a subgroup analysis was performed on the EGFR amplification group. Multivariate Cox regression analysis was conducted to identify significant factors associated with PFS and OS in patients with T790M mutation treated with third‐generation EGFR‐TKI. <italic toggle="yes">p</italic> &lt; 0.05 (two‐sided) was considered statistically significant.</p></sec></sec><sec sec-type="results" id="cas16437-sec-0007"><label>3</label><title>Results</title><sec id="cas16437-sec-0008"><label>3.1</label><title>Patient Characteristics</title><p>A total of 7605 patients diagnosed with advanced NSCLC were screened, identifying 275 patients with the T790M mutation through NGS detection. These patients underwent tissue rebiopsy after disease progression despite first‐generation EGFR‐TKI treatment. All patients included in the study were histologically confirmed to have LUAD upon rebiopsy pathological examination. The final analysis included two groups, namely the EGFR amplification group (<italic toggle="yes">n</italic> = 59) and the EGFR non‐amplification group (<italic toggle="yes">n</italic> = 216). Among all the included cases, 21.5% (59/275) of patients exhibited acquired EGFR amplification.</p><p>The characteristics of the two groups are summarized in Table <xref rid="cas16437-tbl-0001" ref-type="table">1</xref>. The median age of the 275 patients was 60 years (range: 32–82). The patients were predominantly female (59.6%), with no history of smoking (77.5%), and harbored the EGFR 19del mutation (63.3%). Following the failure of first‐generation EGFR‐TKI therapy, the sites of rebiopsy mainly included the lung, lymph nodes, and pleural effusion. Genetic biopsies conducted after first‐generation EGFR‐TKI resistance revealed the persistence of the original EGFR‐sensitive mutation and the acquisition of the T790M mutation in all patients. Among the 59 patients with acquired EGFR amplification, 36 (61.0%) were found to have the EGFR 19del mutation, while 23 (39.0%) had the EGFR 21L858R mutation. Among the 216 patients without acquired EGFR amplification, 138 (63.9%) had the EGFR 19del mutation, and 78 (36.1%) had the EGFR 21L858R mutation. Additionally, before third‐generation EGFR‐TKI treatment, 35.6% of patients in the EGFR amplification group had bone metastasis, 20.3% had brain metastasis, and 6.8% had liver metastasis. In comparison, in the non‐amplification group, the respective proportions of patients with bone metastasis, brain metastasis, and liver metastasis were 45.4%, 22.7%, and 6.5%. Apart from the significantly higher age in EGFR amplification group, the baseline characteristics were not biased between EGFR amplification group and non‐amplification group.</p><table-wrap position="float" id="cas16437-tbl-0001" content-type="TABLE" orientation="portrait"><label>TABLE 1</label><caption><p>Demographic and clinical characteristics of the patients before receiving third‐generation EGFR‐TKI.</p></caption><table frame="hsides" rules="groups"><col align="left" span="1"/><col align="center" span="1"/><col align="center" span="1"/><col align="center" span="1"/><thead valign="bottom"><tr style="border-bottom:solid 1px #000000"><th align="left" valign="bottom" rowspan="1" colspan="1">Characteristics</th><th align="center" valign="bottom" rowspan="1" colspan="1">T790M with EGFR amplification (<italic toggle="yes">N</italic> = 59) (%)</th><th align="center" valign="bottom" rowspan="1" colspan="1">T790M without EGFR amplification (<italic toggle="yes">N</italic> = 216) (%)</th><th align="center" valign="bottom" rowspan="1" colspan="1">
+<italic toggle="yes">p</italic>
+</th></tr></thead><tbody valign="top"><tr><td align="left" colspan="4" valign="top" rowspan="1">Age (years)</td></tr><tr><td align="left" style="padding-left:10%" valign="top" rowspan="1" colspan="1">Median</td><td align="center" valign="top" rowspan="1" colspan="1">66</td><td align="center" valign="top" rowspan="1" colspan="1">59</td><td align="center" rowspan="2" valign="top" colspan="1">&lt; 0 0.001</td></tr><tr><td align="left" style="padding-left:10%" valign="top" rowspan="1" colspan="1">Range</td><td align="center" valign="top" rowspan="1" colspan="1">39–81</td><td align="center" valign="top" rowspan="1" colspan="1">32–82</td></tr><tr><td align="left" colspan="4" valign="top" rowspan="1">Gender</td></tr><tr><td align="left" style="padding-left:10%" valign="top" rowspan="1" colspan="1">Male</td><td align="center" valign="top" rowspan="1" colspan="1">22 (37.3)</td><td align="center" valign="top" rowspan="1" colspan="1">89 (41.2)</td><td align="center" rowspan="2" valign="top" colspan="1">0.587</td></tr><tr><td align="left" style="padding-left:10%" valign="top" rowspan="1" colspan="1">Female</td><td align="center" valign="top" rowspan="1" colspan="1">37 (62.7)</td><td align="center" valign="top" rowspan="1" colspan="1">127 (58.8)</td></tr><tr><td align="left" colspan="4" valign="top" rowspan="1">Smoking</td></tr><tr><td align="left" style="padding-left:10%" valign="top" rowspan="1" colspan="1">Yes</td><td align="center" valign="top" rowspan="1" colspan="1">14 (23.7)</td><td align="center" valign="top" rowspan="1" colspan="1">48 (22.2)</td><td align="center" rowspan="2" valign="top" colspan="1">0.806</td></tr><tr><td align="left" style="padding-left:10%" valign="top" rowspan="1" colspan="1">No</td><td align="center" valign="top" rowspan="1" colspan="1">45 (76.3)</td><td align="center" valign="top" rowspan="1" colspan="1">168 (77.8)</td></tr><tr><td align="left" colspan="4" valign="top" rowspan="1">Bone metastases</td></tr><tr><td align="left" style="padding-left:10%" valign="top" rowspan="1" colspan="1">Yes</td><td align="center" valign="top" rowspan="1" colspan="1">21 (35.6)</td><td align="center" valign="top" rowspan="1" colspan="1">98 (45.4)</td><td align="center" rowspan="2" valign="top" colspan="1">0.179</td></tr><tr><td align="left" style="padding-left:10%" valign="top" rowspan="1" colspan="1">No</td><td align="center" valign="top" rowspan="1" colspan="1">38 (64.4)</td><td align="center" valign="top" rowspan="1" colspan="1">118 (54.6)</td></tr><tr><td align="left" colspan="4" valign="top" rowspan="1">Brain metastases</td></tr><tr><td align="left" style="padding-left:10%" valign="top" rowspan="1" colspan="1">Yes</td><td align="center" valign="top" rowspan="1" colspan="1">12 (20.3)</td><td align="center" valign="top" rowspan="1" colspan="1">49 (22.7)</td><td align="center" rowspan="2" valign="top" colspan="1">0.701</td></tr><tr><td align="left" style="padding-left:10%" valign="top" rowspan="1" colspan="1">No</td><td align="center" valign="top" rowspan="1" colspan="1">47 (79.7)</td><td align="center" valign="top" rowspan="1" colspan="1">167 (77.3)</td></tr><tr><td align="left" colspan="4" valign="top" rowspan="1">Liver metastases</td></tr><tr><td align="left" style="padding-left:10%" valign="top" rowspan="1" colspan="1">Yes</td><td align="center" valign="top" rowspan="1" colspan="1">4 (6.8)</td><td align="center" valign="top" rowspan="1" colspan="1">14 (6.5)</td><td align="center" rowspan="2" valign="top" colspan="1">1.000</td></tr><tr><td align="left" style="padding-left:10%" valign="top" rowspan="1" colspan="1">No</td><td align="center" valign="top" rowspan="1" colspan="1">55 (93.2)</td><td align="center" valign="top" rowspan="1" colspan="1">202 (93.5)</td></tr><tr><td align="left" colspan="4" valign="top" rowspan="1">History of surgery for lung cancer</td></tr><tr><td align="left" style="padding-left:10%" valign="top" rowspan="1" colspan="1">Yes</td><td align="center" valign="top" rowspan="1" colspan="1">18 (30.5)</td><td align="center" valign="top" rowspan="1" colspan="1">55 (25.5)</td><td align="center" rowspan="2" valign="top" colspan="1">0.437</td></tr><tr><td align="left" style="padding-left:10%" valign="top" rowspan="1" colspan="1">No</td><td align="center" valign="top" rowspan="1" colspan="1">41 (69.5)</td><td align="center" valign="top" rowspan="1" colspan="1">161 (74.5)</td></tr><tr><td align="left" colspan="4" valign="top" rowspan="1">EGFR subtype</td></tr><tr><td align="left" style="padding-left:10%" valign="top" rowspan="1" colspan="1">Exon 19del</td><td align="center" valign="top" rowspan="1" colspan="1">36 (61.0)</td><td align="center" valign="top" rowspan="1" colspan="1">138 (63.9)</td><td align="center" rowspan="2" valign="top" colspan="1">0.685</td></tr><tr><td align="left" style="padding-left:10%" valign="top" rowspan="1" colspan="1">21L858R</td><td align="center" valign="top" rowspan="1" colspan="1">23 (39.0)</td><td align="center" valign="top" rowspan="1" colspan="1">78 (36.1)</td></tr><tr><td align="left" colspan="4" valign="top" rowspan="1">Re‐biopsy site</td></tr><tr><td align="left" style="padding-left:10%" valign="top" rowspan="1" colspan="1">Lung</td><td align="center" valign="top" rowspan="1" colspan="1">32 (54.24)</td><td align="center" valign="top" rowspan="1" colspan="1">109 (50.46)</td><td align="center" rowspan="3" valign="top" colspan="1">0.223</td></tr><tr><td align="left" style="padding-left:10%" valign="top" rowspan="1" colspan="1">Lymph node</td><td align="center" valign="top" rowspan="1" colspan="1">16 (27.12)</td><td align="center" valign="top" rowspan="1" colspan="1">44 (20.37)</td></tr><tr><td align="left" style="padding-left:10%" valign="top" rowspan="1" colspan="1">Pleural effusion</td><td align="center" valign="top" rowspan="1" colspan="1">11 (18.64)</td><td align="center" valign="top" rowspan="1" colspan="1">63 (29.17)</td></tr></tbody></table><table-wrap-foot id="cas16437-ntgp-0002"><fn id="cas16437-note-0004"><p>Abbreviations: EGFR, epidermal growth factor receptor tyrosine; EGFR‐TKI, epidermal growth factor receptor tyrosine kinase inhibitor.</p></fn></table-wrap-foot></table-wrap></sec><sec id="cas16437-sec-0009"><label>3.2</label><title>Efficacy and Survival Analysis</title><p>After a median follow‐up of 33.43 months (95% confidence interval [CI]: 31.09–35.78), efficacy was measured in all patients receiving third‐generation EGFR‐TKI monotherapy. Among the EGFR amplification group (<italic toggle="yes">n</italic> = 59), 34 patients were evaluated as PR, 18 as SD, and 7 as PD. In the non‐amplification group (<italic toggle="yes">n</italic> = 216), 1 patient achieved CR, 104 were assessed as PR, 93 as SD, and 18 as PD. The ORR for the two groups was 57.6% and 48.6%, respectively (<italic toggle="yes">p</italic> = 0.220), and the DCR was 88.1% and 91.6%, respectively (<italic toggle="yes">p</italic> = 0.409).</p><p>At the last follow‐up visit, 252 of 275 patients (91.3%) discontinued third‐generation EGFR‐TKI monotherapy due to disease progression. Notably, 49 (83.1%) were in the EGFR amplification group and 203 (94.0%) were in the non‐amplification group. The median PFS was 12.20 months (95% CI: 8.22–16.18) in the EGFR amplification group and 12.03 months (95% CI: 10.96–13.10) in the non‐amplification group (<italic toggle="yes">p</italic> = 0.011) (see Figure <xref rid="cas16437-fig-0002" ref-type="fig">2A</xref>). The 6‐month PFS rates in the EGFR amplification and non‐amplification groups were 72.9% and 78.2%, respectively, while the 12‐month PFS rates were 52.5% and 50.9%.</p><fig position="float" fig-type="FIGURE" id="cas16437-fig-0002" orientation="portrait"><label>FIGURE 2</label><caption><p>Kaplan–Meier estimates of the two groups. (A) Progression‐free survival and (B) Overall survival.</p></caption><graphic xmlns:xlink="http://www.w3.org/1999/xlink" position="anchor" id="jats-graphic-5" orientation="portrait" xlink:href="CAS-116-753-g003.jpg"/></fig><p>Among the 275 patients, 170 (61.8%) had died, with 36 deaths (83.1%) in the EGFR amplification group and 134 deaths (62.0%) in the non‐amplification group. The median overall survival (OS) was 33.90 months (95% CI: 26.93–40.87) for the EGFR amplification group and 23.30 months (95% CI: 20.84–25.76) for the non‐amplification group (<italic toggle="yes">p</italic> = 0.164) (see Figure <xref rid="cas16437-fig-0002" ref-type="fig">2B</xref>). The 1‐year OS rates for the amplification and non‐amplification groups receiving third‐generation EGFR‐TKI treatment were 79.7% and 77.8%, respectively, with 2‐year OS rates of 59.7% and 48.5%.</p><p>Furthermore, univariate and multivariate analyses were conducted to identify factors influencing PFS and OS in all patients receiving third‐generation EGFR‐TKI treatment for T790M mutation. Univariate analysis revealed that acquired EGFR amplification [HR = 0.661, 95% CI (0.479–0.911), <italic toggle="yes">p</italic> = 0.011], female gender [HR = 0.741, 95% CI (0.575–0.955), <italic toggle="yes">p</italic> = 0.020], and EGFR 19del mutation [HR = 0.567, 95% CI (0.438–0.733), <italic toggle="yes">p</italic> &lt; 0.001] were significantly associated with longer PFS (see Figure <xref rid="cas16437-fig-0003" ref-type="fig">3A</xref>). In addition, EGFR 19del mutation [HR = 0.684, 95% CI (0.504–0.928), <italic toggle="yes">p</italic> = 0.015], a history of lung cancer surgery [HR = 0.558, 95% CI (0.381–0.816), <italic toggle="yes">p</italic> = 0.003] and no bone metastasis [HR = 0.673, 95% CI (0.498–0.911), <italic toggle="yes">p</italic> = 0.010] were significantly associated with longer OS (see Figure <xref rid="cas16437-fig-0003" ref-type="fig">3B</xref>). Multivariate analysis revealed that acquired EGFR amplification [HR = 0.676, 95% CI (0.489–0.935), <italic toggle="yes">p</italic> = 0.018] and EGFR 19del mutation [HR = 0.561, 95% CI (0.433–0.726), <italic toggle="yes">p</italic> &lt; 0.001] were independent prognostic factors for PFS, whereas EGFR 19del mutation [HR = 0.667, 95% CI (0.490–0.907), <italic toggle="yes">p</italic> = 0.010], a history of lung cancer surgery [HR = 0.611, 95% CI (0.415–0.900), <italic toggle="yes">p</italic> = 0.006] and no bone metastasis [HR = 0.703, 95% CI (0.516–0.958), <italic toggle="yes">p</italic> = 0.026] were independent prognostic factors for OS.</p><fig position="float" fig-type="FIGURE" id="cas16437-fig-0003" orientation="portrait"><label>FIGURE 3</label><caption><p>Cox regression hazard model related to (A) PFS and (B) OS of third‐generation EGFR‐TKI therapy. PFS, progression‐free survival; OS, overall survival.</p></caption><graphic xmlns:xlink="http://www.w3.org/1999/xlink" position="anchor" id="jats-graphic-7" orientation="portrait" xlink:href="CAS-116-753-g004.jpg"/></fig></sec><sec id="cas16437-sec-0010"><label>3.3</label><title>Subgroup Analysis of the <styled-content style="fixed-case" toggle="no">EGFR</styled-content> Amplification Group</title><p>Among the 59 patients with acquired EGFR amplification and T790M mutation, NGS revealed 53 cases with EGFR‐sensitive mutations, while six cases were identified by ARMS before first‐generation EGFR‐TKI treatment as first‐line therapy. Re‐biopsy and NGS testing were performed after resistance to first‐generation EGFR‐TKI treatment, revealing the retention of the original EGFR‐sensitive mutations in all cases. Among these, 61% (36/59) had EGFR 19del mutation, while 39% (23/59) had EGFR 21L858R mutation. Following monotherapy with the third‐generation EGFR‐TKI osimertinib, patients with EGFR 19del mutation exhibited a significantly longer median PFS compared to those with EGFR 21L858R mutation (17.73 months [95% CI: 12.66–22.80] vs. 9.17 months [95% CI: 4.89–13.44], <italic toggle="yes">p</italic> = 0.034). Moreover, patients with EGFR 19del mutation had a longer median OS (35.77 months [95% CI: 30.31–41.22]) compared to those with EGFR 21L858R mutation (28.73 months [95% CI: 12.22–45.24]), indicating potential clinical benefit, but the difference was not statistically significant (<italic toggle="yes">p</italic> = 0.586) (see Figure <xref rid="cas16437-fig-0004" ref-type="fig">4</xref>).</p><fig position="float" fig-type="FIGURE" id="cas16437-fig-0004" orientation="portrait"><label>FIGURE 4</label><caption><p>Subgroup analysis of PFS(A) and OS(B) in the EGFR amplification group receiving third‐generation EGFR‐TKI. PFS, progression‐free survival; OS, overall survival.</p></caption><graphic xmlns:xlink="http://www.w3.org/1999/xlink" position="anchor" id="jats-graphic-9" orientation="portrait" xlink:href="CAS-116-753-g002.jpg"/></fig><p>NGS performed before third‐generation EGFR‐TKI therapy revealed that the most prevalent additional concurrent mutation in the EGFR amplification group was TP53 mutation, which was present in approximately 84.7% (50/59) of cases and was mostly attributed to missense mutation. Among patients in the EGFR amplification group, those with and without TP53 mutation receiving third‐generation EGFR‐TKI had a median PFS of 12.07 months (95% CI: 9.837–14.30) and 31.57 months (95% CI: 4.317–58.82), respectively (<italic toggle="yes">p</italic> = 0.033). Their median OS was 28.73 months (95% CI: 17.98–39.48) and 35.87 months (95% CI: 31.66–40.08), respectively (<italic toggle="yes">p</italic> = 0.458). Nonetheless, the number of cases between the two groups was severely imbalanced. Additionally, other concurrent mutations included 2 cases with ERBB amplification, 2 cases with PIK3CA mutation, and 1 case with MET amplification. Given the limited number of carriers for these concurrent mutations compared to non‐carriers, the sample sizes are highly imbalanced. Therefore, we are currently unable to determine the impact of these concurrent mutations on the efficacy of third‐generation TKI in patients with EGFR amplification.</p><p>Among patients who developed acquired EGFR amplification after first‐generation EGFR‐TKI treatment, 6.8% (4/59) developed liver metastasis, 18.6% (11/59) developed brain metastasis, and 35.6% (21/59) developed bone metastasis. Following treatment with third‐generation EGFR‐TKI, the median PFS for patients with liver metastasis and those without liver metastasis was 4.07 months (95% CI: 0.00–13.15) and 12.53 months (95% CI: 6.82–18.24), respectively (<italic toggle="yes">p</italic> = 0.667). Their median OS was 7.10 months (95% CI: 0.00–28.35) and 33.90 months (95% CI: 27.50–40.75), respectively (<italic toggle="yes">p</italic> = 0.586). Although patients with liver metastasis had shorter PFS and OS compared to those without liver metastasis, the differences were not statistically significant. The median PFS and OS for patients with brain metastasis receiving third‐generation EGFR‐TKI were 12.07 months (95% CI: 4.05–20.08) and 32.03 months (95% CI: 21.60–42.47), respectively, demonstrating no statistically significant difference compared to those without brain metastasis in terms of median PFS (<italic toggle="yes">p</italic> = 0.273) and OS (<italic toggle="yes">p</italic> = 0.510). Similarly, the median PFS and OS for patients with bone metastasis were 16.53 months (95% CI: 8.61–24.45) and 23.66 months (95% CI: 11.87–35.45), respectively, with no significant statistical difference compared to those without bone metastasis in terms of median PFS (<italic toggle="yes">p</italic> = 0.641) and OS (<italic toggle="yes">p</italic> = 0.319) (see Figure <xref rid="cas16437-fig-0004" ref-type="fig">4</xref>).</p></sec><sec id="cas16437-sec-0011"><label>3.4</label><title>Survival Analysis of High‐Level <styled-content style="fixed-case" toggle="no">EGFR</styled-content> Amplification</title><p>Furthermore, we conducted a survival analysis of patients with high‐level EGFR amplification (EGFR CN ≥ 8). Among the 275 patients with advanced NSCLC harboring the T790M mutation, seven patients exhibited acquired high‐level EGFR amplification, while 268 patients were classified as the non‐high amplification (EGFR CN &lt; 8). Our survival analysis revealed that the median PFS for the high‐level EGFR amplification group was 9.17 months (95% CI: 5.33—Not reached, NR), compared to 12.17 months (95% CI: 10.83—12.53) for the non‐high‐level amplification group. Similarly, the median OS for the high‐level amplification group was 23.67 months (95% CI: 14.4—NR), while the non‐high‐level amplification group had a median OS of 24.83 months (95% CI: 22.3—28.73). Notably, there were no significant statistical differences between the two groups regarding median PFS (<italic toggle="yes">p</italic> = 0.277) and OS (<italic toggle="yes">p</italic> = 0.784).</p></sec></sec><sec sec-type="discussion" id="cas16437-sec-0012"><label>4</label><title>Discussion</title><p>Previous studies have indicated that EGFR amplification may emerge as a resistance mechanism following EGFR‐TKI treatment [<xref rid="cas16437-bib-0020" ref-type="bibr">20</xref>, <xref rid="cas16437-bib-0021" ref-type="bibr">21</xref>, <xref rid="cas16437-bib-0024" ref-type="bibr">24</xref>]. However, whether the concurrent presence of acquired T790M mutation and EGFR amplification after resistance to first‐generation EGFR‐TKI impacts the effectiveness of subsequent third‐generation EGFR‐TKI therapy remains uncertain. The current study revealed that patients who developed acquired T790M mutation alongside EGFR amplification after first‐generation EGFR‐TKI resistance demonstrated significantly improved median PFS following treatment with osimertinib compared to those without EGFR amplification (<italic toggle="yes">p</italic> = 0.011). Despite showing potential OS benefits for patients with EGFR amplification, the difference in OS between the two groups was not statistically significant (<italic toggle="yes">p</italic> = 0.164). This lack of significance may be attributed to the relatively small sample size, variability in subsequent treatment regimens, or difference performance status among patients following resistance to third‐generation EGFR‐TKI. Additionally, throughout osimertinib therapy, patients with acquired T790M mutation accompanied by EGFR amplification, particularly those with 19del mutation, exhibited a longer PFS compared to those with 21L858R mutation (<italic toggle="yes">p</italic> = 0.034).</p><p>Previous studies have reported a potential association between the concurrent presence of EGFR mutations and EGFR amplification detected before initial EGFR‐TKI therapy and favorable outcomes to EGFR‐TKI treatment. Shan et al. [<xref rid="cas16437-bib-0014" ref-type="bibr">14</xref>] conducted a retrospective study focusing on Asian patients with EGFR‐sensitive mutations who received first‐generation EGFR‐TKI treatment as first‐line treatment. The results suggested that patients with EGFR amplification had a significantly longer PFS compared to those without (16.3 vs. 9.1 months, <italic toggle="yes">p</italic> = 0.004), suggesting EGFR amplification as an indicator for better response to EGFR‐TKI treatment. Another study involving Spanish patients with LUAD demonstrated comparable results, indicating improved responses in patients with EGFR amplification and sensitizing EGFR mutations treated with first‐generation EGFR‐TKI [<xref rid="cas16437-bib-0015" ref-type="bibr">15</xref>]. These findings highlight the potential synergistic role of EGFR amplification and EGFR mutations in tumor development, increasing the molecular dependence of these tumors on the EGFR pathway and potentially improving sensitivity to EGFR‐TKI treatment [<xref rid="cas16437-bib-0014" ref-type="bibr">14</xref>, <xref rid="cas16437-bib-0015" ref-type="bibr">15</xref>]. However, the role of EGFR amplification may vary based on whether it was acquired before or after EGFR‐TKI treatment. Some studies suggest that EGFR amplification developed during EGFR‐TKI treatment could mediate acquired resistance to EGFR‐TKI. This acquisition may lead to increased mutant allele transcription and EGFR gene activity under EGFR‐TKI treatment pressure [<xref rid="cas16437-bib-0025" ref-type="bibr">25</xref>, <xref rid="cas16437-bib-0026" ref-type="bibr">26</xref>], manifesting as pronounced genome instability and genome‐wide hypomethylation, ultimately affecting tumor cell sensitivity to EGFR‐TKI [<xref rid="cas16437-bib-0021" ref-type="bibr">21</xref>]. Moreover, acquired EGFR amplification is often accompanied by additional genetic alterations, potentially influencing tumor microenvironment and drug sensitivity [<xref rid="cas16437-bib-0027" ref-type="bibr">27</xref>, <xref rid="cas16437-bib-0028" ref-type="bibr">28</xref>]. Nonetheless, research on whether the coexistence of acquired T790M mutation and EGFR amplification after resistance to first‐generation EGFR‐TKI affects subsequent third‐generation EGFR‐TKI treatment is lacking.</p><p>In the present study, advanced EGFR‐mutant NSCLC patients with acquired T790M mutation and EGFR amplification following resistance to first‐generation EGFR‐TKI demonstrated improved PFS compared to those without EGFR amplification. These findings may be attributed to a proportion of mutated cells transforming into refractory clones through various mechanisms while acquiring resistance after first‐generation EGFR‐TKI treatment, whereas other tumor cells might remain reliant on the EGFR pathway at the molecular level. Hence, subsequent EGFR‐TKI treatment could still exert an anti‐tumor effect in such cases [<xref rid="cas16437-bib-0029" ref-type="bibr">29</xref>]. Furthermore, the emergence of acquired T790M mutation after resistance to first‐generation EGFR‐TKI was found to mediate acquired resistance by sterically blocking the binding of EGFR‐TKI and increasing the affinity for ATP [<xref rid="cas16437-bib-0030" ref-type="bibr">30</xref>, <xref rid="cas16437-bib-0031" ref-type="bibr">31</xref>]. Third‐generation EGFR‐TKIs have been developed to target the ATP binding site, thereby overcoming this hindrance [<xref rid="cas16437-bib-0032" ref-type="bibr">32</xref>]. Despite the T790M mutation, the activation of the EGFR pathway remains the primary driver of tumor progression. Furthermore, recent studies have indicated that the co‐occurrence of EGFR amplification and EGFR mutations may confer a greater growth and survival advantage to malignant cells compared to either mechanism alone. Both mechanisms activate the EGFR signaling pathway and synergistically contribute to tumor development [<xref rid="cas16437-bib-0014" ref-type="bibr">14</xref>, <xref rid="cas16437-bib-0015" ref-type="bibr">15</xref>, <xref rid="cas16437-bib-0016" ref-type="bibr">16</xref>]. Therefore, tumors harboring acquired T790M mutation, acquired EGFR amplification, and EGFR‐sensitive mutations may synergistically amplify the reliance of tumor cells on the EGFR pathway at a molecular level. As a result, these tumors are likely to benefit from treatment with third‐generation EGFR‐TKIs.</p><p>However, our findings contradict some previous research results. A phase I study investigating resistance mechanisms to the third‐generation EGFR‐TKI abivertinib in patients with acquired EGFR T790M NSCLC identified three patients with concurrent acquired T790M mutation and EGFR amplification following prior treatment with first‐ or second‐generation EGFR‐TKI. These patients showed resistance to abivertinib [<xref rid="cas16437-bib-0033" ref-type="bibr">33</xref>]. Similarly, two case reports indicated poor response to subsequent third‐generation EGFR‐TKI treatment in patients with T790M mutation accompanied by acquired EGFR amplification detected after resistance to first‐generation EGFR‐TKI [<xref rid="cas16437-bib-0034" ref-type="bibr">34</xref>, <xref rid="cas16437-bib-0035" ref-type="bibr">35</xref>]. The conflicting findings may be attributed to several factors. Firstly, these studies had a limited number of cases, totaling only five, which compromises the representativeness and generalizability of their findings. Secondly, all patients in these studies harboring both the T790M mutation and EGFR amplification were also found to carry other known mechanisms potentially contributing to resistance to third‐generation EGFR‐TKI, such as MET amplification, high levels of AXL expression, and PIK3CA mutation [<xref rid="cas16437-bib-0036" ref-type="bibr">36</xref>, <xref rid="cas16437-bib-0037" ref-type="bibr">37</xref>, <xref rid="cas16437-bib-0038" ref-type="bibr">38</xref>].</p><p>TP53 mutation is the most prevalent concomitant mutation in patients with EGFR mutations, accounting for approximately 55%–65% of EGFR‐mutant patients [<xref rid="cas16437-bib-0039" ref-type="bibr">39</xref>]. Moreover, TP53 mutation is also the most common concomitant mutation in patients with EGFR amplification, which is found in approximately 65%–86% of patients with EGFR amplification [<xref rid="cas16437-bib-0027" ref-type="bibr">27</xref>, <xref rid="cas16437-bib-0040" ref-type="bibr">40</xref>]. Some studies have suggested that the coexistence of TP53 mutation with T790M mutation may be correlated with shorter PFS and OS with third‐generation EGFR‐TKI treatment [<xref rid="cas16437-bib-0028" ref-type="bibr">28</xref>]. In our study, 84.7% (50/59) of patients harboring T790M mutation accompanied by EGFR amplification were found to have TP53 mutation, and patients with TP53 mutation exhibited significantly shorter PFS compared to those without TP53 mutation (12.07 months vs. 31.57 months, <italic toggle="yes">p</italic> = 0.033). Despite the imbalance in sample size between the two groups, these results suggest that concurrent TP53 mutation, T790M mutation, and EGFR amplification may adversely impact the response to targeted therapies.</p><p>Notably, monotherapy with third‐generation EGFR‐TKIs has become the most common first‐line treatment option for patients with EGFR mutations. Nevertheless, first‐generation EGFR‐TKIs retain their relevance in specific therapeutic contexts. Studies have shown that combining first‐generation EGFR‐TKIs with bevacizumab as a first‐line therapy results in a PFS of 15.4–17.9 months and an OS of 33.3–50.7 months [<xref rid="cas16437-bib-0041" ref-type="bibr">41</xref>, <xref rid="cas16437-bib-0042" ref-type="bibr">42</xref>, <xref rid="cas16437-bib-0043" ref-type="bibr">43</xref>, <xref rid="cas16437-bib-0044" ref-type="bibr">44</xref>, <xref rid="cas16437-bib-0045" ref-type="bibr">45</xref>]. In contrast, third‐generation EGFR‐TKI monotherapy typically yields a PFS of approximately 17.8–20.8 months and an OS of about 38.6 months [<xref rid="cas16437-bib-0046" ref-type="bibr">46</xref>, <xref rid="cas16437-bib-0047" ref-type="bibr">47</xref>, <xref rid="cas16437-bib-0048" ref-type="bibr">48</xref>, <xref rid="cas16437-bib-0049" ref-type="bibr">49</xref>]. This suggests that the efficacy of first‐line treatment using first‐generation EGFR‐TKIs combined with angiogenesis inhibitors may be comparable to that of third‐generation EGFR‐TKI monotherapy and could still be a viable option in clinical practice. Moreover, the combination of first‐generation EGFR‐TKIs and bevacizumab does not prevent the development of T790M‐mediated resistance [<xref rid="cas16437-bib-0043" ref-type="bibr">43</xref>, <xref rid="cas16437-bib-0050" ref-type="bibr">50</xref>]. This indicates that our findings may be beneficial for the subsequent treatment of this patient group.</p><p>Nevertheless, the limitations of the current study should be acknowledged. Firstly, the retrospective nature and small sample size may affect the reliability of our findings. Additionally, due to the limited number of patients with PIK3CA mutations and MET amplification in the EGFR amplification group, and the absence of patients with high AXL expression, we are unable to determine whether these concurrent mutations affect the efficacy of third‐generation EGFR‐TKI in patients with T790M mutations and EGFR amplification. Furthermore, the tissue re‐biopsy and genetic testing conducted after first‐generation EGFR‐TKI treatment utilized a small‐panel NGS, which may overlook the influence of undetected mutations on treatment efficacy. Lastly, in the EGFR amplification group, several patients underwent genetic testing by ARMS before initial EGFR‐TKI treatment, raising the possibility of undetected de novo EGFR amplification persisting after first‐generation EGFR‐TKI therapy, although such occurrences may be relatively rare.</p><p>In conclusion, contrary to previous findings suggesting acquired EGFR amplification as a predominant mechanism of resistance to EGFR‐TKI, our results demonstrate that after resistance to first‐generation EGFR‐TKI, patients with concurrent acquired T790M mutation and EGFR amplification may benefit from third‐generation EGFR‐TKI, particularly those harboring EGFR 19del mutation.</p></sec><sec id="cas16437-sec-0016"><title>Author Contributions</title><p>
+<bold>Yidan Zhang:</bold> data curation, formal analysis, investigation, software, validation, writing – original draft, writing – review and editing. <bold>Yingqi Xu:</bold> data curation, formal analysis, investigation, software, validation, writing – original draft, writing – review and editing. <bold>Jianlin Xu:</bold> formal analysis, software, validation, visualization. <bold>Hua Zhong:</bold> data curation, formal analysis, resources, validation. <bold>Jinjing Xia:</bold> conceptualization, funding acquisition, methodology, resources, supervision, validation, writing – review and editing. <bold>Runbo Zhong:</bold> conceptualization, methodology, project administration, resources, supervision, writing – review and editing.</p></sec><sec id="cas16437-sec-0015"><title>Ethics Statement</title><p>This retrospective study was approved by the Ethics Committee of Shanghai Chest Hospital (ID: IS24059) and was performed following the Helsinki Declaration of 1964 (revised in 2013).</p></sec><sec sec-type="COI-statement" id="cas16437-sec-0014"><title>Conflicts of Interest</title><p>The authors declare no conflicts of interest.</p></sec><sec sec-type="supplementary-material"><title>Supporting information</title><supplementary-material id="cas16437-supitem-0001" position="float" content-type="local-data" orientation="portrait"><caption><p>
+<bold>Table S1:</bold> 68 genes detected by NGS.</p></caption><media xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="CAS-116-753-s001.doc" position="float" orientation="portrait"/></supplementary-material></sec></body><back><ack id="cas16437-sec-0013"><title>Acknowledgments</title><p>We would like to thank all of the investigators for their involvement in this study.</p></ack><ref-list content-type="cited-references" id="cas16437-bibl-0001"><title>References</title><ref id="cas16437-bib-0001"><label>1</label><mixed-citation publication-type="journal" id="cas16437-cit-0001">
+<string-name name-style="western">
+<given-names>R. L.</given-names>
+<surname>Siegel</surname>
+</string-name>, <string-name name-style="western">
+<given-names>K. D.</given-names>
+<surname>Miller</surname>
+</string-name>, <string-name name-style="western">
+<given-names>H. E.</given-names>
+<surname>Fuchs</surname>
+</string-name>, and <string-name name-style="western">
+<given-names>A.</given-names>
+<surname>Jemal</surname>
+</string-name>, “<article-title>Cancer Statistics, 2021</article-title>,” <source>CA: A Cancer Journal for Clinicians</source>
+<volume>71</volume>, no. <issue>1</issue> (<year>2021</year>): <fpage>7</fpage>–<lpage>33</lpage>, <pub-id pub-id-type="doi">10.3322/caac.21654</pub-id>.<pub-id pub-id-type="pmid">33433946</pub-id>
+</mixed-citation></ref><ref id="cas16437-bib-0002"><label>2</label><mixed-citation publication-type="journal" id="cas16437-cit-0002">
+<string-name name-style="western">
+<given-names>L.</given-names>
+<surname>Yu</surname>
+</string-name>, <string-name name-style="western">
+<given-names>Y.</given-names>
+<surname>Hu</surname>
+</string-name>, <string-name name-style="western">
+<given-names>J.</given-names>
+<surname>Xu</surname>
+</string-name>, et al., “<article-title>Multi‐Target Angiogenesis Inhibitor Combined With PD‐1 Inhibitors May Benefit Advanced Non‐small Cell Lung Cancer Patients in Late Line After Failure of EGFR‐TKI Therapy</article-title>,” <source>International Journal of Cancer</source>
+<volume>153</volume>, no. <issue>3</issue> (<year>2023</year>): <fpage>635</fpage>–<lpage>643</lpage>, <pub-id pub-id-type="doi">10.1002/ijc.34536</pub-id>.<pub-id pub-id-type="pmid">37078587</pub-id>
+</mixed-citation></ref><ref id="cas16437-bib-0003"><label>3</label><mixed-citation publication-type="journal" id="cas16437-cit-0003">
+<string-name name-style="western">
+<given-names>H.</given-names>
+<surname>Shigematsu</surname>
+</string-name>, <string-name name-style="western">
+<given-names>L.</given-names>
+<surname>Lin</surname>
+</string-name>, <string-name name-style="western">
+<given-names>T.</given-names>
+<surname>Takahashi</surname>
+</string-name>, et al., “<article-title>Clinical and Biological Features Associated With Epidermal Growth Factor Receptor Gene Mutations in Lung Cancers</article-title>,” <source>Journal of the National Cancer Institute</source>
+<volume>97</volume>, no. <issue>5</issue> (<year>2005</year>): <fpage>339</fpage>–<lpage>346</lpage>, <pub-id pub-id-type="doi">10.1093/jnci/dji055</pub-id>.<pub-id pub-id-type="pmid">15741570</pub-id>
+</mixed-citation></ref><ref id="cas16437-bib-0004"><label>4</label><mixed-citation publication-type="journal" id="cas16437-cit-0004">
+<string-name name-style="western">
+<given-names>W. H.</given-names>
+<surname>Hsu</surname>
+</string-name>, <string-name name-style="western">
+<given-names>J. C.</given-names>
+<surname>Yang</surname>
+</string-name>, <string-name name-style="western">
+<given-names>T. S.</given-names>
+<surname>Mok</surname>
+</string-name>, and <string-name name-style="western">
+<given-names>H. H.</given-names>
+<surname>Loong</surname>
+</string-name>, “<article-title>Overview of Current Systemic Management of EGFR‐Mutant NSCLC</article-title>,” <source>Annals of Oncology</source>
+<volume>29</volume>, no. <issue>suppl_1</issue> (<year>2018</year>): <fpage>i3</fpage>–<lpage>i9</lpage>, <pub-id pub-id-type="doi">10.1093/annonc/mdx702</pub-id>.<pub-id pub-id-type="pmid">29462253</pub-id>
+</mixed-citation></ref><ref id="cas16437-bib-0005"><label>5</label><mixed-citation publication-type="journal" id="cas16437-cit-0005">
+<string-name name-style="western">
+<given-names>D.</given-names>
+<surname>Westover</surname>
+</string-name>, <string-name name-style="western">
+<given-names>J.</given-names>
+<surname>Zugazagoitia</surname>
+</string-name>, <string-name name-style="western">
+<given-names>B. C.</given-names>
+<surname>Cho</surname>
+</string-name>, <string-name name-style="western">
+<given-names>C. M.</given-names>
+<surname>Lovly</surname>
+</string-name>, and <string-name name-style="western">
+<given-names>L.</given-names>
+<surname>Paz‐Ares</surname>
+</string-name>, “<article-title>Mechanisms of Acquired Resistance to First‐ and Second‐Generation EGFR Tyrosine Kinase Inhibitors</article-title>,” <source>Annals of Oncology</source>
+<volume>29</volume>, no. <issue>suppl_1</issue> (<year>2018</year>): <fpage>i10</fpage>–<lpage>i19</lpage>, <pub-id pub-id-type="doi">10.1093/annonc/mdx703</pub-id>.<pub-id pub-id-type="pmid">29462254</pub-id>
+<pub-id pub-id-type="pmcid">PMC6454547</pub-id></mixed-citation></ref><ref id="cas16437-bib-0006"><label>6</label><mixed-citation publication-type="journal" id="cas16437-cit-0006">
+<string-name name-style="western">
+<given-names>J.</given-names>
+<surname>Remon</surname>
+</string-name>, <string-name name-style="western">
+<given-names>C. E.</given-names>
+<surname>Steuer</surname>
+</string-name>, <string-name name-style="western">
+<given-names>S. S.</given-names>
+<surname>Ramalingam</surname>
+</string-name>, and <string-name name-style="western">
+<given-names>E.</given-names>
+<surname>Felip</surname>
+</string-name>, “<article-title>Osimertinib and Other Third‐Generation EGFR TKI in EGFR‐Mutant NSCLC Patients</article-title>,” <source>Annals of Oncology</source>
+<volume>29</volume>, no. <issue>suppl_1</issue> (<year>2018</year>): <fpage>i20</fpage>–<lpage>i27</lpage>, <pub-id pub-id-type="doi">10.1093/annonc/mdx704</pub-id>.<pub-id pub-id-type="pmid">29462255</pub-id>
+</mixed-citation></ref><ref id="cas16437-bib-0007"><label>7</label><mixed-citation publication-type="journal" id="cas16437-cit-0007">
+<string-name name-style="western">
+<given-names>S.</given-names>
+<surname>Lu</surname>
+</string-name>, <string-name name-style="western">
+<given-names>Q.</given-names>
+<surname>Wang</surname>
+</string-name>, <string-name name-style="western">
+<given-names>G.</given-names>
+<surname>Zhang</surname>
+</string-name>, et al., “<article-title>Efficacy of Aumolertinib (HS‐10296) in Patients With Advanced EGFR T790M+ NSCLC: Updated Post‐National Medical Products Administration Approval Results From the APOLLO Registrational Trial</article-title>,” <source>Journal of Thoracic Oncology</source>
+<volume>17</volume>, no. <issue>3</issue> (<year>2022</year>): <fpage>411</fpage>–<lpage>422</lpage>, <pub-id pub-id-type="doi">10.1016/j.jtho.2021.10.024</pub-id>.<pub-id pub-id-type="pmid">34801749</pub-id>
+</mixed-citation></ref><ref id="cas16437-bib-0008"><label>8</label><mixed-citation publication-type="journal" id="cas16437-cit-0008">
+<string-name name-style="western">
+<given-names>Y. L.</given-names>
+<surname>Wu</surname>
+</string-name>, <string-name name-style="western">
+<given-names>M. J.</given-names>
+<surname>Ahn</surname>
+</string-name>, <string-name name-style="western">
+<given-names>M. C.</given-names>
+<surname>Garassino</surname>
+</string-name>, et al., “<article-title>CNS Efficacy of Osimertinib in Patients With T790M‐Positive Advanced Non‐Small‐Cell Lung Cancer: Data From a Randomized Phase III Trial (AURA3)</article-title>,” <source>Journal of Clinical Oncology</source>
+<volume>36</volume>, no. <issue>26</issue> (<year>2018</year>): <fpage>2702</fpage>–<lpage>2709</lpage>, <pub-id pub-id-type="doi">10.1200/JCO.2018.77.9363</pub-id>.<pub-id pub-id-type="pmid">30059262</pub-id>
+</mixed-citation></ref><ref id="cas16437-bib-0009"><label>9</label><mixed-citation publication-type="journal" id="cas16437-cit-0009">
+<string-name name-style="western">
+<given-names>P. A.</given-names>
+<surname>Janne</surname>
+</string-name>, <string-name name-style="western">
+<given-names>J. C.</given-names>
+<surname>Yang</surname>
+</string-name>, <string-name name-style="western">
+<given-names>D. W.</given-names>
+<surname>Kim</surname>
+</string-name>, et al., “<article-title>AZD9291 in EGFR Inhibitor‐Resistant Non‐small‐Cell Lung Cancer</article-title>,” <source>New England Journal of Medicine</source>
+<volume>372</volume>, no. <issue>18</issue> (<year>2015</year>): <fpage>1689</fpage>–<lpage>1699</lpage>, <pub-id pub-id-type="doi">10.1056/NEJMoa1411817</pub-id>.<pub-id pub-id-type="pmid">25923549</pub-id>
+</mixed-citation></ref><ref id="cas16437-bib-0010"><label>10</label><mixed-citation publication-type="journal" id="cas16437-cit-0010">
+<string-name name-style="western">
+<given-names>H.</given-names>
+<surname>Akamatsu</surname>
+</string-name>, <string-name name-style="western">
+<given-names>Y.</given-names>
+<surname>Toi</surname>
+</string-name>, <string-name name-style="western">
+<given-names>H.</given-names>
+<surname>Hayashi</surname>
+</string-name>, et al., “<article-title>Efficacy of Osimertinib Plus Bevacizumab vs. Osimertinib in Patients With EGFR T790M‐Mutated Non‐Small Cell Lung Cancer Previously Treated With Epidermal Growth Factor Receptor‐Tyrosine Kinase Inhibitor: West Japan Oncology Group 8715 L Phase 2 Randomized Clinical Trial</article-title>,” <source>JAMA Oncologia</source>
+<volume>7</volume>, no. <issue>3</issue> (<year>2021</year>): <fpage>386</fpage>–<lpage>394</lpage>, <pub-id pub-id-type="doi">10.1001/jamaoncol.2020.6758</pub-id>.<pub-id pub-id-type="pmcid">PMC7791398</pub-id><pub-id pub-id-type="pmid">33410885</pub-id></mixed-citation></ref><ref id="cas16437-bib-0011"><label>11</label><mixed-citation publication-type="journal" id="cas16437-cit-0011">
+<string-name name-style="western">
+<given-names>V. A.</given-names>
+<surname>Papadimitrakopoulou</surname>
+</string-name>, <string-name name-style="western">
+<given-names>T. S.</given-names>
+<surname>Mok</surname>
+</string-name>, <string-name name-style="western">
+<given-names>J. Y.</given-names>
+<surname>Han</surname>
+</string-name>, et al., “<article-title>Osimertinib Versus Platinum‐Pemetrexed for Patients With EGFR T790M Advanced NSCLC and Progression on a Prior EGFR‐Tyrosine Kinase Inhibitor: AURA3 Overall Survival Analysis</article-title>,” <source>Annals of Oncology</source>
+<volume>31</volume>, no. <issue>11</issue> (<year>2020</year>): <fpage>1536</fpage>–<lpage>1544</lpage>, <pub-id pub-id-type="doi">10.1016/j.annonc.2020.08.2100</pub-id>.<pub-id pub-id-type="pmid">32861806</pub-id>
+</mixed-citation></ref><ref id="cas16437-bib-0012"><label>12</label><mixed-citation publication-type="journal" id="cas16437-cit-0012">
+<string-name name-style="western">
+<given-names>Y. H.</given-names>
+<surname>Huang</surname>
+</string-name>, <string-name name-style="western">
+<given-names>J. S.</given-names>
+<surname>Tseng</surname>
+</string-name>, <string-name name-style="western">
+<given-names>K. H.</given-names>
+<surname>Hsu</surname>
+</string-name>, et al., “<article-title>The Impact of Different First‐Line EGFR‐TKIs on the Clinical Outcome of Sequential Osimertinib Treatment in Advanced NSCLC With Secondary T790M</article-title>,” <source>Scientific Reports</source>
+<volume>11</volume>, no. <issue>1</issue> (<year>2021</year>): <fpage>12084</fpage>, <pub-id pub-id-type="doi">10.1038/s41598-021-91,657-7</pub-id>.<pub-id pub-id-type="pmid">34103652</pub-id>
+<pub-id pub-id-type="pmcid">PMC8187359</pub-id></mixed-citation></ref><ref id="cas16437-bib-0013"><label>13</label><mixed-citation publication-type="journal" id="cas16437-cit-0013">
+<string-name name-style="western">
+<given-names>F. R.</given-names>
+<surname>Hirsch</surname>
+</string-name>, <string-name name-style="western">
+<given-names>M.</given-names>
+<surname>Varella‐Garcia</surname>
+</string-name>, <string-name name-style="western">
+<given-names>J.</given-names>
+<surname>McCoy</surname>
+</string-name>, et al., “<article-title>Increased Epidermal Growth Factor Receptor Gene Copy Number Detected by Fluorescence In Situ Hybridization Associates With Increased Sensitivity to Gefitinib in Patients With Bronchioloalveolar Carcinoma Subtypes: A Southwest Oncology Group Study</article-title>,” <source>Journal of Clinical Oncology</source>
+<volume>23</volume>, no. <issue>28</issue> (<year>2005</year>): <fpage>6838</fpage>–<lpage>6845</lpage>, <pub-id pub-id-type="doi">10.1200/JCO.2005.01.2823</pub-id>.<pub-id pub-id-type="pmid">15998906</pub-id>
+</mixed-citation></ref><ref id="cas16437-bib-0014"><label>14</label><mixed-citation publication-type="journal" id="cas16437-cit-0014">
+<string-name name-style="western">
+<given-names>L.</given-names>
+<surname>Shan</surname>
+</string-name>, <string-name name-style="western">
+<given-names>Z.</given-names>
+<surname>Wang</surname>
+</string-name>, <string-name name-style="western">
+<given-names>L.</given-names>
+<surname>Guo</surname>
+</string-name>, et al., “<article-title>Concurrence of EGFR Amplification and Sensitizing Mutations Indicate a Better Survival Benefit From EGFR‐TKI Therapy in Lung Adenocarcinoma Patients</article-title>,” <source>Lung Cancer</source>
+<volume>89</volume>, no. <issue>3</issue> (<year>2015</year>): <fpage>337</fpage>–<lpage>342</lpage>, <pub-id pub-id-type="doi">10.1016/j.lungcan.2015.06.008</pub-id>.<pub-id pub-id-type="pmid">26141217</pub-id>
+</mixed-citation></ref><ref id="cas16437-bib-0015"><label>15</label><mixed-citation publication-type="journal" id="cas16437-cit-0015">
+<string-name name-style="western">
+<given-names>A.</given-names>
+<surname>Ruiz‐Patino</surname>
+</string-name>, <string-name name-style="western">
+<given-names>C. D.</given-names>
+<surname>Castro</surname>
+</string-name>, <string-name name-style="western">
+<given-names>L. M.</given-names>
+<surname>Ricaurte</surname>
+</string-name>, et al., “<article-title>EGFR Amplification and Sensitizing Mutations Correlate With Survival in Lung Adenocarcinoma Patients Treated With Erlotinib (MutP‐CLICaP)</article-title>,” <source>Targeted Oncology</source>
+<volume>13</volume>, no. <issue>5</issue> (<year>2018</year>): <fpage>621</fpage>–<lpage>629</lpage>, <pub-id pub-id-type="doi">10.1007/s11523-018-0594-x</pub-id>.<pub-id pub-id-type="pmid">30284706</pub-id>
+</mixed-citation></ref><ref id="cas16437-bib-0016"><label>16</label><mixed-citation publication-type="journal" id="cas16437-cit-0016">
+<string-name name-style="western">
+<given-names>H.</given-names>
+<surname>O'Farrell</surname>
+</string-name>, <string-name name-style="western">
+<given-names>B.</given-names>
+<surname>Harbourne</surname>
+</string-name>, <string-name name-style="western">
+<given-names>Z.</given-names>
+<surname>Kurlawala</surname>
+</string-name>, et al., “<article-title>Integrative Genomic Analyses Identifies GGA2 as a Cooperative Driver of EGFR‐Mediated Lung Tumorigenesis</article-title>,” <source>Journal of Thoracic Oncology</source>
+<volume>14</volume>, no. <issue>4</issue> (<year>2019</year>): <fpage>656</fpage>–<lpage>671</lpage>, <pub-id pub-id-type="doi">10.1016/j.jtho.2018.12.004</pub-id>.<pub-id pub-id-type="pmid">30578931</pub-id>
+<pub-id pub-id-type="pmcid">PMC6440869</pub-id></mixed-citation></ref><ref id="cas16437-bib-0017"><label>17</label><mixed-citation publication-type="journal" id="cas16437-cit-0017">
+<string-name name-style="western">
+<given-names>Y.</given-names>
+<surname>Shang</surname>
+</string-name>, <string-name name-style="western">
+<given-names>X.</given-names>
+<surname>Li</surname>
+</string-name>, <string-name name-style="western">
+<given-names>W.</given-names>
+<surname>Liu</surname>
+</string-name>, et al., “<article-title>Comprehensive Genomic Profile of Chinese Lung Cancer Patients and Mutation Characteristics of Individuals Resistant to Icotinib/Gefitinib</article-title>,” <source>Scientific Reports</source>
+<volume>10</volume>, no. <issue>1</issue> (<year>2020</year>): <fpage>20243</fpage>, <pub-id pub-id-type="doi">10.1038/s41598-020-76,791-y</pub-id>.<pub-id pub-id-type="pmid">33219256</pub-id>
+<pub-id pub-id-type="pmcid">PMC7679461</pub-id></mixed-citation></ref><ref id="cas16437-bib-0018"><label>18</label><mixed-citation publication-type="journal" id="cas16437-cit-0018">
+<string-name name-style="western">
+<given-names>H.</given-names>
+<surname>Yang</surname>
+</string-name>, <string-name name-style="western">
+<given-names>L.</given-names>
+<surname>Wen</surname>
+</string-name>, <string-name name-style="western">
+<given-names>C.</given-names>
+<surname>Zhao</surname>
+</string-name>, et al., “<article-title>EGFR Amplification Is a Putative Resistance Mechanism for NSCLC‐LM Patients With TKI Therapy and Is Associated With Poor Outcome</article-title>,” <source>Frontiers in Oncology</source>
+<volume>12</volume> (<year>2022</year>): <elocation-id>902664</elocation-id>, <pub-id pub-id-type="doi">10.3389/fonc.2022.902664</pub-id>.<pub-id pub-id-type="pmid">35978803</pub-id>
+<pub-id pub-id-type="pmcid">PMC9376465</pub-id></mixed-citation></ref><ref id="cas16437-bib-0019"><label>19</label><mixed-citation publication-type="journal" id="cas16437-cit-0019">
+<string-name name-style="western">
+<given-names>P.</given-names>
+<surname>Wang</surname>
+</string-name>, <string-name name-style="western">
+<given-names>E.</given-names>
+<surname>Fabre</surname>
+</string-name>, <string-name name-style="western">
+<given-names>A.</given-names>
+<surname>Martin</surname>
+</string-name>, et al., “<article-title>Successful Sequential Tyrosine Kinase Inhibitors to Overcome a Rare Compound of EGFR Exon 18–18 and EGFR Amplification: A Case Report</article-title>,” <source>Frontiers in Oncology</source>
+<volume>12</volume> (<year>2022</year>): <elocation-id>918855</elocation-id>, <pub-id pub-id-type="doi">10.3389/fonc.2022.918855</pub-id>.<pub-id pub-id-type="pmid">35957870</pub-id>
+<pub-id pub-id-type="pmcid">PMC9358716</pub-id></mixed-citation></ref><ref id="cas16437-bib-0020"><label>20</label><mixed-citation publication-type="journal" id="cas16437-cit-0020">
+<string-name name-style="western">
+<given-names>K.</given-names>
+<surname>Otsubo</surname>
+</string-name>, <string-name name-style="western">
+<given-names>K.</given-names>
+<surname>Sakai</surname>
+</string-name>, <string-name name-style="western">
+<given-names>M.</given-names>
+<surname>Takeshita</surname>
+</string-name>, et al., “<article-title>Genetic Profiling of Non‐Small Cell Lung Cancer at Development of Resistance to First‐ Or Second‐Generation EGFR‐TKIs by CAPP‐Seq Analysis of Circulating Tumor DNA</article-title>,” <source>Oncologist</source>
+<volume>24</volume>, no. <issue>8</issue> (<year>2019</year>): <fpage>1022</fpage>–<lpage>1026</lpage>, <pub-id pub-id-type="doi">10.1634/theoncologist.2019-0101</pub-id>.<pub-id pub-id-type="pmid">31023862</pub-id>
+<pub-id pub-id-type="pmcid">PMC6693714</pub-id></mixed-citation></ref><ref id="cas16437-bib-0021"><label>21</label><mixed-citation publication-type="journal" id="cas16437-cit-0021">
+<string-name name-style="western">
+<given-names>H. N.</given-names>
+<surname>Nguyen</surname>
+</string-name>, <string-name name-style="western">
+<given-names>N. T.</given-names>
+<surname>Cao</surname>
+</string-name>, <string-name name-style="western">
+<given-names>T. C.</given-names>
+<surname>Van Nguyen</surname>
+</string-name>, et al., “<article-title>Liquid Biopsy Uncovers Distinct Patterns of DNA Methylation and Copy Number Changes in NSCLC Patients With Different EGFR‐TKI Resistant Mutations</article-title>,” <source>Scientific Reports</source>
+<volume>11</volume>, no. <issue>1</issue> (<year>2021</year>): <fpage>16436</fpage>, <pub-id pub-id-type="doi">10.1038/s41598-021-95,985-6</pub-id>.<pub-id pub-id-type="pmid">34385540</pub-id>
+<pub-id pub-id-type="pmcid">PMC8361064</pub-id></mixed-citation></ref><ref id="cas16437-bib-0022"><label>22</label><mixed-citation publication-type="journal" id="cas16437-cit-0022">
+<string-name name-style="western">
+<given-names>L. F.</given-names>
+<surname>Johansson</surname>
+</string-name>, <string-name name-style="western">
+<given-names>F.</given-names>
+<surname>van Dijk</surname>
+</string-name>, <string-name name-style="western">
+<given-names>E. N.</given-names>
+<surname>de Boer</surname>
+</string-name>, et al., “<article-title>CoNVaDING: Single Exon Variation Detection in Targeted NGS Data</article-title>,” <source>Human Mutation</source>
+<volume>37</volume>, no. <issue>5</issue> (<year>2016</year>): <fpage>457</fpage>–<lpage>464</lpage>, <pub-id pub-id-type="doi">10.1002/humu.22969</pub-id>.<pub-id pub-id-type="pmid">26864275</pub-id>
+</mixed-citation></ref><ref id="cas16437-bib-0023"><label>23</label><mixed-citation publication-type="journal" id="cas16437-cit-0023">
+<string-name name-style="western">
+<given-names>I. L.</given-names>
+<surname>Kraft</surname>
+</string-name> and <string-name name-style="western">
+<given-names>L. A.</given-names>
+<surname>Godley</surname>
+</string-name>, “<article-title>Identifying Potential Germline Variants From Sequencing Hematopoietic Malignancies</article-title>,” <source>Blood</source>
+<volume>136</volume>, no. <issue>22</issue> (<year>2020</year>): <fpage>2498</fpage>–<lpage>2506</lpage>, <pub-id pub-id-type="doi">10.1182/blood.2020006910</pub-id>.<pub-id pub-id-type="pmid">33236764</pub-id>
+</mixed-citation></ref><ref id="cas16437-bib-0024"><label>24</label><mixed-citation publication-type="journal" id="cas16437-cit-0024">
+<string-name name-style="western">
+<given-names>L. V.</given-names>
+<surname>Sequist</surname>
+</string-name>, <string-name name-style="western">
+<given-names>B. A.</given-names>
+<surname>Waltman</surname>
+</string-name>, <string-name name-style="western">
+<given-names>D.</given-names>
+<surname>Dias‐Santagata</surname>
+</string-name>, et al., “<article-title>Genotypic and Histological Evolution of Lung Cancers Acquiring Resistance to EGFR Inhibitors</article-title>,” <source>Science Translational Medicine</source>
+<volume>3</volume> (<year>2011</year>): <fpage>75ra26</fpage>, <pub-id pub-id-type="doi">10.1126/scitranslmed.3002003</pub-id>.<pub-id pub-id-type="pmcid">PMC3132801</pub-id><pub-id pub-id-type="pmid">21430269</pub-id></mixed-citation></ref><ref id="cas16437-bib-0025"><label>25</label><mixed-citation publication-type="journal" id="cas16437-cit-0025">
+<string-name name-style="western">
+<given-names>J.</given-names>
+<surname>Gandhi</surname>
+</string-name>, <string-name name-style="western">
+<given-names>J.</given-names>
+<surname>Zhang</surname>
+</string-name>, <string-name name-style="western">
+<given-names>Y.</given-names>
+<surname>Xie</surname>
+</string-name>, et al., “<article-title>Alterations in Genes of the EGFR Signaling Pathway and Their Relationship to EGFR Tyrosine Kinase Inhibitor Sensitivity in Lung Cancer Cell Lines</article-title>,” <source>PLoS One</source>
+<volume>4</volume>, no. <issue>2</issue> (<year>2009</year>): <elocation-id>e4576</elocation-id>, <pub-id pub-id-type="doi">10.1371/journal.pone.0004576</pub-id>.<pub-id pub-id-type="pmid">19238210</pub-id>
+<pub-id pub-id-type="pmcid">PMC2642732</pub-id></mixed-citation></ref><ref id="cas16437-bib-0026"><label>26</label><mixed-citation publication-type="journal" id="cas16437-cit-0026">
+<string-name name-style="western">
+<given-names>J.</given-names>
+<surname>Soh</surname>
+</string-name>, <string-name name-style="western">
+<given-names>N.</given-names>
+<surname>Okumura</surname>
+</string-name>, <string-name name-style="western">
+<given-names>W.</given-names>
+<surname>Lockwood</surname>
+</string-name>, et al., “<article-title>Oncogene Mutations, Copy Number Gains and Mutant Allele Specific Imbalance (MASI) Frequently Occur Together in Tumor Cells</article-title>,” <source>PLoS One</source>
+<volume>4</volume>, no. <issue>10</issue> (<year>2009</year>): <elocation-id>e7464</elocation-id>, <pub-id pub-id-type="doi">10.1371/journal.pone.0007464</pub-id>.<pub-id pub-id-type="pmid">19826477</pub-id>
+<pub-id pub-id-type="pmcid">PMC2757721</pub-id></mixed-citation></ref><ref id="cas16437-bib-0027"><label>27</label><mixed-citation publication-type="journal" id="cas16437-cit-0027">
+<string-name name-style="western">
+<given-names>S.</given-names>
+<surname>Kato</surname>
+</string-name>, <string-name name-style="western">
+<given-names>R.</given-names>
+<surname>Okamura</surname>
+</string-name>, <string-name name-style="western">
+<given-names>M.</given-names>
+<surname>Mareboina</surname>
+</string-name>, et al., “<article-title>Revisiting Epidermal Growth Factor Receptor (EGFR) Amplification as a Target for Anti‐EGFR Therapy: Analysis of Cell‐Free Circulating Tumor DNA in Patients With Advanced Malignancies. JCO Precis</article-title>,” <source>Oncologia</source>
+<volume>3</volume> (<year>2019</year>): <fpage>3</fpage>–<lpage>14</lpage>, <pub-id pub-id-type="doi">10.1200/PO.18.00180</pub-id>.<pub-id pub-id-type="pmcid">PMC6497417</pub-id><pub-id pub-id-type="pmid">31058253</pub-id></mixed-citation></ref><ref id="cas16437-bib-0028"><label>28</label><mixed-citation publication-type="journal" id="cas16437-cit-0028">
+<string-name name-style="western">
+<given-names>Y.</given-names>
+<surname>Kim</surname>
+</string-name>, <string-name name-style="western">
+<given-names>B.</given-names>
+<surname>Lee</surname>
+</string-name>, <string-name name-style="western">
+<given-names>J. H.</given-names>
+<surname>Shim</surname>
+</string-name>, et al., “<article-title>Concurrent Genetic Alterations Predict the Progression to Target Therapy in EGFR‐Mutated Advanced NSCLC</article-title>,” <source>Journal of Thoracic Oncology</source>
+<volume>14</volume>, no. <issue>2</issue> (<year>2019</year>): <fpage>193</fpage>–<lpage>202</lpage>, <pub-id pub-id-type="doi">10.1016/j.jtho.2018.10.150</pub-id>.<pub-id pub-id-type="pmid">30391576</pub-id>
+</mixed-citation></ref><ref id="cas16437-bib-0029"><label>29</label><mixed-citation publication-type="journal" id="cas16437-cit-0029">
+<string-name name-style="western">
+<given-names>Z. R.</given-names>
+<surname>Zhao</surname>
+</string-name>, <string-name name-style="western">
+<given-names>J. F.</given-names>
+<surname>Wang</surname>
+</string-name>, <string-name name-style="western">
+<given-names>Y. B.</given-names>
+<surname>Lin</surname>
+</string-name>, et al., “<article-title>Mutation Abundance Affects the Efficacy of EGFR Tyrosine Kinase Inhibitor Readministration in Non‐small‐Cell Lung Cancer With Acquired Resistance</article-title>,” <source>Medical Oncology</source>
+<volume>31</volume>, no. <issue>1</issue> (<year>2014</year>): <fpage>810</fpage>, <pub-id pub-id-type="doi">10.1007/s12032-013-0810-6</pub-id>.<pub-id pub-id-type="pmid">24338271</pub-id>
+</mixed-citation></ref><ref id="cas16437-bib-0030"><label>30</label><mixed-citation publication-type="journal" id="cas16437-cit-0030">
+<string-name name-style="western">
+<given-names>C. H.</given-names>
+<surname>Yun</surname>
+</string-name>, <string-name name-style="western">
+<given-names>K. E.</given-names>
+<surname>Mengwasser</surname>
+</string-name>, <string-name name-style="western">
+<given-names>A. V.</given-names>
+<surname>Toms</surname>
+</string-name>, et al., “<article-title>The T790M Mutation in EGFR Kinase Causes Drug Resistance by Increasing the Affinity for ATP</article-title>,” <source>Proceedings of the National Academy of Sciences of the United States of America</source>
+<volume>105</volume>, no. <issue>6</issue> (<year>2008</year>): <fpage>2070</fpage>–<lpage>2075</lpage>, <pub-id pub-id-type="doi">10.1073/pnas.0709662105</pub-id>.<pub-id pub-id-type="pmid">18227510</pub-id>
+<pub-id pub-id-type="pmcid">PMC2538882</pub-id></mixed-citation></ref><ref id="cas16437-bib-0031"><label>31</label><mixed-citation publication-type="journal" id="cas16437-cit-0031">
+<string-name name-style="western">
+<given-names>M. L.</given-names>
+<surname>Sos</surname>
+</string-name>, <string-name name-style="western">
+<given-names>H. B.</given-names>
+<surname>Rode</surname>
+</string-name>, <string-name name-style="western">
+<given-names>S.</given-names>
+<surname>Heynck</surname>
+</string-name>, et al., “<article-title>Chemogenomic Profiling Provides Insights Into the Limited Activity of Irreversible EGFR Inhibitors in Tumor Cells Expressing the T790M EGFR Resistance Mutation</article-title>,” <source>Cancer Research</source>
+<volume>70</volume>, no. <issue>3</issue> (<year>2010</year>): <fpage>868</fpage>–<lpage>874</lpage>, <pub-id pub-id-type="doi">10.1158/0008-5472.CAN-09-3106</pub-id>.<pub-id pub-id-type="pmid">20103621</pub-id>
+</mixed-citation></ref><ref id="cas16437-bib-0032"><label>32</label><mixed-citation publication-type="journal" id="cas16437-cit-0032">
+<string-name name-style="western">
+<given-names>D. A.</given-names>
+<surname>Cross</surname>
+</string-name>, <string-name name-style="western">
+<given-names>S. E.</given-names>
+<surname>Ashton</surname>
+</string-name>, <string-name name-style="western">
+<given-names>S.</given-names>
+<surname>Ghiorghiu</surname>
+</string-name>, et al., “<article-title>AZD9291, an Irreversible EGFR TKI, Overcomes T790M‐Mediated Resistance to EGFR Inhibitors in Lung Cancer</article-title>,” <source>Cancer Discovery</source>
+<volume>4</volume>, no. <issue>9</issue> (<year>2014</year>): <fpage>1046</fpage>–<lpage>1061</lpage>, <pub-id pub-id-type="doi">10.1158/2159-8290.CD-14-0337</pub-id>.<pub-id pub-id-type="pmid">24893891</pub-id>
+<pub-id pub-id-type="pmcid">PMC4315625</pub-id></mixed-citation></ref><ref id="cas16437-bib-0033"><label>33</label><mixed-citation publication-type="journal" id="cas16437-cit-0033">
+<string-name name-style="western">
+<given-names>Y. C.</given-names>
+<surname>Zhang</surname>
+</string-name>, <string-name name-style="western">
+<given-names>Z. H.</given-names>
+<surname>Chen</surname>
+</string-name>, <string-name name-style="western">
+<given-names>X. C.</given-names>
+<surname>Zhang</surname>
+</string-name>, et al., “<article-title>Analysis of Resistance Mechanisms to Abivertinib, a Third‐Generation EGFR Tyrosine Kinase Inhibitor, in Patients With EGFR T790M‐Positive Non‐small Cell Lung Cancer From a Phase I Trial</article-title>,” <source>eBioMedicine</source>
+<volume>43</volume> (<year>2019</year>): <fpage>180</fpage>–<lpage>187</lpage>, <pub-id pub-id-type="doi">10.1016/j.ebiom.2019.04.030</pub-id>.<pub-id pub-id-type="pmid">31027916</pub-id>
+<pub-id pub-id-type="pmcid">PMC6558024</pub-id></mixed-citation></ref><ref id="cas16437-bib-0034"><label>34</label><mixed-citation publication-type="journal" id="cas16437-cit-0034">
+<string-name name-style="western">
+<given-names>Y.</given-names>
+<surname>Li</surname>
+</string-name>, <string-name name-style="western">
+<given-names>Z.</given-names>
+<surname>Xu</surname>
+</string-name>, <string-name name-style="western">
+<given-names>T.</given-names>
+<surname>Xie</surname>
+</string-name>, <string-name name-style="western">
+<given-names>P.</given-names>
+<surname>Xing</surname>
+</string-name>, <string-name name-style="western">
+<given-names>J.</given-names>
+<surname>Ying</surname>
+</string-name>, and <string-name name-style="western">
+<given-names>J.</given-names>
+<surname>Li</surname>
+</string-name>, “<article-title>Heterogeneity of Resistant Mechanisms in an EGFR‐TKI Relapsed Patient With EGFR Amplification and Response to Nimotuzumab: A Case Report</article-title>,” <source>Frontiers in Oncology</source>
+<volume>12</volume> (<year>2022</year>): <elocation-id>937282</elocation-id>, <pub-id pub-id-type="doi">10.3389/fonc.2022.937282</pub-id>.<pub-id pub-id-type="pmid">36033496</pub-id>
+<pub-id pub-id-type="pmcid">PMC9403890</pub-id></mixed-citation></ref><ref id="cas16437-bib-0035"><label>35</label><mixed-citation publication-type="journal" id="cas16437-cit-0035">
+<string-name name-style="western">
+<given-names>Y.</given-names>
+<surname>Zeng</surname>
+</string-name>, <string-name name-style="western">
+<given-names>Y.</given-names>
+<surname>Feng</surname>
+</string-name>, <string-name name-style="western">
+<given-names>G.</given-names>
+<surname>Fu</surname>
+</string-name>, et al., “<article-title>Acquired Concurrent EGFR T790M and Driver Gene Resistance From EGFR‐TKIs Hampered Osimertinib Efficacy in Advanced Lung Adenocarcinoma: Case Reports</article-title>,” <source>Frontiers in Pharmacology</source>
+<volume>13</volume> (<year>2022</year>): <elocation-id>838247</elocation-id>, <pub-id pub-id-type="doi">10.3389/fphar.2022.838247</pub-id>.<pub-id pub-id-type="pmid">35462930</pub-id>
+<pub-id pub-id-type="pmcid">PMC9020767</pub-id></mixed-citation></ref><ref id="cas16437-bib-0036"><label>36</label><mixed-citation publication-type="journal" id="cas16437-cit-0036">
+<string-name name-style="western">
+<given-names>Q.</given-names>
+<surname>Wang</surname>
+</string-name>, <string-name name-style="western">
+<given-names>S.</given-names>
+<surname>Yang</surname>
+</string-name>, <string-name name-style="western">
+<given-names>K.</given-names>
+<surname>Wang</surname>
+</string-name>, and <string-name name-style="western">
+<given-names>S. Y.</given-names>
+<surname>Sun</surname>
+</string-name>, “<article-title>MET Inhibitors for Targeted Therapy of EGFR TKI‐Resistant Lung Cancer</article-title>,” <source>Journal of Hematology &amp; Oncology</source>
+<volume>12</volume>, no. <issue>1</issue> (<year>2019</year>): <fpage>63</fpage>, <pub-id pub-id-type="doi">10.1186/s13045-019-0759-9</pub-id>.<pub-id pub-id-type="pmid">31227004</pub-id>
+<pub-id pub-id-type="pmcid">PMC6588884</pub-id></mixed-citation></ref><ref id="cas16437-bib-0037"><label>37</label><mixed-citation publication-type="journal" id="cas16437-cit-0037">
+<string-name name-style="western">
+<given-names>A.</given-names>
+<surname>Yoshimura</surname>
+</string-name>, <string-name name-style="western">
+<given-names>T.</given-names>
+<surname>Yamada</surname>
+</string-name>, <string-name name-style="western">
+<given-names>M.</given-names>
+<surname>Serizawa</surname>
+</string-name>, et al., “<article-title>High Levels of AXL Expression in Untreated EGFR‐Mutated Non‐small Cell Lung Cancer Negatively Impacts the Use of Osimertinib</article-title>,” <source>Cancer Science</source>
+<volume>114</volume>, no. <issue>2</issue> (<year>2023</year>): <fpage>606</fpage>–<lpage>618</lpage>, <pub-id pub-id-type="doi">10.1111/cas.15608</pub-id>.<pub-id pub-id-type="pmid">36169649</pub-id>
+<pub-id pub-id-type="pmcid">PMC9899603</pub-id></mixed-citation></ref><ref id="cas16437-bib-0038"><label>38</label><mixed-citation publication-type="journal" id="cas16437-cit-0038">
+<string-name name-style="western">
+<given-names>T.</given-names>
+<surname>Vaclova</surname>
+</string-name>, <string-name name-style="western">
+<given-names>U.</given-names>
+<surname>Grazini</surname>
+</string-name>, <string-name name-style="western">
+<given-names>L.</given-names>
+<surname>Ward</surname>
+</string-name>, et al., “<article-title>Clinical Impact of Subclonal EGFR T790M Mutations in Advanced‐Stage EGFR‐Mutant Non‐small‐Cell Lung Cancers</article-title>,” <source>Nature Communications</source>
+<volume>12</volume>, no. <issue>1</issue> (<year>2021</year>): <fpage>1780</fpage>, <pub-id pub-id-type="doi">10.1038/s41467-021-22,057-8</pub-id>.<pub-id pub-id-type="pmcid">PMC7979775</pub-id><pub-id pub-id-type="pmid">33741979</pub-id></mixed-citation></ref><ref id="cas16437-bib-0039"><label>39</label><mixed-citation publication-type="journal" id="cas16437-cit-0039">
+<string-name name-style="western">
+<given-names>P.</given-names>
+<surname>Stockhammer</surname>
+</string-name>, <string-name name-style="western">
+<given-names>M.</given-names>
+<surname>Grant</surname>
+</string-name>, <string-name name-style="western">
+<given-names>A.</given-names>
+<surname>Wurtz</surname>
+</string-name>, et al., “<article-title>Co‐Occurring Alterations in Multiple Tumor Suppressor Genes Are Associated With Worse Outcomes in Patients With EGFR‐Mutant Lung Cancer</article-title>,” <source>Journal of Thoracic Oncology</source>
+<volume>19</volume>, no. <issue>2</issue> (<year>2024</year>): <fpage>240</fpage>–<lpage>251</lpage>, <pub-id pub-id-type="doi">10.1016/j.jtho.2023.10.001</pub-id>.<pub-id pub-id-type="pmid">37806385</pub-id>
+<pub-id pub-id-type="pmcid">PMC11364167</pub-id></mixed-citation></ref><ref id="cas16437-bib-0040"><label>40</label><mixed-citation publication-type="journal" id="cas16437-cit-0040">
+<string-name name-style="western">
+<given-names>D.</given-names>
+<surname>Peng</surname>
+</string-name>, <string-name name-style="western">
+<given-names>P.</given-names>
+<surname>Liang</surname>
+</string-name>, <string-name name-style="western">
+<given-names>C.</given-names>
+<surname>Zhong</surname>
+</string-name>, et al., “<article-title>Effect of EGFR Amplification on the Prognosis of EGFR‐Mutated Advanced Non‐small‐Cell Lung Cancer Patients: A Prospective Observational Study</article-title>,” <source>BMC Cancer</source>
+<volume>22</volume>, no. <issue>1</issue> (<year>2022</year>): <fpage>1323</fpage>, <pub-id pub-id-type="doi">10.1186/s12885-022-10,390-0</pub-id>.<pub-id pub-id-type="pmid">36528578</pub-id>
+<pub-id pub-id-type="pmcid">PMC9758842</pub-id></mixed-citation></ref><ref id="cas16437-bib-0041"><label>41</label><mixed-citation publication-type="journal" id="cas16437-cit-0041">
+<string-name name-style="western">
+<given-names>Q.</given-names>
+<surname>Zhou</surname>
+</string-name>, <string-name name-style="western">
+<given-names>C. R.</given-names>
+<surname>Xu</surname>
+</string-name>, <string-name name-style="western">
+<given-names>Y.</given-names>
+<surname>Cheng</surname>
+</string-name>, et al., “<article-title>Bevacizumab Plus Erlotinib in Chinese Patients With Untreated, EGFR‐Mutated, Advanced NSCLC (ARTEMIS‐CTONG1509): A Multicenter Phase 3 Study</article-title>,” <source>Cancer Cell</source>
+<volume>39</volume>, no. <issue>9</issue> (<year>2021</year>): <fpage>1279</fpage>–<lpage>1291 e3</lpage>, <pub-id pub-id-type="doi">10.1016/j.ccell.2021.07.005</pub-id>.<pub-id pub-id-type="pmid">34388377</pub-id>
+</mixed-citation></ref><ref id="cas16437-bib-0042"><label>42</label><mixed-citation publication-type="journal" id="cas16437-cit-0042">
+<string-name name-style="western">
+<given-names>T.</given-names>
+<surname>Seto</surname>
+</string-name>, <string-name name-style="western">
+<given-names>T.</given-names>
+<surname>Kato</surname>
+</string-name>, <string-name name-style="western">
+<given-names>M.</given-names>
+<surname>Nishio</surname>
+</string-name>, et al., “<article-title>Erlotinib Alone or With Bevacizumab as First‐Line Therapy in Patients With Advanced Non‐squamous Non‐small‐Cell Lung Cancer Harbouring EGFR Mutations (JO25567): An Open‐Label, Randomised, Multicentre, Phase 2 Study</article-title>,” <source>Lancet Oncology</source>
+<volume>15</volume>, no. <issue>11</issue> (<year>2014</year>): <fpage>1236</fpage>–<lpage>1244</lpage>, <pub-id pub-id-type="doi">10.1016/S1470-2045(14)70381-X</pub-id>.<pub-id pub-id-type="pmid">25175099</pub-id>
+</mixed-citation></ref><ref id="cas16437-bib-0043"><label>43</label><mixed-citation publication-type="journal" id="cas16437-cit-0043">
+<string-name name-style="western">
+<given-names>H.</given-names>
+<surname>Saito</surname>
+</string-name>, <string-name name-style="western">
+<given-names>T.</given-names>
+<surname>Fukuhara</surname>
+</string-name>, <string-name name-style="western">
+<given-names>N.</given-names>
+<surname>Furuya</surname>
+</string-name>, et al., “<article-title>Erlotinib Plus Bevacizumab Versus Erlotinib Alone in Patients With EGFR‐Positive Advanced Non‐squamous Non‐small‐Cell Lung Cancer (NEJ026): Interim Analysis of an Open‐Label, Randomised, Multicentre, Phase 3 Trial</article-title>,” <source>Lancet Oncology</source>
+<volume>20</volume>, no. <issue>5</issue> (<year>2019</year>): <fpage>625</fpage>–<lpage>635</lpage>, <pub-id pub-id-type="doi">10.1016/S1470-2045(19)30035-X</pub-id>.<pub-id pub-id-type="pmid">30975627</pub-id>
+</mixed-citation></ref><ref id="cas16437-bib-0044"><label>44</label><mixed-citation publication-type="journal" id="cas16437-cit-0044">
+<string-name name-style="western">
+<given-names>M. C.</given-names>
+<surname>Piccirillo</surname>
+</string-name>, <string-name name-style="western">
+<given-names>L.</given-names>
+<surname>Bonanno</surname>
+</string-name>, <string-name name-style="western">
+<given-names>M. C.</given-names>
+<surname>Garassino</surname>
+</string-name>, et al., “<article-title>Addition of Bevacizumab to Erlotinib as First‐Line Treatment of Patients With EGFR‐Mutated Advanced Nonsquamous NSCLC: The BEVERLY Multicenter Randomized Phase 3 Trial</article-title>,” <source>Journal of Thoracic Oncology</source>
+<volume>17</volume>, no. <issue>9</issue> (<year>2022</year>): <fpage>1086</fpage>–<lpage>1097</lpage>, <pub-id pub-id-type="doi">10.1016/j.jtho.2022.05.008</pub-id>.<pub-id pub-id-type="pmid">35659580</pub-id>
+</mixed-citation></ref><ref id="cas16437-bib-0045"><label>45</label><mixed-citation publication-type="journal" id="cas16437-cit-0045">
+<string-name name-style="western">
+<given-names>Y.</given-names>
+<surname>Kawashima</surname>
+</string-name>, <string-name name-style="western">
+<given-names>T.</given-names>
+<surname>Fukuhara</surname>
+</string-name>, <string-name name-style="western">
+<given-names>H.</given-names>
+<surname>Saito</surname>
+</string-name>, et al., “<article-title>Bevacizumab Plus Erlotinib Versus Erlotinib Alone in Japanese Patients With Advanced, Metastatic, EGFR‐Mutant Non‐small‐Cell Lung Cancer (NEJ026): Overall Survival Analysis of an Open‐Label, Randomised, Multicentre, Phase 3 Trial</article-title>,” <source>Lancet Respiratory Medicine</source>
+<volume>10</volume>, no. <issue>1</issue> (<year>2022</year>): <fpage>72</fpage>–<lpage>82</lpage>, <pub-id pub-id-type="doi">10.1016/S2213-2600(21)00166-1</pub-id>.<pub-id pub-id-type="pmid">34454653</pub-id>
+</mixed-citation></ref><ref id="cas16437-bib-0046"><label>46</label><mixed-citation publication-type="journal" id="cas16437-cit-0046">
+<string-name name-style="western">
+<given-names>J. C.</given-names>
+<surname>Soria</surname>
+</string-name>, <string-name name-style="western">
+<given-names>Y.</given-names>
+<surname>Ohe</surname>
+</string-name>, <string-name name-style="western">
+<given-names>J.</given-names>
+<surname>Vansteenkiste</surname>
+</string-name>, et al., “<article-title>Osimertinib in Untreated EGFR‐Mutated Advanced Non‐Small‐Cell Lung Cancer</article-title>,” <source>New England Journal of Medicine</source>
+<volume>378</volume>, no. <issue>2</issue> (<year>2018</year>): <fpage>113</fpage>–<lpage>125</lpage>, <pub-id pub-id-type="doi">10.1056/NEJMoa1713137</pub-id>.<pub-id pub-id-type="pmid">29151359</pub-id>
+</mixed-citation></ref><ref id="cas16437-bib-0047"><label>47</label><mixed-citation publication-type="journal" id="cas16437-cit-0047">
+<string-name name-style="western">
+<given-names>S.</given-names>
+<surname>Lu</surname>
+</string-name>, <string-name name-style="western">
+<given-names>X.</given-names>
+<surname>Dong</surname>
+</string-name>, <string-name name-style="western">
+<given-names>H.</given-names>
+<surname>Jian</surname>
+</string-name>, et al., “<article-title>AENEAS: A Randomized Phase III Trial of Aumolertinib Versus Gefitinib as First‐Line Therapy for Locally Advanced or MetastaticNon‐Small‐Cell Lung Cancer With EGFR Exon 19 Deletion or L858R Mutations</article-title>,” <source>Journal of Clinical Oncology</source>
+<volume>40</volume>, no. <issue>27</issue> (<year>2022</year>): <fpage>3162</fpage>–<lpage>3171</lpage>, <pub-id pub-id-type="doi">10.1200/JCO.21.02641</pub-id>.<pub-id pub-id-type="pmid">35580297</pub-id>
+<pub-id pub-id-type="pmcid">PMC9509093</pub-id></mixed-citation></ref><ref id="cas16437-bib-0048"><label>48</label><mixed-citation publication-type="journal" id="cas16437-cit-0048">
+<string-name name-style="western">
+<given-names>Y.</given-names>
+<surname>Shi</surname>
+</string-name>, <string-name name-style="western">
+<given-names>G.</given-names>
+<surname>Chen</surname>
+</string-name>, <string-name name-style="western">
+<given-names>X.</given-names>
+<surname>Wang</surname>
+</string-name>, et al., “<article-title>Furmonertinib (AST2818) Versus Gefitinib as First‐Line Therapy for Chinese Patients With Locally Advanced or Metastatic EGFR Mutation‐Positive Non‐small‐Cell Lung Cancer (FURLONG): A Multicentre, Double‐Blind, Randomised Phase 3 Study</article-title>,” <source>Lancet Respiratory Medicine</source>
+<volume>10</volume>, no. <issue>11</issue> (<year>2022</year>): <fpage>1019</fpage>–<lpage>1028</lpage>, <pub-id pub-id-type="doi">10.1016/S2213-2600(22)00168-0</pub-id>.<pub-id pub-id-type="pmid">35662408</pub-id>
+</mixed-citation></ref><ref id="cas16437-bib-0049"><label>49</label><mixed-citation publication-type="journal" id="cas16437-cit-0049">
+<string-name name-style="western">
+<given-names>S. S.</given-names>
+<surname>Ramalingam</surname>
+</string-name>, <string-name name-style="western">
+<given-names>J.</given-names>
+<surname>Vansteenkiste</surname>
+</string-name>, <string-name name-style="western">
+<given-names>D.</given-names>
+<surname>Planchard</surname>
+</string-name>, et al., “<article-title>Overall Survival With Osimertinib in Untreated, EGFR‐Mutated Advanced NSCLC</article-title>,” <source>New England Journal of Medicine</source>
+<volume>382</volume>, no. <issue>1</issue> (<year>2020</year>): <fpage>41</fpage>–<lpage>50</lpage>, <pub-id pub-id-type="doi">10.1056/NEJMoa1913662</pub-id>.<pub-id pub-id-type="pmid">31751012</pub-id>
+</mixed-citation></ref><ref id="cas16437-bib-0050"><label>50</label><mixed-citation publication-type="journal" id="cas16437-cit-0050">
+<string-name name-style="western">
+<given-names>K.</given-names>
+<surname>Nakagawa</surname>
+</string-name>, <string-name name-style="western">
+<given-names>E. B.</given-names>
+<surname>Garon</surname>
+</string-name>, <string-name name-style="western">
+<given-names>T.</given-names>
+<surname>Seto</surname>
+</string-name>, et al., “<article-title>Ramucirumab Plus Erlotinib in Patients With Untreated, EGFR‐Mutated, Advanced Non‐small‐Cell Lung Cancer (RELAY): A Randomised, Double‐Blind, Placebo‐Controlled, Phase 3 Trial</article-title>,” <source>Lancet Oncology</source>
+<volume>20</volume>, no. <issue>12</issue> (<year>2019</year>): <fpage>1655</fpage>–<lpage>1669</lpage>, <pub-id pub-id-type="doi">10.1016/S1470-2045(19)30634-5</pub-id>.<pub-id pub-id-type="pmid">31591063</pub-id>
+</mixed-citation></ref></ref-list></back></article></pmc-articleset>
