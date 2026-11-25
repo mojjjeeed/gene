@@ -81,13 +81,15 @@ Distilled from the PRD so they live next to the plan. If this section and the PR
 *Notes:* `make db-up` starts a project-local Postgres 16 on port 5544 (no Docker, no system service); `make migrate`, `make migrate-down`, `make migrate-check` (up, down, up). Migrations are plain SQL in `services/agents/migrations/sql/`. Two roles: `a9_app` (request path, RLS applies, scoped by `app.user_id`) and `a9_worker` (trusted ingestion). Child tables use composite `(id, user_id)` foreign keys so a row cannot point at another user's parent. The licence gate is a trigger on `chunks` and `paper_assets` (abstract chunks exempt). Tests are `services/agents/tests/test_db_invariants.py`; they skip locally when Postgres is down and fail in CI (`A9_REQUIRE_DB=1`). `chunks.run_id` is deliberately not a foreign key, so deleting a user's runs never touches shared chunks.
 
 ### M0.3 Runs, jobs and the event stream
-- [ ] runs and jobs with deterministic idempotent job keys
-- [ ] Arq worker skeleton on Redis
-- [ ] Event schema: `stage_started`, `progress`, `partial_result`, `needs_input`, `stage_finished`, `run_failed`, `run_finished`; monotonic `seq` per run
-- [ ] SSE endpoint on the agents service, Next route handler proxy, `Last-Event-ID` replay
-- [ ] One reducer on the front end for all stages
+- [x] runs and jobs with deterministic idempotent job keys
+- [x] Arq worker skeleton on Redis
+- [x] Event schema: `stage_started`, `progress`, `partial_result`, `needs_input`, `stage_finished`, `run_failed`, `run_finished`; monotonic `seq` per run
+- [x] SSE endpoint on the agents service, Next route handler proxy, `Last-Event-ID` replay
+- [x] One reducer on the front end for all stages
 
 **Done when:** a dummy ten-step job streams to the browser, survives a worker kill mid-run, and replays the backlog after a reconnect instead of showing a spinner.
+
+*Notes:* `make dev-up` starts Postgres and Redis locally (ports 5544 and 6390) and migrates; `make api` and `make worker` run the services; `/dev/runs` in the frontend starts and watches a dummy run (needs `A9_ENABLE_DEV_ENDPOINTS=1` and `A9_INTERNAL_KEY`). Design: Postgres is the source of truth for events (`run_events`, `seq` from `runs.last_seq`, written in the same transaction as the state change); Redis only wakes live listeners and the stream falls back to polling. Jobs are leased (`heartbeat_at`, fenced on `attempts`), checkpointed per step in the same transaction as the step's event, and a reaper cron re-enqueues stale jobs. Proof: `services/agents/tests/test_run_stream_e2e.py` (real API, two Arq workers, SIGKILL mid-run, replay by `Last-Event-ID`), `frontend/lib/runs/reducer.test.ts`, and a manual curl run through the Next proxy. *Not yet verified:* the `/dev/runs` page rendered in a real browser (the proxy, reducer and hook are tested; the page itself was only confirmed to return 200).
 
 ### M0.4 Feature flags and fixture fallback
 - [ ] Server-evaluated flag per surface

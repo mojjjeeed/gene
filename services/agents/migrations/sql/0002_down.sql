@@ -1,0 +1,5 @@
+DROP INDEX IF EXISTS jobs_status_heartbeat_idx;
+ALTER TABLE jobs DROP COLUMN IF EXISTS checkpoint;
+ALTER TABLE jobs DROP COLUMN IF EXISTS heartbeat_at;
+DROP TABLE IF EXISTS run_events;
+ALTER TABLE runs DROP COLUMN IF EXISTS last_seq;

@@ -6,12 +6,16 @@ export UV_PROJECT_ENVIRONMENT ?= .venv-a9
 PG_BIN  ?= /opt/homebrew/opt/postgresql@16/bin
 PG_PORT ?= 5544
 PGDATA  ?= $(CURDIR)/.pgdata
+REDIS_BIN  ?= /opt/homebrew/bin/redis-server
+REDIS_CLI  ?= /opt/homebrew/bin/redis-cli
+REDIS_PORT ?= 6390
+export A9_REDIS_URL     ?= redis://localhost:$(REDIS_PORT)/0
 export A9_DATABASE_URL  ?= postgresql+psycopg://localhost:$(PG_PORT)/a9
 export A9_PG_ADMIN_URL  ?= postgresql://localhost:$(PG_PORT)/postgres
 
 ALEMBIC = uv run --no-sync alembic -c services/agents/alembic.ini
 
-.PHONY: setup generate check-generated lint test typecheck db-up db-down migrate migrate-down migrate-check
+.PHONY: redis-up redis-down dev-up worker api setup generate check-generated lint test typecheck db-up db-down migrate migrate-down migrate-check
 
 setup:
 	uv sync --all-packages
@@ -31,6 +35,20 @@ db-up: ## start the local Postgres cluster (creates it and the `a9` database on 
 
 db-down: ## stop the local Postgres cluster
 	@$(PG_BIN)/pg_ctl -D "$(PGDATA)" stop -m fast >/dev/null 2>&1 || true
+
+redis-up: ## start a project-local Redis
+	@$(REDIS_CLI) -p $(REDIS_PORT) ping >/dev/null 2>&1 || (mkdir -p .redisdata && $(REDIS_BIN) --port $(REDIS_PORT) --dir "$(CURDIR)/.redisdata" --save "" --appendonly no --daemonize yes >/dev/null)
+
+redis-down:
+	@$(REDIS_CLI) -p $(REDIS_PORT) shutdown nosave >/dev/null 2>&1 || true
+
+dev-up: db-up redis-up migrate ## everything the services need locally
+
+worker: ## run an Arq worker
+	uv run --no-sync arq a9_workers.worker.WorkerSettings
+
+api: ## run the agents service (needs A9_INTERNAL_KEY; A9_ENABLE_DEV_ENDPOINTS=1 for the dummy run)
+	uv run --no-sync uvicorn a9_agents.app:app --port 8100 --reload
 
 migrate: ## apply all migrations to A9_DATABASE_URL
 	$(ALEMBIC) upgrade head

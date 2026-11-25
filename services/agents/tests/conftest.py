@@ -129,3 +129,18 @@ def seed_paper(
     ).fetchone()
     assert row is not None
     return uuid.UUID(str(row[0]))
+
+
+@pytest.fixture(scope="session")
+def redis_url_for_tests() -> str:
+    """Redis for worker/stream tests. Same skip-or-fail rule as Postgres."""
+    import redis as redis_sync
+
+    url = os.environ.get("A9_REDIS_URL", "redis://localhost:6390/0")
+    try:
+        redis_sync.Redis.from_url(url, socket_connect_timeout=2).ping()
+    except redis_sync.RedisError as exc:
+        if os.environ.get("A9_REQUIRE_DB") == "1":
+            pytest.fail(f"Redis required but unreachable at {url}: {exc}")
+        pytest.skip(f"Redis not reachable at {url} (run `make redis-up`)")
+    return url

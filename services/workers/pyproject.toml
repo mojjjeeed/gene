@@ -2,7 +2,7 @@
 name = "a9-workers"
 version = "0.0.0"
 requires-python = ">=3.12"
-dependencies = ["a9-contracts", "pydantic>=2.8"]
+dependencies = ["a9-contracts", "a9-agents", "pydantic>=2.8"]
 
 [build-system]
 requires = ["hatchling"]

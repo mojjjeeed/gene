@@ -21,6 +21,7 @@ dev = [
   "datamodel-code-generator[black,isort]>=0.28",
   "mypy>=1.13",
   "pytest>=8",
+  "pytest-asyncio>=0.24",
   "ruff>=0.8",
 ]
 
@@ -30,6 +31,8 @@ extend-exclude = ["packages/contracts/python/a9_contracts", "packages/contracts/
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]
+# Line length is the formatter's job; inline SQL strings are allowed to run long.
+ignore = ["E501"]
 
 [tool.mypy]
 strict = true
@@ -37,7 +40,5 @@ plugins = ["pydantic.mypy"]
 
 [tool.pytest.ini_options]
 testpaths = ["services", "packages/contracts/tests"]
-
-[tool.ruff.lint.per-file-ignores]
-# Inline SQL in tests reads better on one line.
-"**/tests/**" = ["E501"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
