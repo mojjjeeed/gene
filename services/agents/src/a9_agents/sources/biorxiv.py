@@ -121,6 +121,7 @@ class BioRxiv:
         server = str(item.get("server", "")).lower()
         source = "medrxiv" if "med" in server else "biorxiv"
         licence = item.get("license")
+        published = norm_doi(item.get("published"))  # "NA" until the journal version exists
         return LiteratureRecord.model_validate(
             {
                 "source": source,
@@ -133,6 +134,7 @@ class BioRxiv:
                 "year": year_of(item.get("date")),
                 "journal": "medRxiv" if source == "medrxiv" else "bioRxiv",
                 "doi": doi,
+                "related_dois": [published] if published and published != doi else [],
                 "pmid": None,
                 "pmcid": None,
                 "arxiv_id": None,

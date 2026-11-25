@@ -34,6 +34,12 @@ class LiteratureRecord(BaseModel):
     year: int | None
     journal: str | None
     doi: Annotated[str | None, Field(description='Lower-case, no URL prefix.')]
+    related_dois: Annotated[
+        list[str],
+        Field(
+            description="DOIs of other versions the source itself asserts, e.g. a preprint's published version. Lower-case, no URL prefix."
+        ),
+    ]
     pmid: str | None
     pmcid: Annotated[
         str | None,

@@ -119,6 +119,7 @@ class OpenAlex:
                 "year": w.get("publication_year"),
                 "journal": ((primary.get("source") or {}).get("display_name")),
                 "doi": doi,
+                "related_dois": [],
                 "pmid": norm_pmid(ids.get("pmid")),
                 "pmcid": norm_pmcid(ids.get("pmcid")),
                 "arxiv_id": arxiv,

@@ -22,7 +22,7 @@ from a9_agents.sources.base import (
 from a9_agents.sources.http import PolicedClient, Policy
 
 BASE_URL = "https://api.crossref.org/works"
-SELECT = "DOI,title,abstract,author,container-title,issued,type,license,URL"
+SELECT = "DOI,title,abstract,author,container-title,issued,type,license,URL,relation"
 
 
 class Crossref:
@@ -86,6 +86,16 @@ class Crossref:
         licences = item.get("license") or []
         journals = item.get("container-title") or []
         kind = item.get("type")
+        # Publisher-asserted links between a preprint and its journal version, in either direction.
+        relation = item.get("relation") or {}
+        related = sorted(
+            {
+                d
+                for key in ("has-preprint", "is-preprint-of")
+                for link in relation.get(key, [])
+                if link.get("id-type") == "doi" and (d := norm_doi(link.get("id")))
+            }
+        )
         return LiteratureRecord.model_validate(
             {
                 "source": "crossref",
@@ -100,6 +110,7 @@ class Crossref:
                 "year": parts[0][0],
                 "journal": journals[0] if journals else None,
                 "doi": doi,
+                "related_dois": related,
                 "pmid": None,
                 "pmcid": None,
                 "arxiv_id": None,

@@ -11,8 +11,10 @@ from collections.abc import Awaitable, Callable
 from typing import Any
 
 from a9_agents.db import Pool, open_pool, scoped
+from a9_agents.embedder import make_embedder
 from a9_agents.plan_graph import build_plan_graph
 from a9_agents.planner import make_planner
+from a9_agents.retractions import make_retraction_checker
 from a9_agents.settings import database_dsn, job_lease_seconds, queue_name, redis_url
 from a9_agents.sources.registry import build_sources
 from arq import cron
@@ -56,12 +58,16 @@ async def startup(ctx: dict[str, Any]) -> None:
     await ctx["checkpoint_pool"].open(wait=True, timeout=10)
     saver = AsyncPostgresSaver(ctx["checkpoint_pool"])
     await saver.setup()
+    embedder = make_embedder()
     ctx["plan_graph"] = build_plan_graph(
         pool=ctx["pool"],
         redis=ctx["pubsub_redis"],
         planner=make_planner(),
         sources=build_sources(),
         source_limit=int(os.environ.get("A9_SOURCE_LIMIT", "100")),
+        embedder=embedder,
+        similarity_threshold=embedder.default_threshold,
+        retraction_checker=make_retraction_checker(),
     ).compile(checkpointer=saver)
 
 

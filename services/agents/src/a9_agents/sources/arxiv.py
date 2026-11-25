@@ -97,6 +97,7 @@ class Arxiv:
                 "year": year_of(_t(entry.find(f"{ATOM}published"))),
                 "journal": _t(entry.find(f"{ARXIV}journal_ref")),
                 "doi": doi,
+                "related_dois": [],
                 "pmid": None,
                 "pmcid": None,
                 "arxiv_id": ident,

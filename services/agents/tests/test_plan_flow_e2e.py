@@ -81,6 +81,7 @@ def flow(
         "A9_ENABLE_DEV_ENDPOINTS": "1",
         "A9_MODEL_PROVIDER": "stub",
         "A9_SOURCES": "fixture,fixture_down,fixture_partial",
+        "A9_RETRACTION_CHECK": "fixture",
         "A9_JOB_LEASE_SECONDS": "2",
         "A9_REAP_INTERVAL_SECONDS": "1",
     }
@@ -241,7 +242,7 @@ def test_the_run_resumed_on_the_same_thread_from_the_checkpoint(flow: Flow) -> N
 
 def test_event_sequence_is_complete_and_names_the_approved_version(flow: Flow) -> None:
     rows = flow.sql("SELECT seq, data FROM run_events WHERE run_id = %s ORDER BY seq", flow.run_id)
-    assert [r[0] for r in rows] == list(range(1, 15))
+    assert [r[0] for r in rows] == list(range(1, 21))
     kinds = [(r[1]["type"], (r[1].get("payload") or {}).get("event")) for r in rows]
     assert kinds[:5] == [
         ("stage_started", None),
@@ -263,7 +264,17 @@ def test_event_sequence_is_complete_and_names_the_approved_version(flow: Flow) -
     assert sorted(kinds[6:12]) == sorted(
         [("progress", None)] * 3 + [("partial_result", "source_done")] * 3
     )
-    assert kinds[12:] == [("stage_finished", None), ("run_finished", None)]
+    assert kinds[12:] == [
+        ("stage_finished", None),  # search
+        ("stage_started", None),
+        ("partial_result", "resolved"),
+        ("stage_finished", None),  # resolve
+        ("stage_started", None),
+        ("partial_result", "retraction_check"),
+        ("stage_finished", None),  # retractions
+        ("run_finished", None),
+    ]
+    assert [rows[i][1]["stage"] for i in (13, 16)] == ["resolve", "retractions"]
     progress = [r[1]["done"] for r in rows[6:12] if r[1]["type"] == "progress"]
     assert progress == [1, 2, 3] and all(
         r[1]["total"] == 3 for r in rows[6:12] if r[1]["type"] == "progress"
@@ -355,3 +366,50 @@ def test_the_event_stream_replays_the_whole_story_to_a_late_client(flow: Flow) -
             if len(seqs) == 5:
                 break  # the run has no terminal event yet, so the stream stays open: stop after the backlog
     assert seqs == [1, 2, 3, 4, 5]
+
+
+def test_five_records_from_overlapping_sources_resolve_to_three_papers_and_say_why(
+    flow: Flow,
+) -> None:
+    ((payload,),) = flow.sql(
+        "SELECT data->'payload' FROM run_events WHERE run_id = %s AND data @> %s::jsonb",
+        flow.run_id, json.dumps({"type": "partial_result", "payload": {"event": "resolved"}}),
+    )  # fmt: skip
+    assert (payload["records"], payload["papers"], payload["duplicates_collapsed"]) == (5, 3, 2)
+    assert payload["merged_by"] == {
+        "title_author": 2
+    }  # the same two sample papers, seen by two sources
+    assert (payload["created"], payload["updated"], payload["ambiguous"]) == (3, 0, 0)
+
+    rows = flow.sql(
+        "SELECT paper_id, count(*), array_agg(DISTINCT merge_reasons::text) FROM source_records WHERE run_id = %s GROUP BY paper_id ORDER BY 2 DESC",
+        flow.run_id,
+    )  # fmt: skip
+    assert [r[1] for r in rows] == [2, 2, 1] and all(r[0] for r in rows), (
+        "every staged record points at a paper"
+    )
+
+
+def test_the_retracted_paper_is_flagged_and_still_in_the_corpus(flow: Flow) -> None:
+    ((payload,),) = flow.sql(
+        "SELECT data->'payload' FROM run_events WHERE run_id = %s AND data @> %s::jsonb",
+        flow.run_id, json.dumps({"type": "partial_result", "payload": {"event": "retraction_check"}}),
+    )  # fmt: skip
+    assert payload["papers"] == 3 and payload["checked"] == 3 and payload["not_checked"] == 0
+    assert [f["status"] for f in payload["flagged"]] == ["retracted"]
+
+    rows = flow.sql(
+        """SELECT p.doi, p.retraction_status, p.retraction_checked_at IS NOT NULL
+           FROM papers p JOIN source_records s ON s.paper_id = p.id WHERE s.run_id = %s
+           GROUP BY p.id ORDER BY p.doi""",
+        flow.run_id,
+    )  # fmt: skip
+    assert len(rows) == 3, "flagging never drops a paper"
+    statuses = {r[0]: (r[1], r[2]) for r in rows}
+    assert statuses["10.0000/fixture.retracted.fixture.2"] == ("retracted", True)
+    assert sum(1 for s, _ in statuses.values() if s == "none") == 2
+
+
+def test_retraction_checking_did_not_add_a_coverage_gap(flow: Flow) -> None:
+    ((notes,),) = flow.sql("SELECT coverage_notes FROM runs WHERE id = %s", flow.run_id)
+    assert sorted(n["source"] for n in notes) == ["fixture_down", "fixture_partial"]

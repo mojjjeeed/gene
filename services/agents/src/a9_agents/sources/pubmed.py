@@ -164,6 +164,7 @@ class PubMed:
                 "year": year,
                 "journal": _text(art.find("Journal/Title")),
                 "doi": doi,
+                "related_dois": [],
                 "pmid": re.sub(r"\D", "", pmid),
                 "pmcid": norm_pmcid(ids.get("pmc")),
                 "arxiv_id": None,

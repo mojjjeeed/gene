@@ -100,6 +100,7 @@ class EuropePmc:
                 "year": year_of(r.get("pubYear")),
                 "journal": journal,
                 "doi": doi,
+                "related_dois": [],
                 "pmid": norm_pmid(r.get("pmid")),
                 "pmcid": norm_pmcid(r.get("pmcid")),
                 "arxiv_id": None,

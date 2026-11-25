@@ -6,28 +6,131 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "source", "source_id", "title", "abstract", "authors", "year", "journal",
-    "doi", "pmid", "pmcid", "arxiv_id", "url", "licence", "is_open_access", "is_preprint", "publication_types"
+    "source",
+    "source_id",
+    "title",
+    "abstract",
+    "authors",
+    "year",
+    "journal",
+    "doi",
+    "related_dois",
+    "pmid",
+    "pmcid",
+    "arxiv_id",
+    "url",
+    "licence",
+    "is_open_access",
+    "is_preprint",
+    "publication_types"
   ],
   "properties": {
     "source": {
       "type": "string",
-      "enum": ["europe_pmc", "pubmed", "openalex", "crossref", "arxiv", "biorxiv", "medrxiv", "fixture"]
+      "enum": [
+        "europe_pmc",
+        "pubmed",
+        "openalex",
+        "crossref",
+        "arxiv",
+        "biorxiv",
+        "medrxiv",
+        "fixture"
+      ]
     },
-    "source_id": { "type": "string", "minLength": 1, "description": "The source's own identifier for the record." },
-    "title": { "type": "string", "minLength": 1 },
-    "abstract": { "type": ["string", "null"] },
-    "authors": { "type": "array", "items": { "type": "string" } },
-    "year": { "type": ["integer", "null"] },
-    "journal": { "type": ["string", "null"] },
-    "doi": { "type": ["string", "null"], "description": "Lower-case, no URL prefix." },
-    "pmid": { "type": ["string", "null"] },
-    "pmcid": { "type": ["string", "null"], "description": "Upper-case with the PMC prefix, e.g. PMC1234567." },
-    "arxiv_id": { "type": ["string", "null"], "description": "Without version suffix." },
-    "url": { "type": "string", "minLength": 1, "description": "Where a reader can open the record. Must resolve." },
-    "licence": { "type": ["string", "null"], "description": "As reported by the source. null means unknown, never assumed open." },
-    "is_open_access": { "type": ["boolean", "null"] },
-    "is_preprint": { "type": "boolean" },
-    "publication_types": { "type": "array", "items": { "type": "string" } }
+    "source_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The source's own identifier for the record."
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "abstract": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "authors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "year": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "journal": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "doi": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Lower-case, no URL prefix."
+    },
+    "related_dois": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "DOIs of other versions the source itself asserts, e.g. a preprint's published version. Lower-case, no URL prefix."
+    },
+    "pmid": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "pmcid": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Upper-case with the PMC prefix, e.g. PMC1234567."
+    },
+    "arxiv_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Without version suffix."
+    },
+    "url": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Where a reader can open the record. Must resolve."
+    },
+    "licence": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "As reported by the source. null means unknown, never assumed open."
+    },
+    "is_open_access": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "is_preprint": {
+      "type": "boolean"
+    },
+    "publication_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
   }
 }

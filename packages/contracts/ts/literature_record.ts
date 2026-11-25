@@ -18,6 +18,10 @@ export interface LiteratureRecord {
    * Lower-case, no URL prefix.
    */
   doi: string | null;
+  /**
+   * DOIs of other versions the source itself asserts, e.g. a preprint's published version. Lower-case, no URL prefix.
+   */
+  related_dois: string[];
   pmid: string | null;
   /**
    * Upper-case with the PMC prefix, e.g. PMC1234567.
