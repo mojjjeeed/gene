@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://a9.local/schemas/provenance-envelope.json",
+  "title": "ProvenanceEnvelope",
+  "description": "Carried by every stored unit (chunk, claim). Nothing enters the index without a complete envelope; a citation is a lookup against it.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "paper_id",
+    "section_path",
+    "page",
+    "char_start",
+    "char_end",
+    "parser_version",
+    "extraction_model",
+    "prompt_version",
+    "run_id"
+  ],
+  "properties": {
+    "paper_id": { "type": "string", "minLength": 1 },
+    "section_path": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "description": "Heading path from the document root, e.g. [\"Methods\", \"Assay\"]."
+    },
+    "page": { "type": "integer", "minimum": 1 },
+    "char_start": { "type": "integer", "minimum": 0 },
+    "char_end": { "type": "integer", "minimum": 0 },
+    "parser_version": { "type": "string", "minLength": 1 },
+    "extraction_model": { "type": "string", "minLength": 1 },
+    "prompt_version": { "type": "string", "minLength": 1 },
+    "run_id": { "type": "string", "minLength": 1 }
+  }
+}

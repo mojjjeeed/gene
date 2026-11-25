@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://a9.local/schemas/run-event.json",
+  "title": "RunEvent",
+  "description": "The one event schema for every long run. seq is monotonic per run; the stream replays from Last-Event-ID.",
+  "oneOf": [
+    { "$ref": "#/$defs/StageStarted" },
+    { "$ref": "#/$defs/Progress" },
+    { "$ref": "#/$defs/PartialResult" },
+    { "$ref": "#/$defs/NeedsInput" },
+    { "$ref": "#/$defs/StageFinished" },
+    { "$ref": "#/$defs/RunFailed" },
+    { "$ref": "#/$defs/RunFinished" }
+  ],
+  "$defs": {
+    "StageStarted": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "run_id", "seq", "ts", "stage"],
+      "properties": {
+        "type": { "const": "stage_started" },
+        "run_id": { "type": "string", "minLength": 1 },
+        "seq": { "type": "integer", "minimum": 0 },
+        "ts": { "type": "string", "format": "date-time" },
+        "trace_id": { "type": "string" },
+        "stage": { "type": "string", "minLength": 1 }
+      }
+    },
+    "Progress": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "run_id", "seq", "ts", "stage", "done", "total"],
+      "properties": {
+        "type": { "const": "progress" },
+        "run_id": { "type": "string", "minLength": 1 },
+        "seq": { "type": "integer", "minimum": 0 },
+        "ts": { "type": "string", "format": "date-time" },
+        "trace_id": { "type": "string" },
+        "stage": { "type": "string", "minLength": 1 },
+        "done": { "type": "integer", "minimum": 0 },
+        "total": { "type": ["integer", "null"], "minimum": 0 }
+      }
+    },
+    "PartialResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "run_id", "seq", "ts", "stage", "payload"],
+      "properties": {
+        "type": { "const": "partial_result" },
+        "run_id": { "type": "string", "minLength": 1 },
+        "seq": { "type": "integer", "minimum": 0 },
+        "ts": { "type": "string", "format": "date-time" },
+        "trace_id": { "type": "string" },
+        "stage": { "type": "string", "minLength": 1 },
+        "payload": { "type": "object", "additionalProperties": true }
+      }
+    },
+    "NeedsInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "run_id", "seq", "ts", "stage", "question"],
+      "properties": {
+        "type": { "const": "needs_input" },
+        "run_id": { "type": "string", "minLength": 1 },
+        "seq": { "type": "integer", "minimum": 0 },
+        "ts": { "type": "string", "format": "date-time" },
+        "trace_id": { "type": "string" },
+        "stage": { "type": "string", "minLength": 1 },
+        "question": { "type": "object", "additionalProperties": true, "description": "Interrupt payload; the answer resumes the same thread." }
+      }
+    },
+    "StageFinished": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "run_id", "seq", "ts", "stage"],
+      "properties": {
+        "type": { "const": "stage_finished" },
+        "run_id": { "type": "string", "minLength": 1 },
+        "seq": { "type": "integer", "minimum": 0 },
+        "ts": { "type": "string", "format": "date-time" },
+        "trace_id": { "type": "string" },
+        "stage": { "type": "string", "minLength": 1 }
+      }
+    },
+    "RunFailed": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "run_id", "seq", "ts", "error"],
+      "properties": {
+        "type": { "const": "run_failed" },
+        "run_id": { "type": "string", "minLength": 1 },
+        "seq": { "type": "integer", "minimum": 0 },
+        "ts": { "type": "string", "format": "date-time" },
+        "trace_id": { "type": "string" },
+        "error": { "type": "string", "minLength": 1 }
+      }
+    },
+    "RunFinished": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "run_id", "seq", "ts", "coverage_notes"],
+      "properties": {
+        "type": { "const": "run_finished" },
+        "run_id": { "type": "string", "minLength": 1 },
+        "seq": { "type": "integer", "minimum": 0 },
+        "ts": { "type": "string", "format": "date-time" },
+        "trace_id": { "type": "string" },
+        "coverage_notes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["source", "reason"],
+            "properties": {
+              "source": { "type": "string", "minLength": 1 },
+              "reason": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      }
+    }
+  }
+}

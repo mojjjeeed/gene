@@ -1,0 +1,39 @@
+[project]
+name = "a9"
+version = "0.0.0"
+description = "A9 workspace root (virtual). Legacy Streamlit code in the repo root is not part of this project."
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.uv]
+package = false
+
+[tool.uv.workspace]
+members = ["services/agents", "services/workers", "packages/contracts"]
+
+[tool.uv.sources]
+a9-contracts = { workspace = true }
+a9-agents = { workspace = true }
+a9-workers = { workspace = true }
+
+[dependency-groups]
+dev = [
+  "datamodel-code-generator[black,isort]>=0.28",
+  "mypy>=1.13",
+  "pytest>=8",
+  "ruff>=0.8",
+]
+
+[tool.ruff]
+line-length = 100
+extend-exclude = ["packages/contracts/python/a9_contracts", "packages/contracts/tests/fixtures"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.mypy]
+strict = true
+plugins = ["pydantic.mypy"]
+
+[tool.pytest.ini_options]
+testpaths = ["services", "packages/contracts/tests"]

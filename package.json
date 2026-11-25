@@ -1,0 +1,11 @@
+{
+  "name": "a9",
+  "private": true,
+  "packageManager": "pnpm@12.23.0",
+  "scripts": {
+    "generate": "pnpm --filter @a9/contracts generate",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "test": "pnpm -r --if-present test",
+    "lint": "pnpm -r --if-present lint"
+  }
+}

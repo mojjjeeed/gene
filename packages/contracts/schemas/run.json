@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://a9.local/schemas/run.json",
+  "title": "Run",
+  "description": "A durable unit of long-running work, created in the agent service and reported back as events.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "conversation_id", "kind", "status", "created_at", "coverage_notes"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "conversation_id": { "type": "string", "minLength": 1 },
+    "kind": { "type": "string", "enum": ["ingest", "design", "dossier"] },
+    "status": {
+      "type": "string",
+      "enum": ["queued", "running", "needs_input", "failed", "finished"]
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "coverage_notes": {
+      "type": "array",
+      "description": "Named reduced-coverage notes. A source outage appears here, never as a run failure.",
+      "items": { "$ref": "#/$defs/CoverageNote" }
+    }
+  },
+  "$defs": {
+    "CoverageNote": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "reason"],
+      "properties": {
+        "source": { "type": "string", "minLength": 1, "description": "Named source, e.g. europe_pmc." },
+        "reason": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}
