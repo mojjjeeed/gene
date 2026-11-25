@@ -109,16 +109,18 @@ Distilled from the PRD so they live next to the plan. If this section and the PR
 *Notes:* `SearchPlan` is a schema in `packages/contracts`. `Planner` has two implementations behind `A9_MODEL_PROVIDER` (default `stub`): `StubPlanner` is deterministic, invents no synonyms or MeSH terms, and stamps `generated_by: "stub"` (the UI shows a "placeholder plan" badge); `LlmPlanner` + `AnthropicModelClient` force one tool call with the plan schema. **The Anthropic path has only been tested against a fake client, never the real API.** The graph (`plan_graph.py`: plan, request approval, `interrupt()`, finish) checkpoints to Postgres under the run's `thread_id`; each node is idempotent per run. Edits create new `search_plans` versions (stale or post-approval edits get 409); approval sets `approved_by`/`approved_at`, writes the audit log, and enqueues a `resume_plan` job keyed on the plan so a double-click is a no-op. Proof: `test_plan_flow_e2e.py` kills the worker while parked, edits and approves while no worker runs, then starts a new worker that finishes the plan stage on the same thread. After approval the run stays `running` until the search stage exists (M0.6). UI: `components/plan/PlanEditor.tsx` and `/dev/plan` (ids are in the URL, so another device sees the same state); it is not yet mounted in the main workspace.
 
 ### M0.6 Source adapters — Parallel (one adapter per PR)
-- [ ] `LiteratureSource` protocol: `search(plan) -> Iterable[Record]`
-- [ ] Europe PMC
-- [ ] PubMed E-utilities
-- [ ] OpenAlex
-- [ ] Crossref
-- [ ] arXiv
-- [ ] bioRxiv and medRxiv
-- [ ] Per-source rate limit, retry with backoff, bounded semaphore
+- [x] `LiteratureSource` protocol: `search(plan) -> Iterable[Record]`
+- [x] Europe PMC
+- [x] PubMed E-utilities
+- [x] OpenAlex
+- [x] Crossref
+- [x] arXiv
+- [x] bioRxiv and medRxiv
+- [x] Per-source rate limit, retry with backoff, bounded semaphore
 
 **Done when:** each adapter has contract tests against recorded cassettes, and killing one source mid-run produces a named reduced-coverage note on the run rather than a failure.
+
+*Notes:* adapters live in `services/agents/src/a9_agents/sources/`. The protocol is `search(plan, *, limit) -> SearchOutcome` (async, with an optional `partial_reason`) rather than a bare iterable, so a source that fails part-way keeps its records *and* says why. `search_all` runs sources concurrently; a down, slow, partial or crashing source becomes a `{source, reason}` coverage note on the run, and the run still finishes. Records are staged in `source_records` for M0.7. `A9_SOURCES` picks the sources (default: the seven live ones; `fixture`, `fixture_down`, `fixture_partial` need no network). Cassettes in `tests/cassettes` are real recorded responses; re-record deliberately with `A9_RECORD_CASSETTES=1 .venv-a9/bin/python services/agents/tests/record_cassettes.py [source]`. **Things worth knowing:** bioRxiv/medRxiv have no keyword search, so they scan a recent window and filter client-side (the note says exactly what was scanned); Europe PMC took ~16 s live, close to the 20 s first-paper budget; sources report licences as free text (`cc_no`, `cc by`, a URL), so the licence evaluator must default to *not permitted* for anything it does not recognise; requests carry no contact details unless `A9_CONTACT_EMAIL` is set. The adapters were committed together rather than one per PR because they share the HTTP layer, the cassette tool and the contract-test file.
 
 ### M0.7 Identity, dedup and retraction
 - [ ] Identity resolution: DOI, then PMID, PMCID, arXiv id

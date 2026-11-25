@@ -14,6 +14,7 @@ from a9_agents.db import Pool, open_pool, scoped
 from a9_agents.plan_graph import build_plan_graph
 from a9_agents.planner import make_planner
 from a9_agents.settings import database_dsn, job_lease_seconds, queue_name, redis_url
+from a9_agents.sources.registry import build_sources
 from arq import cron
 from arq.connections import RedisSettings
 from langgraph.checkpoint.postgres.aio import AsyncPostgresSaver
@@ -56,7 +57,11 @@ async def startup(ctx: dict[str, Any]) -> None:
     saver = AsyncPostgresSaver(ctx["checkpoint_pool"])
     await saver.setup()
     ctx["plan_graph"] = build_plan_graph(
-        pool=ctx["pool"], redis=ctx["pubsub_redis"], planner=make_planner()
+        pool=ctx["pool"],
+        redis=ctx["pubsub_redis"],
+        planner=make_planner(),
+        sources=build_sources(),
+        source_limit=int(os.environ.get("A9_SOURCE_LIMIT", "100")),
     ).compile(checkpointer=saver)
 
 

@@ -80,6 +80,7 @@ def flow(
         "A9_INTERNAL_KEY": KEY,
         "A9_ENABLE_DEV_ENDPOINTS": "1",
         "A9_MODEL_PROVIDER": "stub",
+        "A9_SOURCES": "fixture,fixture_down,fixture_partial",
         "A9_JOB_LEASE_SECONDS": "2",
         "A9_REAP_INTERVAL_SECONDS": "1",
     }
@@ -158,7 +159,7 @@ def flow(
                 ).fetchone()
             return row is not None
 
-        _until(finished, 40, "the resumed run to finish its plan stage")
+        _until(finished, 40, "the resumed run to finish")
 
         f = Flow(
             base=base, database_url=migrated_url, user=user, conversation_id=conv, run_id=run_id,
@@ -232,7 +233,7 @@ def test_the_run_resumed_on_the_same_thread_from_the_checkpoint(flow: Flow) -> N
     ((status, thread_id),) = flow.sql(
         "SELECT status, thread_id FROM runs WHERE id = %s", flow.run_id
     )
-    assert status == "running"  # the search stage arrives in M0.6; the plan stage is complete
+    assert status == "finished"  # a source being down is reduced coverage, not a failed run
     assert thread_id == f"run-{flow.run_id}"
     ((checkpoints,),) = flow.sql("SELECT count(*) FROM checkpoints WHERE thread_id = %s", thread_id)
     assert checkpoints >= 4  # one per graph step, all under the one thread
@@ -240,9 +241,9 @@ def test_the_run_resumed_on_the_same_thread_from_the_checkpoint(flow: Flow) -> N
 
 def test_event_sequence_is_complete_and_names_the_approved_version(flow: Flow) -> None:
     rows = flow.sql("SELECT seq, data FROM run_events WHERE run_id = %s ORDER BY seq", flow.run_id)
-    assert [r[0] for r in rows] == [1, 2, 3, 4, 5]
+    assert [r[0] for r in rows] == list(range(1, 15))
     kinds = [(r[1]["type"], (r[1].get("payload") or {}).get("event")) for r in rows]
-    assert kinds == [
+    assert kinds[:5] == [
         ("stage_started", None),
         ("partial_result", "plan_created"),
         ("needs_input", None),
@@ -258,6 +259,61 @@ def test_event_sequence_is_complete_and_names_the_approved_version(flow: Flow) -
         rows[3][1]["payload"]["plan_id"] == flow.plan_v2["id"]
         and rows[3][1]["payload"]["version"] == 2
     )
+    assert kinds[5] == ("stage_started", None) and rows[5][1]["stage"] == "search"
+    assert sorted(kinds[6:12]) == sorted(
+        [("progress", None)] * 3 + [("partial_result", "source_done")] * 3
+    )
+    assert kinds[12:] == [("stage_finished", None), ("run_finished", None)]
+    progress = [r[1]["done"] for r in rows[6:12] if r[1]["type"] == "progress"]
+    assert progress == [1, 2, 3] and all(
+        r[1]["total"] == 3 for r in rows[6:12] if r[1]["type"] == "progress"
+    )
+
+
+def test_every_source_is_reported_and_a_dead_one_becomes_a_named_note_not_a_failure(
+    flow: Flow,
+) -> None:
+    rows = flow.sql(
+        "SELECT data->'payload' FROM run_events WHERE run_id = %s AND data @> %s::jsonb ORDER BY seq",
+        flow.run_id, json.dumps({"type": "partial_result", "payload": {"event": "source_done"}}),
+    )  # fmt: skip
+    by_source = {r[0]["source"]: r[0] for r in rows}
+    assert set(by_source) == {"fixture", "fixture_down", "fixture_partial"}
+    assert (
+        by_source["fixture"]["count"],
+        by_source["fixture"]["error"],
+        by_source["fixture"]["partial_reason"],
+    ) == (3, None, None)
+    assert (
+        by_source["fixture_down"]["count"] == 0 and "HTTP 503" in by_source["fixture_down"]["error"]
+    )
+    assert (
+        by_source["fixture_partial"]["count"] == 2
+        and "stopped early after 2 records" in by_source["fixture_partial"]["partial_reason"]
+    )
+
+    ((notes,),) = flow.sql("SELECT coverage_notes FROM runs WHERE id = %s", flow.run_id)
+    assert sorted(n["source"] for n in notes) == ["fixture_down", "fixture_partial"]
+    assert all(n["reason"] for n in notes)
+    ((finished,),) = flow.sql(
+        "SELECT data->'coverage_notes' FROM run_events WHERE run_id = %s AND type = 'run_finished'",
+        flow.run_id,
+    )
+    assert finished == notes  # the user sees the same named gaps the run recorded
+
+
+def test_records_from_surviving_sources_were_staged_for_dedup(flow: Flow) -> None:
+    rows = flow.sql(
+        "SELECT source, count(*) FROM source_records WHERE run_id = %s GROUP BY source", flow.run_id
+    )
+    assert rows == [
+        ("fixture", 5)
+    ]  # fixture and fixture_partial both label records 'fixture'; fixture_down gave none
+    ((titles,),) = flow.sql(
+        "SELECT count(DISTINCT record->>'title') FROM source_records WHERE run_id = %s", flow.run_id
+    )
+    # fixture_partial's two records share titles with fixture's first two: duplicates for M0.7 to collapse.
+    assert titles == 3
 
 
 def test_one_resume_job_despite_two_approve_calls(flow: Flow) -> None:
