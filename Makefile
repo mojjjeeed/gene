@@ -1,5 +1,5 @@
-# A9 workspace tasks. Legacy Streamlit code at the repo root is out of scope for these targets.
-# A9's Python env is separate from the legacy .venv so `uv sync` never touches it.
+# A9 workspace tasks.
+# A9's Python environment lives in .venv-a9 (not the default .venv).
 export UV_PROJECT_ENVIRONMENT ?= .venv-a9
 
 # Local Postgres for development and tests: a project-local cluster (no system service, no Docker).

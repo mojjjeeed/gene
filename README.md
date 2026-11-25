@@ -1,59 +1,43 @@
-# 🔬 BioResearch AI: Autonomous Biomedical Research Acceleration Platform
+# A9
 
-[![Python](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
-[![LangGraph](https://img.shields.io/badge/Orchestration-LangGraph-orange.svg)](https://www.langchain.com/langgraph)
-[![RDKit](https://img.shields.io/badge/Cheminformatics-RDKit%202024-green.svg)](https://www.rdkit.org/)
-[![Streamlit](https://img.shields.io/badge/Frontend-Streamlit-red.svg)](https://streamlit.io/)
+A9 turns a typed biomedical research topic into a cited, screened evidence base, and (later) a conversational RAG thread and candidate molecules with calibrated predictions. Research use only.
 
-BioResearch AI is an end-to-end autonomous biomedical research platform that orchestrates a team of specialized AI agents using **LangGraph** to replace manual literature review, perform cross-source bioactivity data mining, validate chemical tractability with **RDKit**, enforce a self-correcting **DPO validation loop**, and deliver findings via an interactive, futuristic interface.
+**Where things stand:** the literature pipeline (M0) is built and tested end to end: plan, approval, seven sources searched concurrently, deduplication, retraction flags, screening, and a paper list. Nothing has run against a real language model yet (no model access), and the screening gate is unmeasured. The honest status of every task, including what is *not* verified, is in [`docs/CLAUDE.md`](docs/CLAUDE.md). The reasoning behind the design is in the PRD linked from there.
 
----
+## Layout
 
-## 🌟 Key Features
+| Path | What |
+|---|---|
+| `frontend/` | Next.js app (existing UI plus the new plan editor and paper list) |
+| `services/agents/` | FastAPI service, LangGraph ingest graph, source adapters, identity/dedup, triage, migrations, evals |
+| `services/workers/` | Arq workers that run jobs |
+| `packages/contracts/` | JSON Schemas; generates the TypeScript types and Pydantic models |
+| `docs/CLAUDE.md` | The build plan, rules, stack and status |
 
-1. **Multi-Source Data Ingestion Factory**:
-   - **PubMed / PMC**: NCBI Entrez E-utilities API fetching full abstracts, PMIDs, journal metrics, and authors.
-   - **Preprints (bioRxiv / medRxiv)**: Live REST API and RSS feed ingestion.
-   - **arXiv**: Quantitative biology (`q-bio`) & bioinformatics algorithms.
-   - **ChEMBL**: Bioactivity database pulling target assays, IC50/Ki values, and clinical phases.
-   - **PubChem**: PUG REST API resolving compound names to canonical SMILES and molecular properties.
-   - **Web Search**: ClinicalTrials.gov & Serper for late-breaking trials and regulatory news.
+## Run it
 
-2. **LangGraph Multi-Agent Team & DPO Self-Correction**:
-   - **Router Agent**: Dispatches concurrent multi-source queries.
-   - **Researcher Agent**: Performs Bio-NER entity extraction (genes, targets, disease pathways).
-   - **Re-ranker Agent**: Scores literature candidates using cross-corpus semantic affinity (Top 10 selection).
-   - **Chemist Agent (RDKit)**: Validates Lipinski Rule of 5, Veber rules, screens PAINS/toxicophores, and computes 3D ETKDG conformers.
-   - **Critic Agent (DPO Scorer)**: Evaluates biological plausibility and chemical tractability (1-10 scale). Automatically triggers a self-correction revision loop if score < 7.0.
-   - **Synthesizer Agent**: Generates structured executive dossiers, citations, and Notebook Mode artifacts.
+Needs `node` (24), `pnpm`, `uv`, and Homebrew `postgresql@16` and `redis` (no Docker).
 
-3. **Interactive UI & Visualizations**:
-   - **DeepThink Reasoning Box**: "Thought for X seconds" expandable container tracing real-time internal agent thoughts and actions.
-   - **Top 10 Paper Cards**: Interactive cards with source badges, year, relevance percentage, abstract expander, and extracted drug candidates.
-   - **3D Molecular Viewer & Bond Inspector**: Embedded py3Dmol WebGL viewer with Stick, Sphere, Surface, and rotation controls.
-   - **Notebook Mode**: Interactive Mermaid.js Mechanism of Action (MoA) flowchart and D3.js Hierarchical Research Landscape Mindmap.
-
----
-
-## 🚀 Quick Start
-
-### 1. Installation
-```bash
-# Clone the repository
-git clone <repo-url>
-cd Major_prj
-
-# Create virtual environment and install dependencies
-uv venv .venv --python 3.12
-uv pip install -r requirements.txt
+```sh
+make setup        # installs JS and Python dependencies
+make dev-up       # project-local Postgres (5544) and Redis (6390), then migrates
+cp .env.example .env   # then edit; at minimum set A9_INTERNAL_KEY
+make api          # agents service on :8100
+make worker       # background worker
+pnpm --filter frontend dev
 ```
 
-### 2. Run Application
-```bash
-.venv/bin/streamlit run app.py
+The new pipeline is behind a flag: set `A9_FLAG_PAPER_LIST=1` (and `A9_ENABLE_DEV_ENDPOINTS=1` while there is no auth provider) for the frontend. With every flag off the app behaves as it did before.
+
+## Checks
+
+```sh
+pnpm typecheck && pnpm test
+make lint && make test
+make eval          # golden-set evaluations; says NOT MEASURED until the sets are labelled
+make check-generated
 ```
 
-### 3. Run Tests
-```bash
-.venv/bin/python -m unittest discover tests
-```
+## History
+
+An earlier Streamlit and FastAPI prototype (`app.py`, `agents/`, `core/`, `data_loaders/`, `cheminformatics/`, `ui/`) lived at the repo root until it was removed. It is in git history up to commit `0a733a27`; `git checkout 0a733a27 -- cheminformatics/rdkit_engine.py` restores a file. The RDKit engine and the ChEMBL and PubChem loaders there are the likely starting points for the design modules (M2 and M3).

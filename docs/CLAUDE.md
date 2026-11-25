@@ -69,7 +69,9 @@ Distilled from the PRD so they live next to the plan. If this section and the PR
 
 **Done when:** an empty PR passes all four checks, and a deliberate schema change breaks compilation on both the TS and Python side.
 
-*Notes:* the deliberate-break proof is `packages/contracts/tests/break-schema.test.ts` (control passes; renaming `seq` or `page` fails both `tsc` and `mypy`). Python uses its own env (`.venv-a9`, set in the Makefile) so `uv sync` never touches the legacy `.venv`. Setup: `make setup`; regenerate contracts: `pnpm generate`; `make check-generated` fails on drift.
+*Legacy:* the Streamlit/FastAPI prototype that predated this plan was deleted after M0.9; it lives in git history up to `0a733a27` (RDKit engine: `cheminformatics/rdkit_engine.py`; ChEMBL/PubChem loaders: `data_loaders/`), the likely starting points for M2 and M3.
+
+*Notes:* the deliberate-break proof is `packages/contracts/tests/break-schema.test.ts` (control passes; renaming `seq` or `page` fails both `tsc` and `mypy`). Python uses its own env (`.venv-a9`, set in the Makefile). Setup: `make setup`; regenerate contracts: `pnpm generate`; `make check-generated` fails on drift.
 
 ### M0.2 Database and invariants
 - [x] Alembic set up; migrate the core tables: users, projects, conversations, messages, runs, jobs, search_plans, papers, paper_assets, chunks, chunk_memberships, screening_verdicts, audit_log
@@ -141,8 +143,8 @@ Distilled from the PRD so they live next to the plan. If this section and the PR
 *Notes:* `triage` runs after `resolve` and screens each new paper in batches of five, emitting `progress` and a `verdicts` count (`include/exclude/unsure/unscreened`, where a user's verdict wins) after every batch. Papers a model could not screen are `unscreened` with a coverage note, never silently excluded; excluded papers stay in the corpus. A user override is a second `screening_verdicts` row beside the model's (`PUT`/`DELETE /conversations/:id/papers/:paper_id/verdict`, audited), so the model's call is visible and the override reversible. `HeuristicTriager` is deterministic keyword coverage of the plan's concepts in the title and abstract: useful as a floor and for tests, not a measure of what a model can do. Kappa is three-way (the model's `unsure` always counts as a disagreement) and checked against textbook values. `make eval` fails only on *regression* against `evals/triage_baseline.json` (allowed drop 0.02); until the set is labelled it prints NOT MEASURED. To finish this task: label the CSV, run `make eval-update` once to record a baseline, then try the LLM triager with a real key.
 
 ### M0.9 Wire the paper list
-- [ ] Replace the fixture: live records with source, licence, verdict and counts — done behind the `paper_list` flag and in the new `PaperList` component, but the existing workspace does not send a `conversation_id` yet, so it still shows the legacy path
-- [x] Empty, partial and error states; a partial corpus renders as partial — logic is unit-tested (`lib/papers/view.test.ts`); the component has not been looked at in a browser
+- [x] Replace the fixture: live records with source, licence, verdict and counts — behind the `paper_list` flag, the app's search box now opens `A9Workspace` (plan review, then the live `PaperList`); flag off is unchanged
+- [x] Empty, partial and error states; a partial corpus renders as partial — unit-tested (`lib/papers/view.test.ts`) and driven in headless Chromium end to end (`frontend/e2e/`, manual, not in CI)
 
 **Done when:** **M0 gate** — fixtures off for the paper list, every record links to a resolvable source, and a source outage is visible to the user as named reduced coverage.
 
@@ -150,20 +152,21 @@ Distilled from the PRD so they live next to the plan. If this section and the PR
 
 ---
 
-### M0 gate status: NOT PASSED
+### M0 gate status: NOT PASSED (one part unmet)
 
-The gate asks for fixtures off for the paper list, every record linking to a resolvable source, and a source outage visible as named reduced coverage, *inside the existing UI*. What is true today:
+The gate asks for fixtures off for the paper list, every record linking to a resolvable source, and a source outage visible as named reduced coverage, inside the existing UI.
 
 | Gate part | Status |
 |---|---|
-| Live, screened, cited paper list from a topic | Works end to end through the API, the Next proxies and the new `PaperList` component (stub planner and heuristic triager; real sources) |
+| Live, screened, cited paper list from a topic, inside the existing UI | **Yes, behind `A9_FLAG_PAPER_LIST=1`.** The existing search box opens `A9Workspace`: plan review and approval, then a paper list that fills in. Verified in headless Chromium against the real API, worker, Redis and Postgres (fixture sources), with zero console errors, including editing and approving the plan, excluding and restoring a paper |
 | Every record links to a resolvable source | Yes: 49 of 49 live DOIs resolve; every paper has a link by construction |
-| A source outage is named reduced coverage | Yes: in events, on the run, in the list and in `/api/research` |
-| Inside the existing UI with fixtures off | **No.** The existing workspace still calls `/api/research` without a `conversation_id` and has no plan-approval step. Wiring it means a design decision (where the approval interrupt sits) and edits to your uncommitted workspace components |
-| Triage kappa >= 0.7 (M0.8) | **Not measured.** Needs expert labels and a real model |
-| Anything run against a real model | **No.** There is no model access; every model path is behind a stub or untested |
-| Pages looked at in a browser | **No** (dev pages return 200; components are tested at the logic level) |
+| A source outage is named reduced coverage | Yes: in events, on the run, in the list banner and in the header ("Finished with reduced coverage (…)") |
+| With the flag off the app is unchanged | Yes: goldens byte-identical, and in the browser the existing workspace runs while `/api/topics` and `/dev/plan` return 404 |
+| Triage kappa >= 0.7 (M0.8) | **Not measured.** Needs expert labels and a real model. This is the unmet part |
+| Anything run against a real model | **No.** No model access: the planner and triager are placeholders and say so in the UI |
+| Real users | **No auth provider.** The live path runs as one fixed dev user and needs `A9_ENABLE_DEV_ENDPOINTS=1` |
 
+Browser checks used fixture sources, not the live internet, so they prove the wiring and the states, not search quality. Live-internet behaviour was checked separately at the API level (50 records to 42 papers; Wakefield flagged).
 
 ---
 
