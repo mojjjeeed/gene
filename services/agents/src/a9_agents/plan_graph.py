@@ -27,11 +27,15 @@ from a9_agents.pubsub import notify
 from a9_agents.retractions import RetractionChecker, RetractionResult
 from a9_agents.sources.base import LiteratureSource, SourceError
 from a9_agents.sources.fanout import SourceReport, search_all
+from a9_agents.triage import TriageInput, Triager
+from a9_agents.verdicts import run_counts, save_model_verdict
 
 STAGE = "plan"
 SEARCH = "search"
 RESOLVE = "resolve"
 RETRACTIONS = "retractions"
+TRIAGE = "triage"
+TRIAGE_BATCH = 5
 RETRACTION_RECHECK_DAYS = 7
 
 
@@ -78,6 +82,7 @@ def build_plan_graph(
     embedder: Embedder | None = None,
     similarity_threshold: float = 0.80,
     retraction_checker: RetractionChecker | None = None,
+    triager: Triager | None = None,
 ) -> StateGraph[PlanState]:
     async def plan(state: PlanState) -> PlanState:
         run_id, user_id = uuid.UUID(state["run_id"]), uuid.UUID(state["user_id"])
@@ -304,6 +309,114 @@ def build_plan_graph(
         await notify(redis, run_id, event["seq"])
         return {}
 
+    async def triage(state: PlanState) -> PlanState:
+        """Screen each paper against the approved plan, streaming counts as batches land."""
+        import asyncio
+
+        from psycopg.types.json import Jsonb
+
+        run_id, user_id = uuid.UUID(state["run_id"]), uuid.UUID(state["user_id"])
+        conversation_id = uuid.UUID(state["conversation_id"])
+        async with scoped(pool, role="a9_worker") as conn:
+            if await _marker(conn, run_id, {"type": "stage_finished", "stage": TRIAGE}):
+                return {}
+            if not await _marker(conn, run_id, {"type": "stage_started", "stage": TRIAGE}):
+                await emit_event(conn, run_id, {"type": "stage_started", "stage": TRIAGE})
+            plan = await get_plan(conn, uuid.UUID(state["approved_plan_id"]))
+            assert plan is not None
+            cur = await conn.execute(
+                """SELECT DISTINCT paper_id FROM source_records WHERE run_id = %s AND paper_id IS NOT NULL""",
+                (run_id,),
+            )
+            total = len(await cur.fetchall())
+            cur = await conn.execute(
+                """SELECT p.id, p.title, p.abstract, p.year, p.journal, p.is_preprint
+                   FROM papers p
+                   WHERE p.id IN (SELECT paper_id FROM source_records WHERE run_id = %(run)s AND paper_id IS NOT NULL)
+                     AND NOT EXISTS (SELECT 1 FROM screening_verdicts v
+                                     WHERE v.conversation_id = %(conv)s AND v.paper_id = p.id AND v.decided_by = 'model')
+                   ORDER BY p.id""",
+                {"run": run_id, "conv": conversation_id},
+            )
+            pending = await cur.fetchall()
+
+        done = total - len(pending)
+        failures: list[str] = []
+        if triager is not None:
+            for start in range(0, len(pending), TRIAGE_BATCH):
+                batch = pending[start : start + TRIAGE_BATCH]
+
+                async def screen(p: dict[str, Any]) -> Any:
+                    try:
+                        return await triager.triage(
+                            plan.plan,
+                            TriageInput(
+                                p["title"], p["abstract"], p["year"], p["journal"], p["is_preprint"]
+                            ),
+                        )
+                    except Exception as exc:  # one paper failing must not stop the rest
+                        failures.append(f"{type(exc).__name__}: {exc}")
+                        return None
+
+                verdicts = await asyncio.gather(*(screen(p) for p in batch))
+                async with scoped(pool, role="a9_worker") as conn:
+                    for paper, verdict in zip(batch, verdicts, strict=True):
+                        if verdict is not None:
+                            await save_model_verdict(
+                                conn,
+                                user_id=user_id,
+                                conversation_id=conversation_id,
+                                paper_id=paper["id"],
+                                verdict=verdict,
+                            )
+                    done += len(batch)
+                    await emit_event(
+                        conn,
+                        run_id,
+                        {"type": "progress", "stage": TRIAGE, "done": done, "total": total},
+                    )
+                    event = await emit_event(
+                        conn,
+                        run_id,
+                        {
+                            "type": "partial_result",
+                            "stage": TRIAGE,
+                            "payload": {
+                                "event": "verdicts",
+                                "total": total,
+                                **await run_counts(conn, run_id, conversation_id),
+                            },
+                        },
+                    )
+                await notify(redis, run_id, event["seq"])
+
+        async with scoped(pool, role="a9_worker") as conn:
+            if await _marker(conn, run_id, {"type": "stage_finished", "stage": TRIAGE}):
+                return {}
+            notes: list[dict[str, str]] = []
+            if triager is None and pending:
+                notes.append(
+                    {
+                        "source": "triage",
+                        "reason": f"not run: no triager is configured; {len(pending)} papers are unscreened",
+                    }
+                )
+            elif failures:
+                notes.append(
+                    {
+                        "source": "triage",
+                        "reason": f"{len(failures)} of {len(pending)} papers could not be screened ({failures[0]}); they are unscreened, not excluded",
+                    }
+                )
+            if notes:
+                await conn.execute(
+                    "UPDATE runs SET coverage_notes = coverage_notes || %s WHERE id = %s",
+                    (Jsonb(notes), run_id),
+                )
+            event = await emit_event(conn, run_id, {"type": "stage_finished", "stage": TRIAGE})
+        await notify(redis, run_id, event["seq"])
+        return {}
+
     async def check_retractions(state: PlanState) -> PlanState:
         """Flag retracted work. Flagged papers stay in the corpus: the user may be asking about them."""
         import asyncio
@@ -445,6 +558,7 @@ def build_plan_graph(
     builder.add_node("finish_plan", finish_plan)
     builder.add_node("search", search)
     builder.add_node("resolve", resolve)
+    builder.add_node("triage", triage)
     builder.add_node("check_retractions", check_retractions)
     builder.add_node("conclude", conclude)
     builder.add_edge(START, "plan")
@@ -453,7 +567,8 @@ def build_plan_graph(
     builder.add_edge("wait_for_approval", "finish_plan")
     builder.add_edge("finish_plan", "search")
     builder.add_edge("search", "resolve")
-    builder.add_edge("resolve", "check_retractions")
+    builder.add_edge("resolve", "triage")
+    builder.add_edge("triage", "check_retractions")
     builder.add_edge("check_retractions", "conclude")
     builder.add_edge("conclude", END)
     return builder

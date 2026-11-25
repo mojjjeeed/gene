@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://a9.local/schemas/screening-verdict.json",
+  "title": "ScreeningVerdict",
+  "description": "Whether a paper meets a search plan's criteria, with the reason. A user's verdict overrides the model's and both are kept.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["verdict", "reason", "decided_by", "model"],
+  "properties": {
+    "verdict": { "type": "string", "enum": ["include", "exclude", "unsure"] },
+    "reason": { "type": "string", "minLength": 1 },
+    "decided_by": { "type": "string", "enum": ["model", "user"] },
+    "model": { "type": ["string", "null"], "description": "Which model or heuristic decided. Required when decided_by is model." }
+  }
+}

@@ -63,3 +63,5 @@ jobs:
       - run: pnpm test
       - run: make lint
       - run: make test
+      - name: Golden-set evaluations (reports NOT MEASURED until the sets are labelled)
+        run: make eval

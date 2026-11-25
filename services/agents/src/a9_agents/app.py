@@ -23,6 +23,7 @@ from redis.asyncio import Redis
 from a9_agents.auth import User
 from a9_agents.db import Pool, open_pool, owner, scoped
 from a9_agents.events import events_since
+from a9_agents.routes_papers import router as papers_router
 from a9_agents.routes_planning import router as planning_router
 from a9_agents.runs import create_job, create_run
 from a9_agents.settings import pubsub_channel, queue_name, redis_url
@@ -59,6 +60,7 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
 
 app = FastAPI(title="A9 agents", lifespan=lifespan)
 app.include_router(planning_router)
+app.include_router(papers_router)
 
 
 def _pool(request: Request) -> Pool:

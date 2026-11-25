@@ -3,4 +3,5 @@ export * from "./literature_record";
 export * from "./provenance_envelope";
 export * from "./run_event";
 export * from "./run";
+export * from "./screening_verdict";
 export * from "./search_plan";

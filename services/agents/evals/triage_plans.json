@@ -1,0 +1,28 @@
+{
+  "egfr_resistance": {
+    "topic": "Mechanisms of and therapies for acquired resistance to EGFR inhibitors in non-small cell lung cancer",
+    "concepts": [
+      {"label": "EGFR", "synonyms": ["epidermal growth factor receptor", "ERBB1"], "mesh_terms": ["ErbB Receptors"]},
+      {"label": "resistance", "synonyms": ["resistant", "T790M", "C797S"], "mesh_terms": ["Drug Resistance, Neoplasm"]}
+    ],
+    "include_criteria": ["Studies of mechanisms of, or treatment strategies for, acquired resistance to EGFR tyrosine kinase inhibitors in lung cancer"],
+    "exclude_criteria": ["EGFR meaning estimated glomerular filtration rate (kidney function)", "Studies that do not address resistance to EGFR inhibitors"],
+    "date_from": "2018-01-01",
+    "date_to": "2025-12-31",
+    "generated_by": "stub",
+    "model": null
+  },
+  "kras_pancreatic": {
+    "topic": "KRAS G12D inhibitors in pancreatic cancer",
+    "concepts": [
+      {"label": "KRAS", "synonyms": ["K-Ras", "KRAS G12D"], "mesh_terms": ["Proto-Oncogene Proteins p21(ras)"]},
+      {"label": "pancreatic", "synonyms": ["PDAC", "pancreatic ductal adenocarcinoma"], "mesh_terms": ["Pancreatic Neoplasms"]}
+    ],
+    "include_criteria": ["Studies of inhibitors, degraders or other therapies that target mutant KRAS in pancreatic cancer"],
+    "exclude_criteria": ["KRAS studies in other cancers only", "Pancreatic cancer studies that do not involve KRAS"],
+    "date_from": "2018-01-01",
+    "date_to": "2025-12-31",
+    "generated_by": "stub",
+    "model": null
+  }
+}

@@ -17,6 +17,7 @@ from a9_agents.planner import make_planner
 from a9_agents.retractions import make_retraction_checker
 from a9_agents.settings import database_dsn, job_lease_seconds, queue_name, redis_url
 from a9_agents.sources.registry import build_sources
+from a9_agents.triage import make_triager
 from arq import cron
 from arq.connections import RedisSettings
 from langgraph.checkpoint.postgres.aio import AsyncPostgresSaver
@@ -68,6 +69,7 @@ async def startup(ctx: dict[str, Any]) -> None:
         embedder=embedder,
         similarity_threshold=embedder.default_threshold,
         retraction_checker=make_retraction_checker(),
+        triager=make_triager(),
     ).compile(checkpointer=saver)
 
 

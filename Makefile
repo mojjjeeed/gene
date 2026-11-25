@@ -15,7 +15,7 @@ export A9_PG_ADMIN_URL  ?= postgresql://localhost:$(PG_PORT)/postgres
 
 ALEMBIC = uv run --no-sync alembic -c services/agents/alembic.ini
 
-.PHONY: redis-up redis-down dev-up worker api setup generate check-generated lint test typecheck db-up db-down migrate migrate-down migrate-check
+.PHONY: eval eval-update redis-up redis-down dev-up worker api setup generate check-generated lint test typecheck db-up db-down migrate migrate-down migrate-check
 
 setup:
 	uv sync --all-packages
@@ -69,3 +69,9 @@ test: ## DB tests need `make db-up` (they skip locally if Postgres is down; CI s
 
 typecheck:
 	pnpm typecheck
+
+eval: ## golden-set evaluations; fail on regression against the recorded baselines
+	uv run --no-sync python -m a9_agents.evals.triage
+
+eval-update: ## accept the current scores as the new baselines
+	uv run --no-sync python -m a9_agents.evals.triage --update

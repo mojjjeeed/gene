@@ -57,6 +57,8 @@ class Flow:
     status_while_no_worker: str
     events_while_no_worker: int
     statuses: dict[str, int] = field(default_factory=dict)
+    override: dict[str, Any] = field(default_factory=dict)
+    paper_id: str = ""
 
     def headers(self, user: str | None = None) -> dict[str, str]:
         return {"X-A9-Internal-Key": KEY, "X-A9-User-Id": user or self.user}
@@ -184,6 +186,26 @@ def flow(
             timeout=5,
         ).status_code
         f.statuses["no_key"] = httpx.get(f"{base}/plans/{v2['id']}", timeout=5).status_code
+        # A user overrides the model's screening verdict on one paper, then withdraws it.
+        ((paper_id,),) = f.sql(
+            "SELECT paper_id::text FROM source_records WHERE run_id = %s ORDER BY source_id LIMIT 1",
+            run_id,
+        )
+        f.paper_id = paper_id
+        url = f"/conversations/{conv}/papers/{paper_id}/verdict"
+        f.override["put"] = device_b.put(
+            url, json={"verdict": "exclude", "reason": "not about resistance"}
+        ).json()
+        f.override["put_again"] = device_b.put(url, json={"verdict": "unsure"}).json()
+        f.override["bad_verdict"] = device_b.put(url, json={"verdict": "maybe"}).status_code
+        other = {**h, "X-A9-User-Id": str(uuid.uuid4())}
+        f.override["other_user"] = httpx.put(
+            f"{base}{url}", json={"verdict": "include"}, headers=other, timeout=5
+        ).status_code
+        f.override["unknown_paper"] = device_b.put(
+            f"/conversations/{conv}/papers/{uuid.uuid4()}/verdict", json={"verdict": "include"}
+        ).status_code
+        f.override["deleted"] = device_b.delete(url).json()
         yield f
     finally:
         for p in procs:
@@ -242,7 +264,7 @@ def test_the_run_resumed_on_the_same_thread_from_the_checkpoint(flow: Flow) -> N
 
 def test_event_sequence_is_complete_and_names_the_approved_version(flow: Flow) -> None:
     rows = flow.sql("SELECT seq, data FROM run_events WHERE run_id = %s ORDER BY seq", flow.run_id)
-    assert [r[0] for r in rows] == list(range(1, 21))
+    assert [r[0] for r in rows] == list(range(1, 25))
     kinds = [(r[1]["type"], (r[1].get("payload") or {}).get("event")) for r in rows]
     assert kinds[:5] == [
         ("stage_started", None),
@@ -270,11 +292,15 @@ def test_event_sequence_is_complete_and_names_the_approved_version(flow: Flow) -
         ("partial_result", "resolved"),
         ("stage_finished", None),  # resolve
         ("stage_started", None),
+        ("progress", None),
+        ("partial_result", "verdicts"),
+        ("stage_finished", None),  # triage
+        ("stage_started", None),
         ("partial_result", "retraction_check"),
         ("stage_finished", None),  # retractions
         ("run_finished", None),
     ]
-    assert [rows[i][1]["stage"] for i in (13, 16)] == ["resolve", "retractions"]
+    assert [rows[i][1]["stage"] for i in (13, 16, 20)] == ["resolve", "triage", "retractions"]
     progress = [r[1]["done"] for r in rows[6:12] if r[1]["type"] == "progress"]
     assert progress == [1, 2, 3] and all(
         r[1]["total"] == 3 for r in rows[6:12] if r[1]["type"] == "progress"
@@ -336,7 +362,7 @@ def test_one_resume_job_despite_two_approve_calls(flow: Flow) -> None:
 
 def test_edits_and_approval_are_audited_once_each(flow: Flow) -> None:
     rows = flow.sql(
-        "SELECT action, user_id::text, entity_type FROM audit_log WHERE user_id = %s ORDER BY id",
+        "SELECT action, user_id::text, entity_type FROM audit_log WHERE user_id = %s AND entity_type = 'search_plan' ORDER BY id",
         flow.user,
     )
     assert rows == [
@@ -413,3 +439,65 @@ def test_the_retracted_paper_is_flagged_and_still_in_the_corpus(flow: Flow) -> N
 def test_retraction_checking_did_not_add_a_coverage_gap(flow: Flow) -> None:
     ((notes,),) = flow.sql("SELECT coverage_notes FROM runs WHERE id = %s", flow.run_id)
     assert sorted(n["source"] for n in notes) == ["fixture_down", "fixture_partial"]
+
+
+def test_triage_screened_every_paper_and_streamed_counts_against_the_plan(flow: Flow) -> None:
+    rows = flow.sql(
+        "SELECT data->'payload' FROM run_events WHERE run_id = %s AND data @> %s::jsonb",
+        flow.run_id, json.dumps({"type": "partial_result", "payload": {"event": "verdicts"}}),
+    )  # fmt: skip
+    ((counts,),) = rows
+    # The fixture papers mention every concept of the plan, so the heuristic includes all three.
+    assert counts == {
+        "event": "verdicts",
+        "total": 3,
+        "include": 3,
+        "exclude": 0,
+        "unsure": 0,
+        "unscreened": 0,
+    }
+    verdicts = flow.sql(
+        "SELECT decided_by, model, verdict FROM screening_verdicts WHERE conversation_id = %s AND decided_by = 'model'",
+        flow.conversation_id,
+    )  # fmt: skip
+    assert verdicts == [("model", "heuristic-v1", "include")] * 3
+    ((prog,),) = flow.sql(
+        "SELECT data->>'total' FROM run_events WHERE run_id = %s AND type = 'progress' AND data->>'stage' = 'triage'", flow.run_id
+    )  # fmt: skip
+    assert prog == "3"
+
+
+def test_a_user_override_is_kept_beside_the_model_verdict_and_can_be_withdrawn(flow: Flow) -> None:
+    put, again = flow.override["put"], flow.override["put_again"]
+    assert put["effective"] == "exclude" and put["user"]["reason"] == "not about resistance"
+    assert (
+        put["model"]["verdict"] == "include" and put["model"]["model"] == "heuristic-v1"
+    )  # the model's call survives
+    assert again["effective"] == "unsure" and again["user"]["reason"] == "set by user"
+    cleared = flow.override["deleted"]
+    assert (
+        cleared["user"] is None and cleared["effective"] == "include"
+    )  # the model's verdict applies again
+    ((n,),) = flow.sql(
+        "SELECT count(*) FROM screening_verdicts WHERE paper_id = %s AND conversation_id = %s",
+        flow.paper_id,
+        flow.conversation_id,
+    )
+    assert n == 1
+
+
+def test_overrides_reject_bad_input_and_other_users(flow: Flow) -> None:
+    assert flow.override["bad_verdict"] == 422
+    assert flow.override["other_user"] == 404 and flow.override["unknown_paper"] == 404
+
+
+def test_overrides_are_audited(flow: Flow) -> None:
+    rows = flow.sql(
+        "SELECT action FROM audit_log WHERE user_id = %s AND action LIKE 'verdict.%%' ORDER BY id",
+        flow.user,
+    )
+    assert [r[0] for r in rows] == [
+        "verdict.overridden",
+        "verdict.overridden",
+        "verdict.override_cleared",
+    ]
