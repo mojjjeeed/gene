@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Search, Sparkles, BookOpen, ArrowRight, ShieldCheck, Activity, Dna, Brain } from "lucide-react";
+import { Search, Sparkles, ArrowRight } from "lucide-react";
 
 interface LandingHubProps {
   onLaunchStudy: (query: string) => void;

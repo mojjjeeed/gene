@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable @typescript-eslint/no-explicit-any -- legacy component; its props mirror the untyped Python workflow state and nothing imports it from the live app. */
+
 import React, { useState } from "react";
 import { 
   BookOpen, 
@@ -10,7 +12,6 @@ import {
   FileText, 
   Sparkles, 
   ShieldCheck, 
-  ExternalLink, 
   ChevronDown, 
   ChevronUp, 
   Play, 
@@ -24,7 +25,7 @@ interface StudioWorkspaceProps {
   onBackToLanding: () => void;
 }
 
-export default function StudioWorkspace({ researchState, onBackToLanding }: StudioWorkspaceProps) {
+export default function StudioWorkspace({ researchState, }: StudioWorkspaceProps) {
   const [activeTab, setActiveTab] = useState<"inspector" | "audio" | "moa" | "notes">("inspector");
   const [sourceFilter, setSourceFilter] = useState("all");
   const [expandedDoc, setExpandedDoc] = useState<number | null>(null);
@@ -344,10 +345,10 @@ export default function StudioWorkspace({ researchState, onBackToLanding }: Stud
 
               <div className="text-xs text-slate-300 leading-relaxed bg-[#000D2E]/70 p-4 rounded-lg border border-white/10">
                 <div className="font-bold text-[#BEF5DC] mb-1">👨‍🔬 Dr. Aris (Mechanistic Biologist):</div>
-                "When we cross-referenced the latest literature on {query}, one key neural circuitry stood out: aberrant upstream kinase signaling and prefrontal-amygdala disinhibition."
+                &ldquo;When we cross-referenced the latest literature on {query}, one key neural circuitry stood out: aberrant upstream kinase signaling and prefrontal-amygdala disinhibition.&rdquo;
                 <br /><br />
                 <div className="font-bold text-[#00D084] mb-1">👩‍🔬 Dr. Elena (Medicinal Chemist):</div>
-                "And our lead compound: {leadMolecule.name || 'Candidate Lead'} shows a molecular weight of {leadMolecule.mw || 450} Da with 0 toxicophore alerts, offering optimal membrane permeability."
+                &ldquo;And our lead compound: {leadMolecule.name || 'Candidate Lead'} shows a molecular weight of {leadMolecule.mw || 450} Da with 0 toxicophore alerts, offering optimal membrane permeability.&rdquo;
               </div>
             </div>
           )}

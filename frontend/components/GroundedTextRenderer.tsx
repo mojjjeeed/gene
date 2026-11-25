@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import HoverCitationBadge, { CitationItem } from "./HoverCitationBadge";
+import HoverCitationBadge from "./HoverCitationBadge";
+import type { CitationItem } from "@/lib/research";
 
 interface GroundedTextRendererProps {
   content: string;

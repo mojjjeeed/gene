@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Sparkles, Database, BookOpen, Atom, ArrowLeft } from "lucide-react";
+import { Database, Atom, ArrowLeft } from "lucide-react";
 
 interface NavbarProps {
   currentView: "landing" | "studio";

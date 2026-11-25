@@ -1,7 +1,9 @@
 "use client";
 
+/* eslint-disable @typescript-eslint/no-explicit-any -- legacy component; its props mirror the untyped Python workflow state and nothing imports it from the live app. */
+
 import React, { useState } from "react";
-import { Sparkles, Info, Eye, RotateCw, ZoomIn, X, CheckCircle2 } from "lucide-react";
+import { Sparkles, X } from "lucide-react";
 
 interface BondInspectorProps {
   molData: any;

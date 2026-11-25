@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { RotateCw, ZoomIn, ZoomOut, Maximize2, Sparkles, Layers } from "lucide-react";
+import { RotateCw } from "lucide-react";
 
 export interface MoleculeData {
   id: string;
@@ -194,6 +194,16 @@ export const PRESET_MOLECULES: Record<string, MoleculeData> = {
   }
 };
 
+function getAtomColor(sym: string, alpha = 1): string {
+  switch (sym) {
+    case "N": return `rgba(59, 130, 246, ${alpha})`;
+    case "O": return `rgba(239, 68, 68, ${alpha})`;
+    case "F": return `rgba(16, 185, 129, ${alpha})`;
+    case "C": return `rgba(148, 163, 184, ${alpha})`;
+    default: return `rgba(168, 85, 247, ${alpha})`;
+  }
+}
+
 interface ChemicalStructureViewerProps {
   molecule?: MoleculeData;
   moleculeName?: string;
@@ -209,7 +219,7 @@ export default function ChemicalStructureViewer({
 }: ChemicalStructureViewerProps) {
   const currentMol = molecule || PRESET_MOLECULES[moleculeName] || PRESET_MOLECULES["Candidate A-17"];
   const [viewMode, setViewMode] = useState<"2d" | "3d">("2d");
-  const [hoveredAtom, setHoveredAtom] = useState<any | null>(null);
+  const [hoveredAtom, setHoveredAtom] = useState<MoleculeData["atoms"][number] | null>(null);
   const [rotation, setRotation] = useState({ x: 15, y: 25 });
   const [isDragging, setIsDragging] = useState(false);
   const dragStart = useRef({ x: 0, y: 0 });
@@ -328,16 +338,6 @@ export default function ChemicalStructureViewer({
     render();
     return () => cancelAnimationFrame(animId);
   }, [viewMode, rotation, currentMol]);
-
-  const getAtomColor = (sym: string, alpha = 1) => {
-    switch (sym) {
-      case "N": return `rgba(59, 130, 246, ${alpha})`;
-      case "O": return `rgba(239, 68, 68, ${alpha})`;
-      case "F": return `rgba(16, 185, 129, ${alpha})`;
-      case "C": return `rgba(148, 163, 184, ${alpha})`;
-      default: return `rgba(168, 85, 247, ${alpha})`;
-    }
-  };
 
   const handleMouseDown = (e: React.MouseEvent) => {
     setIsDragging(true);
@@ -501,7 +501,7 @@ export default function ChemicalStructureViewer({
                 >
                   <circle
                     cx={atom.x}
-                    y={atom.y}
+                    cy={atom.y}
                     r={radius}
                     fill={fillColor}
                     stroke={strokeColor}
