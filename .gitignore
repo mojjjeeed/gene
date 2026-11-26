@@ -21,3 +21,4 @@ cache/
 .pgdata/
 .redisdata/
 .objects/
+.qdrant/
