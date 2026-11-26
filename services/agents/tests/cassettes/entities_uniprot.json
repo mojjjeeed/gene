@@ -1,0 +1,7 @@
+{
+ "GET https://rest.uniprot.org/uniprotkb/search?fields=accession,gene_primary&format=json&query=gene_exact:EGFR AND organism_id:9606 AND reviewed:true&size=3": {
+  "body": "{\"results\":[{\"entryType\":\"UniProtKB reviewed (Swiss-Prot)\",\"primaryAccession\":\"P00533\",\"genes\":[{\"geneName\":{\"evidences\":[{\"evidenceCode\":\"ECO:0000303\",\"source\":\"PubMed\",\"id\":\"32926474\"},{\"evidenceCode\":\"ECO:0000312\",\"source\":\"HGNC\",\"id\":\"HGNC:3236\"}],\"value\":\"EGFR\"}}],\"extraAttributes\":{\"uniParcId\":\"UPI000003E750\"}}]}",
+  "content_type": "application/json",
+  "status": 200
+ }
+}

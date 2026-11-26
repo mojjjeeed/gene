@@ -194,13 +194,13 @@ Browser checks used fixture sources, not the live internet, so they prove the wi
 *Notes:* tokens are counted with a word-and-punctuation estimator, not the embedding model's tokenizer. Chunks never cross a section, so papers with many short subsections give small chunks (median roughly 200-300 tokens). Non-paginated sources (JATS) use page 1. Chunk rows carry `extraction_model='chunker-v1'`, `prompt_version='none'` because chunking calls no model.
 
 ### M1.3 Extraction — Parallel with M1.4
-- [ ] Schema-constrained claim extraction per section, offsets carried through
-- [ ] Entity normalisation: InChIKey, UniProt, HGNC, MONDO; unnormalised stored raw and flagged
-- [ ] Cache keyed on `(chunk_hash, prompt_version)`
+- [ ] Schema-constrained claim extraction per section, offsets carried through — only a *rule-based* measured-value extractor (IC50/Ki/Kd/EC50/GI50 with units) exists; it records exact absolute offsets into `claims` with the full provenance envelope as NOT NULL columns; the LLM extractor (targets, pathways, cohorts, endpoints, limitations) is not built
+- [ ] Entity normalisation: InChIKey, UniProt, HGNC, MONDO; unnormalised stored raw and flagged — the four normalisers work against real recorded responses (RDKit offline for SMILES; PubChem, UniProt, HGNC, OLS/MONDO) and fail closed with a flag, but they are not yet wired to the claims' entities
+- [x] Cache keyed on `(chunk_hash, prompt_version)` — keyed on `(chunk text hash, extractor version)`, table `extractions`; offsets are cached relative to the chunk so identical text elsewhere reuses it
 
-**Done when:** a re-run of the same corpus is a cache hit end to end and costs near zero.
+**Done when:** a re-run of the same corpus is a cache hit end to end and costs near zero. **Met for the extractor that exists:** `test_a_rerun_on_the_same_corpus_is_a_cache_hit_end_to_end` shows the second run makes zero extractor calls (every chunk a cache hit). It says nothing about LLM extraction cost, which does not exist yet.
 
-*Status: not started.* Needs a language model for claim extraction; a regex extractor for measured values (IC50, Ki) and the RDKit/UniProt/HGNC/MONDO normalisers are buildable without one.
+*Not wired into the run graph.* `extract_corpus` is a library function; no graph stage calls it yet.
 
 ### M1.4 Index and membership — Parallel with M1.3
 - [x] Qdrant collection, payload index on `conversation_ids`

@@ -1,0 +1,7 @@
+{
+ "GET https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/osimertinib/property/CanonicalSMILES,InChIKey/JSON?": {
+  "body": "{\n  \"PropertyTable\": {\n    \"Properties\": [\n      {\n        \"CID\": 71496458,\n        \"ConnectivitySMILES\": \"CN1C=C(C2=CC=CC=C21)C3=NC(=NC=C3)NC4=C(C=C(C(=C4)NC(=O)C=C)N(C)CCN(C)C)OC\",\n        \"InChIKey\": \"DUYJMQONPNNFPI-UHFFFAOYSA-N\"\n      }\n    ]\n  }\n}\n",
+  "content_type": "application/json",
+  "status": 200
+ }
+}
