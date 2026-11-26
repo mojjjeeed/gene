@@ -81,9 +81,9 @@ async def state(
     pool: Any, pid: uuid.UUID
 ) -> tuple[dict[str, Any], list[dict[str, Any]], list[str]]:
     async with owner(pool) as c:
-        paper = dict(
-            await (await c.execute("SELECT * FROM papers WHERE id = %s", (pid,))).fetchone()
-        )  # type: ignore[arg-type]
+        prow = await (await c.execute("SELECT * FROM papers WHERE id = %s", (pid,))).fetchone()
+        assert prow is not None
+        paper = dict(prow)
         chunks = [
             dict(r)
             for r in await (
@@ -182,7 +182,7 @@ async def test_a_parse_failure_keeps_the_abstract_and_does_not_leave_full_text_a
     pool: Any, tmp_path: Path
 ) -> None:
     broken = b"<article><body><sec><title>Empty</title></sec></body></article>"
-    paper = await make_paper(pool, pmcid=_pmc())
+    paper = await make_paper(pool, pmcid=_pmc(), licence="cc by")
     result = await run_ingest(pool, LocalObjectStore(tmp_path), paper, routes=[jats_route(broken)])
     assert result.status == "failed" and "no chunks" in result.note
     row, chunks, assets = await state(pool, paper["id"])

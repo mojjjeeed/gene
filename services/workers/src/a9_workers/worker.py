@@ -12,6 +12,8 @@ from typing import Any
 
 from a9_agents.db import Pool, open_pool, scoped
 from a9_agents.embedder import make_embedder
+from a9_agents.fulltext.fetch import ArxivPdf, PmcJats
+from a9_agents.fulltext.store import LocalObjectStore
 from a9_agents.plan_graph import build_plan_graph
 from a9_agents.planner import make_planner
 from a9_agents.retractions import make_retraction_checker
@@ -70,6 +72,9 @@ async def startup(ctx: dict[str, Any]) -> None:
         similarity_threshold=embedder.default_threshold,
         retraction_checker=make_retraction_checker(),
         triager=make_triager(),
+        store=LocalObjectStore() if os.environ.get("A9_FULLTEXT", "on") == "on" else None,
+        fulltext_routes=[PmcJats()],
+        arxiv=ArxivPdf(),
     ).compile(checkpointer=saver)
 
 

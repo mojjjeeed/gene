@@ -19,6 +19,9 @@ from redis.asyncio import Redis
 from a9_agents.db import Conn, Pool, scoped
 from a9_agents.embedder import Embedder
 from a9_agents.events import emit_event
+from a9_agents.fulltext.fetch import ArxivPdf, FullTextRoute
+from a9_agents.fulltext.ingest import add_memberships, ingest_paper
+from a9_agents.fulltext.store import ObjectStore
 from a9_agents.identity import RETRACTION_RANK, cluster_records, to_draft
 from a9_agents.papers import lock_papers, record_retraction, upsert_paper
 from a9_agents.planner import Planner
@@ -35,6 +38,8 @@ SEARCH = "search"
 RESOLVE = "resolve"
 RETRACTIONS = "retractions"
 TRIAGE = "triage"
+FULLTEXT = "fulltext"
+FULLTEXT_BATCH = 4
 TRIAGE_BATCH = 5
 RETRACTION_RECHECK_DAYS = 7
 
@@ -83,6 +88,9 @@ def build_plan_graph(
     similarity_threshold: float = 0.80,
     retraction_checker: RetractionChecker | None = None,
     triager: Triager | None = None,
+    store: ObjectStore | None = None,
+    fulltext_routes: Sequence[FullTextRoute] = (),
+    arxiv: ArxivPdf | None = None,
 ) -> StateGraph[PlanState]:
     async def plan(state: PlanState) -> PlanState:
         run_id, user_id = uuid.UUID(state["run_id"]), uuid.UUID(state["user_id"])
@@ -537,6 +545,91 @@ def build_plan_graph(
         await notify(redis, run_id, event["seq"])
         return {}
 
+    async def fulltext(state: PlanState) -> PlanState:
+        """Fetch, parse and chunk full text for papers the user would keep, then add them to the corpus."""
+        import asyncio
+
+        run_id, user_id = uuid.UUID(state["run_id"]), uuid.UUID(state["user_id"])
+        conversation_id = uuid.UUID(state["conversation_id"])
+        if store is None:
+            return {}  # stage disabled: no events, the run goes straight on
+        async with scoped(pool, role="a9_worker") as conn:
+            if await _marker(conn, run_id, {"type": "stage_finished", "stage": FULLTEXT}):
+                return {}
+            if not await _marker(conn, run_id, {"type": "stage_started", "stage": FULLTEXT}):
+                await emit_event(conn, run_id, {"type": "stage_started", "stage": FULLTEXT})
+            cur = await conn.execute(
+                """SELECT p.* FROM papers p
+                   LEFT JOIN screening_verdicts m ON m.conversation_id = %(c)s AND m.paper_id = p.id AND m.decided_by = 'model'
+                   LEFT JOIN screening_verdicts u ON u.conversation_id = %(c)s AND u.paper_id = p.id AND u.decided_by = 'user'
+                   WHERE p.id IN (SELECT paper_id FROM source_records WHERE run_id = %(r)s AND paper_id IS NOT NULL)
+                     AND COALESCE(u.verdict, m.verdict, 'unscreened') <> 'exclude'
+                   ORDER BY p.id""",
+                {"c": conversation_id, "r": run_id},
+            )
+            kept = [dict(r) for r in await cur.fetchall()]
+        todo = [p for p in kept if p["fulltext_status"] == "pending"]
+        counts = {"parsed": 0, "abstract_only": 0, "not_permitted": 0, "failed": 0}
+        for start in range(0, len(todo), FULLTEXT_BATCH):
+            batch = todo[start : start + FULLTEXT_BATCH]
+
+            async def one(p: dict[str, Any]) -> str:
+                async with scoped(pool, role="a9_worker") as conn:
+                    result = await ingest_paper(
+                        conn, store, p, run_id, routes=list(fulltext_routes), arxiv=arxiv
+                    )
+                return result.status
+
+            statuses = await asyncio.gather(*(one(p) for p in batch), return_exceptions=True)
+            for st in statuses:
+                counts["failed" if isinstance(st, BaseException) else str(st)] += 1
+            async with scoped(pool, role="a9_worker") as conn:
+                await emit_event(
+                    conn,
+                    run_id,
+                    {
+                        "type": "progress",
+                        "stage": FULLTEXT,
+                        "done": min(start + len(batch), len(todo)),
+                        "total": len(todo),
+                    },
+                )
+                event = await emit_event(
+                    conn,
+                    run_id,
+                    {
+                        "type": "partial_result",
+                        "stage": FULLTEXT,
+                        "payload": {"event": "fulltext", "papers": len(kept), **counts},
+                    },
+                )
+            await notify(redis, run_id, event["seq"])
+        from psycopg.types.json import Jsonb
+
+        async with scoped(pool, role="a9_worker") as conn:
+            if await _marker(conn, run_id, {"type": "stage_finished", "stage": FULLTEXT}):
+                return {}
+            await add_memberships(
+                conn,
+                user_id=user_id,
+                conversation_id=conversation_id,
+                paper_ids=[p["id"] for p in kept],
+            )
+            if counts["failed"]:
+                note = [
+                    {
+                        "source": "full text",
+                        "reason": f"{counts['failed']} papers could not be fetched or parsed and are abstract-only",
+                    }
+                ]
+                await conn.execute(
+                    "UPDATE runs SET coverage_notes = coverage_notes || %s WHERE id = %s",
+                    (Jsonb(note), run_id),
+                )
+            event = await emit_event(conn, run_id, {"type": "stage_finished", "stage": FULLTEXT})
+        await notify(redis, run_id, event["seq"])
+        return {}
+
     async def conclude(state: PlanState) -> PlanState:
         run_id = uuid.UUID(state["run_id"])
         async with scoped(pool, role="a9_worker") as conn:
@@ -560,6 +653,7 @@ def build_plan_graph(
     builder.add_node("resolve", resolve)
     builder.add_node("triage", triage)
     builder.add_node("check_retractions", check_retractions)
+    builder.add_node("fulltext", fulltext)
     builder.add_node("conclude", conclude)
     builder.add_edge(START, "plan")
     builder.add_edge("plan", "request_approval")
@@ -569,6 +663,7 @@ def build_plan_graph(
     builder.add_edge("search", "resolve")
     builder.add_edge("resolve", "triage")
     builder.add_edge("triage", "check_retractions")
-    builder.add_edge("check_retractions", "conclude")
+    builder.add_edge("check_retractions", "fulltext")
+    builder.add_edge("fulltext", "conclude")
     builder.add_edge("conclude", END)
     return builder

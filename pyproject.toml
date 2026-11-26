@@ -43,3 +43,8 @@ plugins = ["pydantic.mypy"]
 testpaths = ["services", "packages/contracts/tests"]
 asyncio_mode = "auto"
 asyncio_default_fixture_loop_scope = "function"
+
+[[tool.mypy.overrides]]
+# PyMuPDF ships no type information.
+module = ["test_pdfparse"]
+disallow_untyped_calls = false

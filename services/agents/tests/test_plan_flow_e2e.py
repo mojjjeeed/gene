@@ -86,6 +86,7 @@ def flow(
         "A9_MODEL_PROVIDER": "stub",
         "A9_SOURCES": "fixture,fixture_down,fixture_partial",
         "A9_RETRACTION_CHECK": "fixture",
+        "A9_FULLTEXT": "on",
         "A9_JOB_LEASE_SECONDS": "2",
         "A9_REAP_INTERVAL_SECONDS": "1",
     }
@@ -272,7 +273,7 @@ def test_the_run_resumed_on_the_same_thread_from_the_checkpoint(flow: Flow) -> N
 
 def test_event_sequence_is_complete_and_names_the_approved_version(flow: Flow) -> None:
     rows = flow.sql("SELECT seq, data FROM run_events WHERE run_id = %s ORDER BY seq", flow.run_id)
-    assert [r[0] for r in rows] == list(range(1, 25))
+    assert [r[0] for r in rows] == list(range(1, 29))
     kinds = [(r[1]["type"], (r[1].get("payload") or {}).get("event")) for r in rows]
     assert kinds[:5] == [
         ("stage_started", None),
@@ -306,9 +307,18 @@ def test_event_sequence_is_complete_and_names_the_approved_version(flow: Flow) -
         ("stage_started", None),
         ("partial_result", "retraction_check"),
         ("stage_finished", None),  # retractions
+        ("stage_started", None),
+        ("progress", None),
+        ("partial_result", "fulltext"),
+        ("stage_finished", None),  # fulltext
         ("run_finished", None),
     ]
-    assert [rows[i][1]["stage"] for i in (13, 16, 20)] == ["resolve", "triage", "retractions"]
+    assert [rows[i][1]["stage"] for i in (13, 16, 20, 23)] == [
+        "resolve",
+        "triage",
+        "retractions",
+        "fulltext",
+    ]
     progress = [r[1]["done"] for r in rows[6:12] if r[1]["type"] == "progress"]
     assert progress == [1, 2, 3] and all(
         r[1]["total"] == 3 for r in rows[6:12] if r[1]["type"] == "progress"
@@ -550,3 +560,28 @@ def test_a_retracted_paper_is_in_the_api_list_flagged_not_dropped(flow: Flow) ->
 
 def test_another_user_cannot_read_the_list(flow: Flow) -> None:
     assert flow.listing_other_user == 404
+
+
+def test_fulltext_stage_reports_honestly_and_puts_kept_papers_in_the_corpus(flow: Flow) -> None:
+    ((payload,),) = flow.sql(
+        "SELECT data->'payload' FROM run_events WHERE run_id = %s AND data @> %s::jsonb",
+        flow.run_id, json.dumps({"type": "partial_result", "payload": {"event": "fulltext"}}),
+    )  # fmt: skip
+    # Fixture papers have no open full-text route, so they are abstract-only: said plainly, not hidden.
+    assert payload == {
+        "event": "fulltext",
+        "papers": 3,
+        "parsed": 0,
+        "abstract_only": 3,
+        "not_permitted": 0,
+        "failed": 0,
+    }
+    statuses = flow.sql(
+        "SELECT p.fulltext_status, p.full_text_allowed FROM papers p JOIN source_records s ON s.paper_id = p.id WHERE s.run_id = %s GROUP BY p.id",
+        flow.run_id,
+    )  # fmt: skip
+    assert statuses == [("abstract_only", False)] * 3
+    ((chunks,),) = flow.sql(
+        "SELECT count(*) FROM chunk_memberships WHERE conversation_id = %s", flow.conversation_id
+    )  # fmt: skip
+    assert chunks == 3  # each paper's abstract is its one chunk in the conversation's corpus

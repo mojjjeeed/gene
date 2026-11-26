@@ -119,7 +119,7 @@ def test_a_single_enormous_sentence_is_split_at_word_boundaries_not_dropped() ->
     chunks = chunk_document(doc)
     assert len(chunks) >= 4 and all(c.tokens <= 800 for c in chunks)
     assert verify_chunks(doc, chunks) == []
-    covered = set()
+    covered: set[int] = set()
     for c in chunks:
         covered.update(range(c.start, c.end))
     assert covered >= set(range(len(giant)))  # nothing in the text is left out of every chunk
