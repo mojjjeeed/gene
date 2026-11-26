@@ -58,6 +58,29 @@ Distilled from the PRD so they live next to the plan. If this section and the PR
 
 ---
 
+## Status at a glance
+
+Honest, as of the last commit. "Built" means code and tests exist; "measured" means a number was produced on real data; **nothing has run against a real language model** (no model access), so every model-shaped step uses a labelled stand-in.
+
+| Phase | State |
+|---|---|
+| M0 spine (M0.1-M0.9) | Built, measured where it can be, in the app behind `A9_FLAG_PAPER_LIST`. **Gate not passed**: triage kappa unmeasured (needs labels and a model) |
+| M1.1 fetch/parse | Built; **gate met** on real data (100/100 PDFs, 50/50 JATS parsed). GROBID, Unpaywall, Firecrawl not built |
+| M1.2 chunking | Built; **gate met** (4,986 chunks, 0 round-trip failures) |
+| M1.3 extraction | Rule-based measured-value extractor, cache and normalisers built; **no LLM extractor**; not wired into the graph |
+| M1.4 index | Built; **gate met** (only `ConversationIndex` can query; AST test + lint rule) |
+| M1.5 retrieval | Built with real open models; **gate not met**: p95 1.6 s vs 0.8 s; recall 1.0 on a synthetic, optimistic set |
+| M1.6 answers | Pipeline, verifier interface, citation resolution built; **generator and verifier are stand-ins**; grounding not meaningfully measurable |
+| M1.7 memory | Corpus-since endpoint only |
+| M2 target/objective | Model registry only (M2.4). M2.1-M2.3 and the chemist gate not built |
+| M3 design/profiling | Cheap gates (RDKit), conformal + applicability domain (measured on ESOL), screening gate built. **No generator, docking or ADMET models**; blind-review gate not met |
+| M4 dossier/scale | Immutable dossiers + database-enforced sign-off, per-user concurrency cap built. Cost caps, observability and full audit not built |
+
+Unverified-by-construction items to keep in mind: the frontend chat/molecule/dossier surfaces are not built; the live path runs as a fixed dev user (no auth provider); embedded Qdrant is single-process.
+
+
+---
+
 ## M0 — Pipeline spine
 
 **Goal:** one topic produces a real, screened, cited paper list inside the existing UI.
@@ -325,7 +348,7 @@ Browser checks used fixture sources, not the live internet, so they prove the wi
 - [ ] Hard per-project cap enforced in the LiteLLM gateway
 
 ### M4.4 Concurrency
-- [ ] Three concurrent runs per user, queued beyond; per-user fairness in the queue
+- [ ] Three concurrent runs per user, queued beyond; per-user fairness in the queue — the cap is built and tested (`A9_MAX_CONCURRENT_RUNS`, default 3, enforced in the job claim; a crashed job's slot frees when its lease expires, other users are unaffected); *fairness* between users is not: waiting jobs are retried by the reaper, not scheduled round-robin
 
 ### M4.5 Observability
 - [ ] One trace id from browser through route handler, agent service, workers and model calls

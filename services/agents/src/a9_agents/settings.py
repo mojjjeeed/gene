@@ -29,3 +29,8 @@ def max_job_attempts() -> int:
 
 def pubsub_channel(run_id: object) -> str:
     return f"a9:run:{run_id}"
+
+
+def max_concurrent_runs() -> int:
+    """Jobs one user may have running at once; the rest stay queued until one finishes."""
+    return int(os.environ.get("A9_MAX_CONCURRENT_RUNS", "3"))

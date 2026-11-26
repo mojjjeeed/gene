@@ -224,7 +224,9 @@ def test_job_key_makes_a_retry_a_no_op(db: DbConn) -> None:
     first = db.execute(insert, (user, run[0]))
     second = db.execute(insert, (user, run[0]))
     assert (first.rowcount, second.rowcount) == (1, 0)
-    count = db.execute("SELECT count(*) FROM jobs").fetchone()
+    count = db.execute(
+        "SELECT count(*) FROM jobs WHERE job_key = 'search:europe_pmc:abc'"
+    ).fetchone()
     assert count == (1,)
 
 

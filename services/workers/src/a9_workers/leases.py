@@ -17,7 +17,7 @@ from typing import Any
 
 from a9_agents.db import Conn, Pool, scoped
 from a9_agents.events import RunClosedError, emit_event
-from a9_agents.settings import job_lease_seconds, max_job_attempts
+from a9_agents.settings import job_lease_seconds, max_concurrent_runs, max_job_attempts
 from psycopg.types.json import Jsonb
 
 log = logging.getLogger(__name__)
@@ -48,9 +48,18 @@ async def claim(pool: Pool, key: str) -> Job | None:
             WHERE job_key = %(key)s AND attempts < %(max)s AND (
                     status = 'queued'
                  OR (status = 'running' AND heartbeat_at < now() - make_interval(secs => %(lease)s)))
+              -- Per-user cap: a user's live running jobs (fresh heartbeat) count against it; stale ones do not.
+              AND (SELECT count(*) FROM jobs j
+                   WHERE j.user_id = jobs.user_id AND j.status = 'running' AND j.job_key <> jobs.job_key
+                     AND j.heartbeat_at >= now() - make_interval(secs => %(lease)s)) < %(cap)s
             RETURNING user_id, run_id, kind, payload, checkpoint, attempts
             """,
-            {"key": key, "max": max_job_attempts(), "lease": job_lease_seconds()},
+            {
+                "key": key,
+                "max": max_job_attempts(),
+                "lease": job_lease_seconds(),
+                "cap": max_concurrent_runs(),
+            },
         )
         row = await cur.fetchone()
     if row is None:
