@@ -178,18 +178,20 @@ Browser checks used fixture sources, not the live internet, so they prove the wi
 - [ ] Open-access resolution through Unpaywall and Europe PMC; licence recorded on every record
 - [ ] Firecrawl for HTML full text where licensed
 - [ ] GROBID to TEI as primary, Docling fallback, PyMuPDF for figures
-- [ ] Object storage layout: `papers/{id}/original.pdf`, `grobid.tei.xml`, `figures/{n}.png`
+- [x] Object storage layout: `papers/{id}/original.pdf`, `fulltext.jats.xml`, `document.<parser>.json` (local filesystem store, content-addressed; the S3/R2 implementation is not written; figures are not extracted yet)
 
-**Done when:** a 100-PDF corpus parses above 90 percent, and a test proves a record with a null licence stores metadata only.
+**Done when:** a 100-PDF corpus parses above 90 percent, and a test proves a record with a null licence stores metadata only. **Met for the paths built:** 100/100 real arXiv PDFs and 50/50 real PMC JATS papers parsed (`python -m a9_agents.evals.ingest_corpus`, needs network), and `test_ingest.py` proves null, unrecognised and restrictive licences store the abstract only and write nothing to object storage. Caveats: the PDF path is PyMuPDF (heuristic), not GROBID, so 'parses' means usable text and structure, not TEI quality; only 53 of 100 PDFs yielded an abstract chunk and 87 of 100 had 3+ body sections.
 
-*Status (work in progress, NOT ticked):* built `fulltext/` (licence evaluator, local object store, canonical document with offsets, JATS parser, PyMuPDF parser, section-aware chunker with a round-trip verifier, NCBI-PMC and arXiv routes, licence-gated `ingest_paper`, `resolve_chunk`, memberships) and migration 0006. Real PMC papers parse and every chunk round-trips; the licence gate refuses CC BY-NC-ND. GROBID is not run (no Java). Unpaywall and Firecrawl are not built. The 100-PDF parse-rate run (`python -m a9_agents.evals.ingest_corpus`) was started but its result was not read, so the >90% gate is UNMEASURED. At last run 294 tests passed and 4 failed: 3 in `test_run_stream_e2e.py` (cause not yet investigated) and one test-helper edit in `test_ingest.py`.
+*Open in M1.1:* GROBID (needs Java/Docker, unavailable here), Docling, Unpaywall (needs `A9_CONTACT_EMAIL`; not built), Firecrawl HTML (not built). Routes that exist: PMC JATS (NCBI efetch with Europe PMC fallback; ~1.5 s vs 17-51 s) and arXiv PDF (the per-paper licence is read from the abstract page *before* the PDF is downloaded; arXiv's default licence is refused). `fulltext` is a graph stage after the retraction check (`A9_FULLTEXT=on|off`) covering papers not excluded; papers are reported as parsed / abstract_only / not_permitted / failed, never hidden. The licence default allows only CC0, CC BY, CC BY-SA and public domain (NC and ND are refused because chunking and extraction are derivatives); override with `A9_ALLOWED_LICENCES`.
 
 ### M1.2 Chunking and the provenance envelope
-- [ ] Section-aware, 400 to 800 tokens, 15 percent overlap, never crossing a section boundary
-- [ ] Tables stored whole and linearised; figure captions as their own chunks
-- [ ] Context header (title, section path, one-line paper summary) prepended before embedding
+- [x] Section-aware, 400 to 800 tokens, 15 percent overlap, never crossing a section boundary
+- [x] Tables stored whole and linearised; figure captions as their own chunks
+- [x] Context header (title, section path, one-line paper summary) prepended before embedding
 
-**Done when:** every chunk round-trips to its exact source span, verified across the corpus, not sampled.
+**Done when:** every chunk round-trips to its exact source span, verified across the corpus, not sampled. **Met:** all 4,986 chunks from the 150 real documents above round-trip exactly (0 failures); `resolve_chunk` re-verifies a stored chunk against its source on every citation lookup and fails loudly on mismatch.
+
+*Notes:* tokens are counted with a word-and-punctuation estimator, not the embedding model's tokenizer. Chunks never cross a section, so papers with many short subsections give small chunks (median roughly 200-300 tokens). Non-paginated sources (JATS) use page 1. Chunk rows carry `extraction_model='chunker-v1'`, `prompt_version='none'` because chunking calls no model.
 
 ### M1.3 Extraction — Parallel with M1.4
 - [ ] Schema-constrained claim extraction per section, offsets carried through
