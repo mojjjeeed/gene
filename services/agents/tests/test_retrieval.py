@@ -12,8 +12,7 @@ from a9_agents.db import owner, scoped
 from a9_agents.fulltext.chunker import chunk_document
 from a9_agents.fulltext.document import DocBuilder
 from a9_agents.fulltext.ingest import _insert_chunks, add_memberships
-from a9_agents.index.conversation_index import ConversationIndex, ensure_collections, make_client
-from a9_agents.index.embed import FastEmbedDense, FastEmbedReranker
+from a9_agents.index.conversation_index import ConversationIndex, make_client
 from a9_agents.index.lexical import lexical_search, or_query
 from a9_agents.index.pipeline import index_conversation
 from a9_agents.index.retrieval import decompose, retrieve, rewrite_query, rrf
@@ -45,17 +44,7 @@ PAPERS = {
 }
 
 
-@pytest.fixture(scope="session")
-def embedder() -> FastEmbedDense:
-    return FastEmbedDense()
-
-
-@pytest.fixture(scope="session")
-def reranker() -> FastEmbedReranker:
-    return FastEmbedReranker()
-
-
-async def add_paper(pool: Any, key: str) -> uuid.UUID:
+async def add_paper(pool: Any, key: str, store: Any = None) -> uuid.UUID:
     title, sections = PAPERS[key]
     pid, run = uuid.uuid4(), uuid.uuid4()
     b = DocBuilder("test-v1")
@@ -64,6 +53,8 @@ async def add_paper(pool: Any, key: str) -> uuid.UUID:
         b.add("body", text, [name])
     doc, chunks = b.build(title=title), None
     chunks = chunk_document(doc)
+    if store is not None:
+        store.put(f"papers/{pid}/document.test-v1.json", doc.to_json())
     async with owner(pool) as c:
         await c.execute(
             "INSERT INTO papers (id, title, source, abstract, licence, full_text_allowed, year) VALUES (%s, %s, 's', %s, 'cc by', true, 2024)",
@@ -101,22 +92,15 @@ async def extra_conv(pool: Any, user: uuid.UUID) -> uuid.UUID:
 
 
 async def corpus(
-    pool: Any, embedder: Any, qdrant: Any, keys: list[str]
+    pool: Any, embedder: Any, qdrant: Any, keys: list[str], store: Any = None
 ) -> tuple[uuid.UUID, uuid.UUID, ConversationIndex, dict[str, uuid.UUID]]:
     user, conv = await make_conv(pool)
-    ids = {k: await add_paper(pool, k) for k in keys}
+    ids = {k: await add_paper(pool, k, store) for k in keys}
     async with scoped(pool, role="a9_worker") as c:
         await add_memberships(c, user_id=user, conversation_id=conv, paper_ids=list(ids.values()))
         index = ConversationIndex(qdrant, conv)
         await index_conversation(c, index, embedder, conv)
     return user, conv, index, ids
-
-
-@pytest.fixture()
-def qdrant(embedder: FastEmbedDense) -> Any:
-    client = make_client(memory=True)
-    ensure_collections(client, embedder.dims)
-    return client
 
 
 # --- pure functions ------------------------------------------------------------------------------

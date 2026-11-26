@@ -200,33 +200,43 @@ Browser checks used fixture sources, not the live internet, so they prove the wi
 
 **Done when:** a re-run of the same corpus is a cache hit end to end and costs near zero.
 
-### M1.4 Index and membership — Parallel with M1.3
-- [ ] Qdrant collection, payload index on `conversation_ids`
-- [ ] `ConversationIndex(conversation_id)` as the only query path
-- [ ] Second collection for SPECTER2 paper-level vectors
+*Status: not started.* Needs a language model for claim extraction; a regex extractor for measured values (IC50, Ki) and the RDKit/UniProt/HGNC/MONDO normalisers are buildable without one.
 
-**Done when:** a lint rule or test fails the build if the raw Qdrant client is imported anywhere outside the repository class.
+### M1.4 Index and membership — Parallel with M1.3
+- [x] Qdrant collection, payload index on `conversation_ids`
+- [x] `ConversationIndex(conversation_id)` as the only query path
+- [x] Second collection for SPECTER2 paper-level vectors
+
+**Done when:** a lint rule or test fails the build if the raw Qdrant client is imported anywhere outside the repository class. **Met:** ruff `TID251` bans `qdrant_client` everywhere except `index/conversation_index.py`, and `test_nothing_but_the_conversation_index_imports_the_vector_client` walks the AST of every Python file in the repo; `ConversationIndex` has no method that accepts a filter.
+
+*Notes:* embedded Qdrant (no server: Docker is unavailable), where payload indexes are accepted but have no effect and only one process may open the store, so the API process owns it and indexes a conversation lazily from its memberships (`A9_QDRANT_URL` selects a server). The paper-level collection also carries `conversation_ids` (the PRD says only `paper_id` and `year`) so the paper pass is isolated by the same mandatory filter; its vectors are the chunk embedder, a stand-in for SPECTER2. Chunks are embedded once and joined by membership; removing a conversation deletes vectors nobody else uses. Models: `bge-small-en-v1.5` (384-d) stands in for BGE-M3.
 
 ### M1.5 Retrieval
-- [ ] Build the question golden set: 100 questions with known supporting spans
-- [ ] Query rewrite against history; decompose multi-part questions
-- [ ] Dense, BM25 and paper-level arms; reciprocal rank fusion to ~50
-- [ ] Cross-encoder rerank to 8–12; parent or section expansion before the model
+- [ ] Build the question golden set: 100 questions with known supporting spans — a *synthetic* generator exists (`a9_agents.evals.retrieval`, templated from real sentences, so supporting spans are exact), but it is not expert-written and it shares vocabulary with its answers
+- [ ] Query rewrite against history; decompose multi-part questions — rule-based only (anaphora anchoring, explicit separators); the LLM versions are not built
+- [x] Dense, BM25 and paper-level arms; reciprocal rank fusion to ~50
+- [x] Cross-encoder rerank to 8–12; parent or section expansion before the model
 
-**Done when:** recall@20 is 0.85 or better on the golden set, retrieval p95 under 800 ms.
+**Done when:** recall@20 is 0.85 or better on the golden set, retrieval p95 under 800 ms. **NOT MET.** Measured on 8 real PMC papers (190 chunks) and 40 synthetic questions: recall@10 = recall@20 = 1.000, which is a ceiling that cannot discriminate and is optimistic by construction; retrieval p50 1.28 s, p95 1.62 s on CPU, so the latency budget is missed (cross-encoder reranking of 50 candidates dominates; a GPU or hosted reranker, a smaller candidate set, or a smaller reranker is needed). A real expert-written question set is still required.
+
+*Notes:* arms are Qdrant dense, Postgres full-text (`ts_rank_cd`, OR query built only from alphanumerics, scoped by memberships), and a paper-level pass; fused by RRF (k=60); reranked by `ms-marco-MiniLM-L-6` (stand-in for bge-reranker-v2-m3); each survivor gets its neighbouring chunks in the same section. Retrieval returns which arms surfaced each chunk.
 
 ### M1.6 Synthesis and the verifier
-- [ ] Cite-as-you-write generation with inline chunk ids
-- [ ] Verifier agent seeing only the output and the cited chunks, never the generator's reasoning
-- [ ] Unsupported sentences dropped or marked, never shipped quietly
+- [ ] Cite-as-you-write generation with inline chunk ids — the pipeline is cite-as-you-write, but the generator is an *extractive* stand-in (it quotes the best sentences); no language model writes prose yet
+- [x] Verifier agent seeing only the output and the cited chunks, never the generator's reasoning — the interface guarantees it; the implementation is a lexical stand-in, not an LLM
+- [x] Unsupported sentences dropped or marked, never shipped quietly
 
-**Done when:** **M1 gate** — grounding above 95 percent on the golden question set and citation resolution at 100 percent.
+**Done when:** **M1 gate** — grounding above 95 percent on the golden question set and citation resolution at 100 percent. **NOT MET.** Citation resolution is 100% in the tests (every cited chunk resolves to its exact span; a tampered source is flagged unresolved), but grounding is not meaningfully measurable: an extractive generator is grounded by construction. What is measured: the lexical verifier accepts every verbatim quote and rejects every constructed number-change fabrication, off-topic sentence and wrong citation in the test set, which is a floor (subtle misreadings need an entailment model), not a grounding rate.
+
+*Notes:* `POST /conversations/:id/messages` streams `retrieval`, `sentence` (with cites and the check's reason), `removed` (with why), `no_evidence` and `done` events and stores both messages; `GET /chunks/:id` resolves a citation (404 outside the caller's corpus, loud failure if the span no longer matches). An empty corpus, or no supported sentence, says so instead of answering. Quotation is capped at 60 words per sentence. The frontend chat surface is not built.
 
 ### M1.7 Memory and corpus growth
 - [ ] Thread state in the Postgres checkpointer; rolling summary regenerated, not appended; user preferences in their own table
 - [ ] A new search appends to the membership set with an ingestion timestamp; the UI shows what arrived since the last turn
 
 **Done when:** a 40-turn conversation stays inside the prompt budget and widening the corpus mid-conversation does not reset the thread.
+
+*Status: partly built.* `GET /conversations/:id/corpus?since=` reports corpus size and what arrived since a timestamp (from `chunk_memberships.ingested_at`), so widening the corpus mid-conversation is visible; the UI for it, the rolling summary, the preferences table and the 40-turn budget test are not built. Chat history passed to retrieval is the last four user questions, which is bounded but is not the planned regenerated summary.
 
 ---
 

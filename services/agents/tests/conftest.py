@@ -158,3 +158,26 @@ async def pool(migrated_url: str, monkeypatch: pytest.MonkeyPatch) -> AsyncItera
     p = await open_pool(max_size=3)
     yield p
     await p.close()
+
+
+@pytest.fixture(scope="session")
+def embedder() -> Any:
+    from a9_agents.index.embed import FastEmbedDense
+
+    return FastEmbedDense()
+
+
+@pytest.fixture(scope="session")
+def reranker() -> Any:
+    from a9_agents.index.embed import FastEmbedReranker
+
+    return FastEmbedReranker()
+
+
+@pytest.fixture()
+def qdrant(embedder: Any) -> Any:
+    from a9_agents.index.conversation_index import ensure_collections, make_client
+
+    client = make_client(memory=True)
+    ensure_collections(client, embedder.dims)
+    return client

@@ -30,7 +30,7 @@ PAPERS = "a9_papers"
 def make_client(*, memory: bool = False) -> QdrantClient:
     """A server if A9_QDRANT_URL is set; otherwise embedded storage on disk (one process at a time).
     `memory=True` is a throwaway in-process store for tests."""
-    if memory:
+    if memory or os.environ.get("A9_QDRANT_PATH") == ":memory:":
         return QdrantClient(":memory:")
     if url := os.environ.get("A9_QDRANT_URL"):
         return QdrantClient(url=url)
