@@ -10,6 +10,7 @@ from psycopg.types.json import Jsonb
 
 from a9_agents.db import Conn
 from a9_agents.design.conformal import Prediction
+from a9_agents.design.screening import Hit, ScreeningBlockedError, screen
 
 
 async def register_model(
@@ -80,6 +81,9 @@ async def store_candidate(
     structure was invalid (there is nothing to key it on); the failure is the report, not a row."""
     if report.inchikey is None or report.canonical is None:
         return None
+    hits, _ = screen(report.canonical)
+    if hits:  # defence in depth: no code path may store a structure the screen holds
+        raise ScreeningBlockedError(list[Hit](hits))
     cur = await conn.execute(
         """INSERT INTO molecules (user_id, conversation_id, smiles, inchikey, run_id) VALUES (%s, %s, %s, %s, %s)
            ON CONFLICT (conversation_id, inchikey) DO NOTHING RETURNING id""",

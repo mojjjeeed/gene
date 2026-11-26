@@ -292,8 +292,11 @@ Browser checks used fixture sources, not the live internet, so they prove the wi
 *Measured (real data):* split-conformal intervals and the domain, on a ridge model of ESOL solubility (public, 1,128 measurements; 60/20/20 train/calibration/test, seed 7), 227 held-out molecules: 92% inside the domain (the rest get no prediction); empirical coverage 91.4% at 90% nominal and 95.7% at 95% (both within 5 points), but 85.6% at 80% nominal (5.6 points over, a small-sample effect). Held-out MAE 0.70 log units. This proves the calibration machinery on one endpoint with a deliberately simple model. It is not ADMET-AI or Admetica (neither is installed), and the M3 gate's other parts (blind review of candidates, coverage on the ADMET endpoints the product will actually predict) are not met.
 
 ### M3.6 Screening gate
-- [ ] Automated screen on every generated structure before storage or display
-- [ ] A hit blocks the candidate and raises a review item; repeated near-miss patterns alert
+- [x] Automated screen on every generated structure before storage or display — `admit()` screens, and `store_candidate` independently refuses any held structure, so no storing path skips it; there is no generator or candidate display yet
+- [x] A hit blocks the candidate and raises a review item; repeated near-miss patterns alert
+
+*Notes:* migration 0011. A hit never reaches `molecules`; it becomes a `review_items` row (status open, the structure kept only there), a `screening.blocked` audit entry and a screening event. The owner can see that a candidate is blocked and why but cannot clear it (SELECT only; resolving needs a named resolver). Three near-misses by one user in 24 hours raise a `screening.pattern_alert` audit entry. **Scope limits, stated plainly:** the rules are a small seed of well-known acute-hazard structural classes (organophosphates with fluoride or cyanide leaving groups, bis-haloethyl alkylators, polynitro energetic compounds), deliberately conservative (cyclophosphamide, a real drug, is held for review); they need expert curation. A **controlled-substance screen is NOT implemented**: it needs an authoritative, current schedule. Per-project and per-account rate limits are not implemented either.
+
 
 ### M3.7 Wire the molecule and human-effect surfaces
 - [ ] Cards with scores, gate flags, lineage
