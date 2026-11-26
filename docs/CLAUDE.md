@@ -309,10 +309,13 @@ Browser checks used fixture sources, not the live internet, so they prove the wi
 **Goal:** exports, sign-off, cost control, observability.
 
 ### M4.1 Dossier assembly
-- [ ] Versioned document carrying the full chain: plan, corpus, target evidence, objective, candidate lineage
+- [ ] Versioned document carrying the full chain: plan, corpus, target evidence, objective, candidate lineage — versions are immutable (a trigger refuses edits, even by the table owner) and carry the plan, the whole paper list with verdicts and retraction state, and each candidate with every gate result and every score with its model's provenance; target evidence and the objective are missing because M2.1-M2.3 are not built
 
 ### M4.2 Sign-off and export gating
-- [ ] Export blocked without a `signoffs` row against that dossier version
+- [x] Export blocked without a `signoffs` row against that dossier version
+
+*Notes (M4.2):* migration 0010. `exports.signoff_id` must reference an *approved* sign-off *for the same dossier version*, enforced by a trigger, so a direct insert is refused too (tested directly against the table: no sign-off, a rejection, and another version's approval are all refused). A sign-off needs a non-blank reviewer name. Sign-off is per version: approving v1 says nothing about v2. Refused exports are audited. Every export carries the research-use-only statement. There is no export file format beyond JSON yet (no PDF template), and the single-user/reviewer question in the PRD is still open: today the same user can create and sign off.
+
 
 ### M4.3 Cost control — Parallel with M4.4
 - [ ] Three cache tiers: documents by DOI, embeddings by content hash, extractions by chunk hash and prompt version
