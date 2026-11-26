@@ -256,10 +256,12 @@ Browser checks used fixture sources, not the live internet, so they prove the wi
 - [ ] Versioned and stored; LangGraph interrupt for user confirmation
 
 ### M2.4 Model registry
-- [ ] `models` table; every predictor registered with version, training provenance, calibration date, domain notes
-- [ ] Foreign key from `molecule_scores.model_id` enforced before M3 starts
+- [x] `models` table; every predictor registered with version, training provenance, calibration date, domain notes
+- [x] Foreign key from `molecule_scores.model_id` enforced before M3 starts
 
 **Done when:** **M2 gate** — a chemist reviews five target packages and agrees the evidence holds up, recorded as a structured review rather than a conversation.
+
+*Notes:* migration 0009. `models` rows are immutable (`register_model` returns the existing id) and cannot omit training data or domain notes. `molecule_scores` needs a registered `model_id`, a non-null `in_domain` and a `nn_similarity`; CHECK constraints forbid any value or interval when `in_domain` is false and require `lower <= value <= upper` when true. The M2 gate (a chemist reviewing five target packages) needs a person, and M2.1-M2.3 are not started.
 
 ---
 
@@ -272,9 +274,9 @@ Browser checks used fixture sources, not the live internet, so they prove the wi
 - [ ] GPU job on Modal, bursted not warm
 
 ### M3.2 Cheap gates — Parallel with M3.3
-- [ ] Validity, uniqueness, novelty against the corpus and ChEMBL
-- [ ] PAINS and Brenk alerts, project alert set, property windows, SA score
-- [ ] Results written to `molecule_gates` with pass and fail detail
+- [x] Validity, uniqueness, novelty against the corpus and ChEMBL — novelty takes a known-set (corpus) and `ChemblNovelty` (InChIKey lookup, tested on real ChEMBL recordings; ChEMBL being unreachable gives None, never 'novel')
+- [x] PAINS and Brenk alerts, project alert set, property windows, SA score — real RDKit catalogs (585 entries) and SA scorer; PAINS, project alerts, windows and SA are hard gates, Brenk is a soft warning
+- [x] Results written to `molecule_gates` with pass and fail detail
 
 ### M3.3 Structure-based scoring
 - [ ] Docking through DockStream on survivors only; treated as a ranking signal, never an affinity
@@ -284,8 +286,10 @@ Browser checks used fixture sources, not the live internet, so they prove the wi
 - [ ] Disagreement beyond threshold renders the candidate as contested, never averaged
 
 ### M3.5 Applicability domain and intervals
-- [ ] Nearest-neighbour similarity to each model's training set
-- [ ] Conformal intervals; out of domain renders no prediction at all
+- [x] Nearest-neighbour similarity to each model's training set (Morgan/Tanimoto)
+- [x] Conformal intervals; out of domain renders no prediction at all
+
+*Measured (real data):* split-conformal intervals and the domain, on a ridge model of ESOL solubility (public, 1,128 measurements; 60/20/20 train/calibration/test, seed 7), 227 held-out molecules: 92% inside the domain (the rest get no prediction); empirical coverage 91.4% at 90% nominal and 95.7% at 95% (both within 5 points), but 85.6% at 80% nominal (5.6 points over, a small-sample effect). Held-out MAE 0.70 log units. This proves the calibration machinery on one endpoint with a deliberately simple model. It is not ADMET-AI or Admetica (neither is installed), and the M3 gate's other parts (blind review of candidates, coverage on the ADMET endpoints the product will actually predict) are not met.
 
 ### M3.6 Screening gate
 - [ ] Automated screen on every generated structure before storage or display
